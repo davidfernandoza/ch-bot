@@ -1,0 +1,28 @@
+{
+	"name": "cadena-ahorro-bot",
+	"version": "0.1.0",
+	"description": "Cliente bot que consume el api de telegram y el backend propietario",
+	"main": "index.js",
+	"scripts": {
+		"test": "dev",
+		"dev": "nodemon index.js"
+	},
+	"keywords": [
+		"bot"
+	],
+	"dependencies": {
+		"awilix": "^4.2.3",
+		"axios": "^0.21.1",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"moment": "^2.24.0",
+		"telegraf": "^3.36.0",
+		"telegram-keyboard": "^2.2.6"
+	},
+	"devDependencies": {
+		"ngrok": "^3.2.7",
+		"nodemon": "^2.0.2"
+	},
+	"author": "",
+	"license": "MIT"
+}
