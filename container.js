@@ -3,10 +3,10 @@
 /* -----------------------------------------------------*/
 /* System Config: 																			*/
 /*------------------------------------------------------*/
-const StartUp = require('./start-up')
-const Config = require('../config/env')
-const Bot = require('../config/bot')
-const Methods = require('../config/methods')
+const StartUp = require('./app/start-up')
+const Config = require('./config/env')
+const Bot = require('./config/bot')
+const Methods = require('./config/methods')
 const { asClass, asFunction, asValue, createContainer } = require('awilix')
 const container = createContainer()
 
@@ -18,27 +18,27 @@ const { IsNotBotValidate } = require('./helpers/validates')
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
 /*------------------------------------------------------*/
-const { MessageString } = require('./helpers/strings')
+const { MessageString, TermsString } = require('./helpers/strings')
 
 /* -----------------------------------------------------*/
 /* Services:			 																			*/
 /*------------------------------------------------------*/
-const { UrlBotService } = require('./helpers/services')
+const { UrlBotService } = require('./app/services')
 
 /* -----------------------------------------------------*/
 /* Registers:			 																			*/
 /*------------------------------------------------------*/
-const { ComandsRegister, EventsRegister } = require('./register')
+const { ComandsRegister, EventsRegister } = require('./app/registers')
 
 /* -----------------------------------------------------*/
 /* Events:						 																	*/
 /*------------------------------------------------------*/
-const { EventCallbackQuery } = require('./events')
+const { EventCallbackQuery } = require('./app/events')
 
 /* -----------------------------------------------------*/
 /* Controllers:				 																	*/
 /*------------------------------------------------------*/
-const { RegisterController, StartController } = require('./controllers')
+const { RegisterController, StartController } = require('./app/controllers')
 
 //System Config:
 container
@@ -55,9 +55,10 @@ container
 		IsNotBotValidate: asClass(IsNotBotValidate).singleton()
 	})
 
-	// Messages:
+	// Strings:
 	.register({
-		MessageString: asValue(MessageString)
+		MessageString: asValue(MessageString),
+		TermsString: asValue(TermsString)
 	})
 
 	// Controllers:

@@ -27,7 +27,7 @@ class Controller {
 				}
 				if (dataSend == null || method == GET) delete optionAxios.data
 
-				const dataAxios = await axios(this.urlApi + endPoint, optionAxios)
+				const dataAxios = await axios(`${this.urlApi}/${endPoint}`, optionAxios)
 
 				if (dataAxios.status >= 200 && dataAxios.status < 300)
 					return dataAxios.data

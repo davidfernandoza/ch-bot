@@ -1,5 +1,5 @@
 'use strict'
-const container = require('./src/container')
+const container = require('./container')
 const config = container.resolve('Config')
 const app = container.resolve('App')
 container.resolve('ComandsRegister')
@@ -9,7 +9,7 @@ app
 	.start()
 	.then(async data => {
 		console.info(`Bot corriendo en -> ${data.botUrl}`)
-		console.info(`Aplicacion corriendo en -> ${config.ORIGIN}:${data.port}/`)
+		console.info(`Aplicacion corriendo en -> ${config.ORIGIN}:${data.port}`)
 	})
 	.catch(error => {
 		console.log(error)

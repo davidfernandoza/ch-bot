@@ -3,8 +3,16 @@ const markup = require('telegraf/markup')
 const Controller = require('./controller')
 
 class StartController extends Controller {
-	constructor({ Config, Bot, MessageString, IsNotBotValidate, Methods }) {
+	constructor({
+		Bot,
+		Config,
+		Methods,
+		TermsString,
+		MessageString,
+		IsNotBotValidate
+	}) {
 		super(Config, Bot, IsNotBotValidate, MessageString, Methods)
+		this.termsString = TermsString
 	}
 
 	/*
@@ -20,9 +28,11 @@ class StartController extends Controller {
 		/*
 		 *  Peticion get a la api
 		 */
-		const endPoint = 'terms/general'
+		const { GET } = this.methods
+		const endPoint = `terms/${this.termsString.GENERAL_TERM}`
 		const dataResponse = await super.apiRequest(CTX, GET, endPoint)
-		if (dataResponse != null) {
+		console.log(dataResponse)
+		if (dataResponse) {
 			/*
 			 * Captura y asigna el patrocinador al cliente
 			 */
@@ -41,7 +51,7 @@ class StartController extends Controller {
 
 			let messageSend = this.messageString.msgI001
 			messageSend = messageSend.replace('#NAME', CTX.from.first_name)
-			messageSend = messageSend.replace('#RULES', dataResponse.payload.details)
+			messageSend = messageSend.replace('#RULES', dataResponse.description)
 
 			// Envio de mensaje a telegram
 			this.bot.telegram.sendMessage(CTX.from.id, messageSend, replyOptions)

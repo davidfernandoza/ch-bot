@@ -13,22 +13,30 @@ class RegisterController extends Controller {
 	 */
 	async index(CTX) {
 		const endPoint = 'clients'
-		const { POST } = this.methods
-		const from = CTX.from
-		const dataSend = {
-			telegram_id: from.id,
-			sponsor_telegram_id: CTX.sponsor_telegram_id,
-			full_name: `${from.first_name} ${from.last_name}`,
-			username: `${from.username}`
-		}
+		const { POST, GET } = this.methods
+		const contextData = CTX.update.callback_query
+		const dataSponsor = await super.apiRequest(
+			CTX,
+			GET,
+			`${endPoint}/get-sponsor/${CTX.sponsor_telegram_id}`
+		)
+		if (dataSponsor) {
+			const client = contextData.from
+			console.log(client)
+			const dataSend = {
+				telegram_id: client.id,
+				sponsor_id: dataSponsor.id,
+				full_name: `${client.first_name} ${client.last_name}`,
+				username: `${client.username}`
+			}
 
-		// Peticion get a la api
-		const dataResponse = await super.apiRequest(CTX, POST, endPoint, dataSend)
-		if (dataResponse != null) {
-			this.bot.telegram.sendMessage(
-				from.id,
-				`Su patrocinador es ${CTX.sponsor_telegram_id}`
-			)
+			const dataResponse = await super.apiRequest(CTX, POST, endPoint, dataSend)
+			if (dataResponse) {
+				this.bot.telegram.sendMessage(
+					client.id,
+					`Su patrocinador es ${dataSponsor.full_name}`
+				)
+			}
 		}
 	}
 }
