@@ -31,14 +31,18 @@ const { UrlBotService } = require('./app/services')
 const { ComandsRegister, EventsRegister } = require('./app/registers')
 
 /* -----------------------------------------------------*/
-/* Events:						 																	*/
+/* Events Handler:						 													*/
 /*------------------------------------------------------*/
-const { EventCallbackQuery } = require('./app/events')
+const { HandlerCallbackQuery, HandlerText } = require('./app/handler')
 
 /* -----------------------------------------------------*/
 /* Controllers:				 																	*/
 /*------------------------------------------------------*/
-const { RegisterController, StartController } = require('./app/controllers')
+const {
+	RegisterController,
+	StartController,
+	MenuController
+} = require('./app/controllers')
 
 //System Config:
 container
@@ -64,12 +68,14 @@ container
 	// Controllers:
 	.register({
 		RegisterController: asClass(RegisterController).singleton(),
-		StartController: asClass(StartController).singleton()
+		StartController: asClass(StartController).singleton(),
+		MenuController: asClass(MenuController).singleton()
 	})
 
-	// Event:
+	// Event Handlers:
 	.register({
-		EventCallbackQuery: asClass(EventCallbackQuery).singleton()
+		HandlerText: asClass(HandlerText).singleton(),
+		HandlerCallbackQuery: asClass(HandlerCallbackQuery).singleton()
 	})
 
 	// Services:

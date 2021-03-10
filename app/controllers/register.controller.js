@@ -18,11 +18,10 @@ class RegisterController extends Controller {
 		const dataSponsor = await super.apiRequest(
 			CTX,
 			GET,
-			`${endPoint}/get-sponsor/${CTX.sponsor_telegram_id}`
+			`${endPoint}/telegram-id/${CTX.sponsor_telegram_id}`
 		)
 		if (dataSponsor) {
 			const client = contextData.from
-			console.log(client)
 			const dataSend = {
 				telegram_id: client.id,
 				sponsor_id: dataSponsor.id,
