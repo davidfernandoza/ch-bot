@@ -20,7 +20,7 @@ class Controller {
 				const { GET } = this.methods
 				const optionAxios = {
 					headers: {
-						token_control: this.config.TOKEN_CONTROL
+						'x-api-bot-token-origin': this.config.TOKEN_ORIGIN
 					},
 					method: method,
 					data: dataSend

@@ -8,5 +8,5 @@ module.exports = {
 	TOKEN_BOT: process.env.TOKEN_BOT,
 	TOKEN_BRIDGE: process.env.TOKEN_BRIDGE,
 	END_POIND_BOT: process.env.END_POIND_BOT,
-	TOKEN_CONTROL: process.env.TOKEN_CONTROL
+	TOKEN_ORIGIN: process.env.TOKEN_ORIGIN
 }
