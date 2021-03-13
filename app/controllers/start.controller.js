@@ -9,10 +9,12 @@ class StartController extends Controller {
 		Methods,
 		TermsString,
 		MessageString,
+		MenuController,
 		IsNotBotValidate
 	}) {
 		super(Config, Bot, IsNotBotValidate, MessageString, Methods)
 		this.termsString = TermsString
+		this.menuController = MenuController
 	}
 
 	/*
@@ -26,35 +28,48 @@ class StartController extends Controller {
 	 */
 	async index(CTX) {
 		/*
-		 *  Peticion get a la api
+		 * Validacion de la existencia del cliente
 		 */
 		const { GET } = this.methods
-		const endPoint = `terms/${this.termsString.GENERAL_TERM}`
-		const dataResponse = await super.apiRequest(CTX, GET, endPoint)
-		console.log(dataResponse)
-		if (dataResponse) {
+		const client = CTX.update.message.from
+		if (await super.apiRequest(CTX, GET, `clients/telegram-id/${client.id}`)) {
+			return this.menuController.index(CTX)
+			// this.bot.telegram.sendMessage(CTX.from.id, '/menu')
+		} else {
 			/*
-			 * Captura y asigna el patrocinador al cliente
+			 *  Peticion de los terminos y condiciones generales
 			 */
-			const arrayText = CTX.update.message.text.split(' ')
-			const sponsor_telegram_id = arrayText.length > 1 ? arrayText[1] : '1ROOT'
+			const dataResponse = await super.apiRequest(
+				CTX,
+				GET,
+				`terms/${this.termsString.GENERAL_TERM}`
+			)
 
-			// Boton en linea
-			const replyOptions = markup
-				.inlineKeyboard([
-					markup.callbackButton(
-						'✔️ Aceptar',
-						`acceptTerms:${sponsor_telegram_id}`
-					)
-				])
-				.extra()
+			if (dataResponse) {
+				/*
+				 * Captura y asigna el patrocinador al cliente
+				 */
+				const arrayText = CTX.update.message.text.split(' ')
+				const sponsor_telegram_id =
+					arrayText.length > 1 ? arrayText[1] : '1ROOT'
 
-			let messageSend = this.messageString.msgI001
-			messageSend = messageSend.replace('#NAME', CTX.from.first_name)
-			messageSend = messageSend.replace('#RULES', dataResponse.description)
+				// Boton en linea
+				const replyOptions = markup
+					.inlineKeyboard([
+						markup.callbackButton(
+							'✔️ Aceptar',
+							`acceptTerms:${sponsor_telegram_id}`
+						)
+					])
+					.extra()
 
-			// Envio de mensaje a telegram
-			this.bot.telegram.sendMessage(CTX.from.id, messageSend, replyOptions)
+				let messageSend = this.messageString.msgI001
+				messageSend = messageSend.replace('#NAME', CTX.from.first_name)
+				messageSend = messageSend.replace('#RULES', dataResponse.description)
+
+				// Envio de mensaje a telegram
+				this.bot.telegram.sendMessage(CTX.from.id, messageSend, replyOptions)
+			}
 		}
 	}
 }
