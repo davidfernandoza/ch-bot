@@ -29,9 +29,15 @@ class Controller {
 
 				const dataAxios = await axios(`${this.urlApi}/${endPoint}`, optionAxios)
 
-				if (dataAxios.status >= 200 && dataAxios.status < 300)
+				if (dataAxios.status >= 200 && dataAxios.status < 300) {
+					if (typeof dataAxios.data === 'object') {
+						if (Object.keys(dataAxios.data).length === 0) return null
+						return dataAxios.data
+					}
 					return dataAxios.data
-				throw new Error(dataAxios)
+				} else {
+					throw new Error(dataAxios)
+				}
 			} catch (error) {
 				console.log(error)
 				this.bot.telegram.sendMessage(CTX.from.id, this.messageString.msgE001)

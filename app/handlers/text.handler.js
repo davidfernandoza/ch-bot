@@ -1,6 +1,6 @@
 'use strict'
 
-class HandlerCallbackQuery {
+class TextHandler {
 	constructor({ Bot, Config, RegisterController }) {
 		this.bot = Bot
 		this.config = Config
@@ -27,4 +27,4 @@ class HandlerCallbackQuery {
 		}
 	}
 }
-module.exports = HandlerCallbackQuery
+module.exports = TextHandler

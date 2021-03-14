@@ -1,5 +1,6 @@
 'use strict'
 const Express = require('express')
+const mongoose = require('mongoose')
 
 class StartUp {
 	constructor({ Config, Bot, UrlBotService }) {
@@ -15,6 +16,15 @@ class StartUp {
 	async start() {
 		return new Promise(async (resolve, reject) => {
 			try {
+				/*
+				 * Conexion a la base de datos
+				 */
+				await mongoose.connect(this.config.BD_CONNECTION_URL, {
+					useNewUrlParser: true,
+					useUnifiedTopology: true,
+					useCreateIndex: true
+				})
+
 				const botUrl = await this.urlBotService.get()
 
 				/*

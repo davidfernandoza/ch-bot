@@ -7,6 +7,7 @@ const StartUp = require('./app/start-up')
 const Config = require('./config/env')
 const Bot = require('./config/bot')
 const Methods = require('./config/methods')
+const BotRegister = require('./app/bot-register')
 const { asClass, asFunction, asValue, createContainer } = require('awilix')
 const container = createContainer()
 
@@ -26,14 +27,9 @@ const { MessageString, TermsString } = require('./helpers/strings')
 const { UrlBotService } = require('./app/services')
 
 /* -----------------------------------------------------*/
-/* Registers:			 																			*/
-/*------------------------------------------------------*/
-const { ComandsRegister, EventsRegister } = require('./app/registers')
-
-/* -----------------------------------------------------*/
 /* Events Handler:						 													*/
 /*------------------------------------------------------*/
-const { HandlerCallbackQuery, HandlerText } = require('./app/handler')
+const { CallbackQueryHandler, TextHandler } = require('./app/handlers')
 
 /* -----------------------------------------------------*/
 /* Controllers:				 																	*/
@@ -44,6 +40,11 @@ const {
 	MenuController
 } = require('./app/controllers')
 
+/* -----------------------------------------------------*/
+/* Modelos:						 																	*/
+/*------------------------------------------------------*/
+const { Client } = require('./app/models')
+
 //System Config:
 container
 	// System:
@@ -51,7 +52,8 @@ container
 		App: asClass(StartUp).singleton(),
 		Config: asValue(Config),
 		Bot: asFunction(Bot).singleton(),
-		Methods: asValue(Methods)
+		Methods: asValue(Methods),
+		BotRegister: asFunction(BotRegister).singleton()
 	})
 
 	// Validates:
@@ -72,21 +74,20 @@ container
 		MenuController: asClass(MenuController).singleton()
 	})
 
+	// Models:
+	.register({
+		Client: asValue(Client)
+	})
+
 	// Event Handlers:
 	.register({
-		HandlerText: asClass(HandlerText).singleton(),
-		HandlerCallbackQuery: asClass(HandlerCallbackQuery).singleton()
+		TextHandler: asClass(TextHandler).singleton(),
+		CallbackQueryHandler: asClass(CallbackQueryHandler).singleton()
 	})
 
 	// Services:
 	.register({
 		UrlBotService: asClass(UrlBotService).singleton()
-	})
-
-	// Register:
-	.register({
-		ComandsRegister: asFunction(ComandsRegister).singleton(),
-		EventsRegister: asFunction(EventsRegister).singleton()
 	})
 
 module.exports = container

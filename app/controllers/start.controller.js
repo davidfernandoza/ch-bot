@@ -34,7 +34,6 @@ class StartController extends Controller {
 		const client = CTX.update.message.from
 		if (await super.apiRequest(CTX, GET, `clients/telegram-id/${client.id}`)) {
 			return this.menuController.index(CTX)
-			// this.bot.telegram.sendMessage(CTX.from.id, '/menu')
 		} else {
 			/*
 			 *  Peticion de los terminos y condiciones generales

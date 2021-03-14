@@ -4,8 +4,16 @@ const Controller = require('./controller')
 // const Keyboard = require('telegraf-keyboard')
 
 class RegisterController extends Controller {
-	constructor({ Config, Bot, IsNotBotValidate, MessageString, Methods }) {
+	constructor({
+		Bot,
+		Client,
+		Config,
+		Methods,
+		MessageString,
+		IsNotBotValidate
+	}) {
 		super(Config, Bot, IsNotBotValidate, MessageString, Methods)
+		this.client = Client
 	}
 
 	/*
@@ -15,10 +23,11 @@ class RegisterController extends Controller {
 		const endPoint = 'clients'
 		const { POST, GET } = this.methods
 		const contextData = CTX.update.callback_query
+		const sponsorTelegramId = CTX.sponsor_telegram_id
 		const dataSponsor = await super.apiRequest(
 			CTX,
 			GET,
-			`${endPoint}/telegram-id/${CTX.sponsor_telegram_id}`
+			`${endPoint}/telegram-id/${sponsorTelegramId}`
 		)
 		if (dataSponsor) {
 			const client = contextData.from
@@ -31,36 +40,19 @@ class RegisterController extends Controller {
 
 			const dataResponse = await super.apiRequest(CTX, POST, endPoint, dataSend)
 			if (dataResponse) {
+				this.client.create({
+					...dataResponse,
+					client_id: dataResponse.id,
+					action_bot: 'GET_WALLET',
+					sponsor_telegram_id: sponsorTelegramId
+				})
+
 				this.bot.telegram.sendMessage(
 					client.id,
-					`Su patrocinador es ${dataSponsor.full_name}`
+					`Se ha creado tu usuario con exito. \n Por favor ingresa tu direccion tron de donde enviaras el pago:`
 				)
 			}
 		}
 	}
 }
 module.exports = RegisterController
-
-// const replyOptions = Markup.inlineKeyboard([
-// 	Markup.payButton('💸 Buy'),
-// 	Markup.urlButton('❤️', 'http://telegraf.js.org')
-// ]).extra()
-// bot.command('/start', ctx => {
-// 	const options = {
-// 		inline: false, // default
-// 		duplicates: false, // default
-// 		newline: false // default
-// 	}
-// 	const keyboard = new Keyboard(options)
-// 	keyboard
-// 		.add('🤝 Link Referido', '👨‍👧‍👦 Referidos')
-// 		.add('📈 Balance', '💵 Cobrar')
-// 		.add('📆 Ciclo', '⚖️ Reglas')
-// 		.add('🔙 Atras')
-// 	ctx.reply('Keyboard', keyboard.draw())
-// })
-// context => {
-// 	const idUser = context.from.id
-// 	bot.telegram.sendMessage(idUser, 'mi amor es hermosa')
-// })
-// bot.comman
