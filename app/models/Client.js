@@ -5,11 +5,6 @@ const Schema = mongoose.Schema
 
 const ClientSchema = new Schema({
 	client_id: { type: Number, unique: true },
-	action_bot: {
-		type: String,
-		enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY'],
-		default: 'NONE'
-	},
 	sponsor_id: { type: String, default: 1 },
 	sponsor_telegram_id: { type: String, default: '1ROOT' },
 	full_name: String,
@@ -19,12 +14,30 @@ const ClientSchema = new Schema({
 	phone: String,
 	telegram_id: { type: String, unique: true },
 	email: { type: String, unique: true },
+	tree_id: { type: Number, unique: true },
+	action_bot: {
+		step: String,
+		action: {
+			type: String,
+			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY'],
+			default: 'NONE'
+		}
+	},
 	status: {
 		type: String,
 		enum: ['ACTIVE', 'COMPANY', 'INACTIVE', 'DEBT'],
 		default: 'INACTIVE'
 	},
-	tree_id: { type: Number, unique: true }
+	wallet: {
+		id: Number,
+		address: { type: String, unique: true },
+		status: Boolean
+	},
+	auth: {
+		access_token: String,
+		token_type: String,
+		expires_in: Date
+	}
 })
 
 module.exports = mongoose.model('Client', ClientSchema)

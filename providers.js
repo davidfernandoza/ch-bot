@@ -14,7 +14,7 @@ const container = createContainer()
 /* -----------------------------------------------------*/
 /* Validates:					 																	*/
 /*------------------------------------------------------*/
-const { IsNotBotValidate } = require('./helpers/validates')
+const { IsNotBotValidate, WalletValidate } = require('./helpers/validates')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
@@ -37,7 +37,8 @@ const { CallbackQueryHandler, TextHandler } = require('./app/handlers')
 const {
 	RegisterController,
 	StartController,
-	MenuController
+	MenuController,
+	WalletRegisterController
 } = require('./app/controllers')
 
 /* -----------------------------------------------------*/
@@ -58,7 +59,8 @@ container
 
 	// Validates:
 	.register({
-		IsNotBotValidate: asClass(IsNotBotValidate).singleton()
+		IsNotBotValidate: asClass(IsNotBotValidate).singleton(),
+		WalletValidate: asClass(WalletValidate).singleton()
 	})
 
 	// Strings:
@@ -71,7 +73,8 @@ container
 	.register({
 		RegisterController: asClass(RegisterController).singleton(),
 		StartController: asClass(StartController).singleton(),
-		MenuController: asClass(MenuController).singleton()
+		MenuController: asClass(MenuController).singleton(),
+		WalletRegisterController: asClass(WalletRegisterController).singleton()
 	})
 
 	// Models:

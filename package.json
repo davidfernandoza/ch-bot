@@ -18,7 +18,8 @@
 		"moment": "^2.24.0",
 		"mongoose": "^5.12.0",
 		"telegraf": "^3.36.0",
-		"telegram-keyboard": "^2.2.6"
+		"telegram-keyboard": "^2.2.6",
+		"validate.js": "^0.13.1"
 	},
 	"devDependencies": {
 		"ngrok": "^3.2.7",

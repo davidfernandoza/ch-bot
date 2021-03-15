@@ -12,18 +12,15 @@ class CallbackQueryHandler {
 	 * Captura el evento del boton en linea presionado
 	 */
 	index(CTX) {
-		const buttonValueArray = CTX.update.callback_query.data.split(':')
-		const button = buttonValueArray[0]
-		const value = buttonValueArray[1]
-		let controller = ''
+		const buttonValueArray = CTX.update.callback_query.data.split(':'),
+			button = buttonValueArray[0],
+			value = buttonValueArray[1]
 
-		if (button == 'acceptTerms') {
-			CTX.sponsor_telegram_id = value
-			controller = 'RegisterController'
-		}
-
-		if (controller != '') {
-			this.controllers[controller].index(CTX)
+		switch (button) {
+			case 'acceptTerms':
+				CTX.sponsor_telegram_id = value
+				this.controllers.RegisterController.index(CTX)
+				break
 		}
 	}
 }

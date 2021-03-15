@@ -1,29 +1,30 @@
 'use strict'
 
 class TextHandler {
-	constructor({ Bot, Config, RegisterController }) {
+	constructor({ Bot, Client, Config, WalletRegisterController }) {
 		this.bot = Bot
 		this.config = Config
+		this.client = Client
 		this.controllers = {
-			RegisterController
+			WalletRegisterController
 		}
 	}
 	/*
-	 * Captura el evento del boton en linea presionado
+	 * Maneja el evento de texto enviado
 	 */
-	index(CTX) {
-		const buttonValueArray = CTX.update.callback_query.data.split(':')
-		const button = buttonValueArray[0]
-		const value = buttonValueArray[1]
-		let controller = ''
+	async index(CTX) {
+		const telegramId = CTX.from.id
+		let client = await this.client.find({ telegram_id: telegramId })
+		if (client.length > 0) {
+			client = client[0]
+			CTX.client = client
+			const actionBot = client.action_bot
 
-		if (button == 'acceptTerms') {
-			CTX.sponsor_telegram_id = value
-			controller = 'RegisterController'
-		}
-
-		if (controller != '') {
-			this.controllers[controller].index(CTX)
+			switch (actionBot.action) {
+				case 'GET_WALLET':
+					await this.controllers.WalletRegisterController.index(CTX)
+					break
+			}
 		}
 	}
 }
