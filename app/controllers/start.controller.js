@@ -34,18 +34,23 @@ class StartController extends Controller {
 		 * Validacion de la existencia del cliente
 		 */
 		const { GET } = this.methods,
-			client = await this.client.find({ telegram_id: CTX.from.id })
-		if (client.length > 0) return this.menuController.index(CTX)
+			client = await this.client.findOne({ telegram_id: CTX.from.id })
+		if (client) return this.menuController.index(CTX)
 
-		// Peticion de los terminos y condiciones generales
-		const request = {
+		// Peticion del plan, terminos y condiciones generales
+		const requestTerm = {
 				endpoint: `terms/${this.termsString.GENERAL_TERM}`,
 				context: CTX,
 				method: GET
 			},
-			dataResponse = await super.apiRequest(request)
+			requestPlan = {
+				...requestTerm,
+				endpoint: `plans/${this.termsString.DEFAULT_PLAN}`
+			},
+			dataTerm = await super.apiRequest(requestTerm),
+			dataPlan = await super.apiRequest(requestPlan)
 
-		if (dataResponse) {
+		if (dataTerm && dataPlan) {
 			/*
 			 * Captura y asigna el patrocinador al cliente por la url del referido
 			 */
@@ -57,14 +62,15 @@ class StartController extends Controller {
 				.inlineKeyboard([
 					markup.callbackButton(
 						'✔️ Aceptar',
-						`acceptTerms:${sponsor_telegram_id}`
+						`acceptTerms:${sponsor_telegram_id}:${dataPlan.id}`
 					)
 				])
 				.extra()
 
-			let messageSend = this.messageString.msgIS001
+			let messageSend = this.messageString.registerRule
 			messageSend = messageSend.replace('#NAME', CTX.from.first_name)
-			messageSend = messageSend.replace('#RULES', dataResponse.description)
+			messageSend = messageSend.replace('#TERM', dataTerm.description)
+			messageSend = messageSend.replace('#PLAN', dataPlan.term.description)
 
 			// Envio de mensaje a telegram
 			this.bot.telegram.sendMessage(CTX.from.id, messageSend, replyOptions)

@@ -17,6 +17,7 @@
 		"express": "^4.17.1",
 		"moment": "^2.24.0",
 		"mongoose": "^5.12.0",
+		"qrcode": "^1.4.4",
 		"telegraf": "^3.36.0",
 		"telegram-keyboard": "^2.2.6",
 		"validate.js": "^0.13.1"

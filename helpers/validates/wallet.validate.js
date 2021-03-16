@@ -15,7 +15,10 @@ class WalletValidate {
 
 	async index(CTX, Form) {
 		if (await validate(Form, this.rules)) {
-			this.bot.telegram.sendMessage(CTX.from.id, this.messageString.msgEA001)
+			this.bot.telegram.sendMessage(
+				CTX.from.id,
+				this.messageString.addresUnavalible
+			)
 			return false
 		}
 		return true

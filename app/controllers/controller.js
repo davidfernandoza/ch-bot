@@ -43,7 +43,7 @@ class Controller {
 				console.error(error.response)
 				this.bot.telegram.sendMessage(
 					options.context.from.id,
-					this.messageString.msgEB001
+					this.messageString.serverError
 				)
 				return null
 			}

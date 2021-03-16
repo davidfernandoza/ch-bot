@@ -23,6 +23,7 @@ class RegisterController extends Controller {
 			{ POST, GET } = this.methods,
 			contextData = CTX.update.callback_query,
 			sponsorTelegramId = CTX.sponsor_telegram_id,
+			planId = CTX.plan_id,
 			request = {
 				endpoint: `${endpoint}/telegram-id/${sponsorTelegramId}`,
 				method: GET,
@@ -40,7 +41,8 @@ class RegisterController extends Controller {
 					telegram_id: client.id,
 					sponsor_id: dataSponsor.id,
 					full_name: `${client.first_name} ${client.last_name}`,
-					username: `${client.username}`
+					username: `${client.username}`,
+					plan_id: planId
 				},
 				dataResponse = await super.apiRequest(request, dataSend)
 
@@ -55,7 +57,7 @@ class RegisterController extends Controller {
 					sponsor_telegram_id: sponsorTelegramId
 				})
 
-				const messageSend = this.messageString.msgIR001
+				const messageSend = this.messageString.succesClient
 				this.bot.telegram.sendMessage(client.id, messageSend)
 			}
 		}

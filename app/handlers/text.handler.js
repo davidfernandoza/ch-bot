@@ -14,11 +14,9 @@ class TextHandler {
 	 */
 	async index(CTX) {
 		const telegramId = CTX.from.id
-		let client = await this.client.find({ telegram_id: telegramId })
-		if (client.length > 0) {
-			client = client[0]
-			CTX.client = client
-			const actionBot = client.action_bot
+		CTX.client = await this.client.findOne({ telegram_id: telegramId })
+		if (CTX.client) {
+			const actionBot = CTX.client.action_bot
 
 			switch (actionBot.action) {
 				case 'GET_WALLET':

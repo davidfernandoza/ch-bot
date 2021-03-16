@@ -19,6 +19,7 @@ class CallbackQueryHandler {
 		switch (button) {
 			case 'acceptTerms':
 				CTX.sponsor_telegram_id = value
+				CTX.plan_id = buttonValueArray[2]
 				this.controllers.RegisterController.index(CTX)
 				break
 		}

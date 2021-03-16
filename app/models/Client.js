@@ -16,7 +16,7 @@ const ClientSchema = new Schema({
 	email: { type: String, unique: true },
 	tree_id: { type: Number, unique: true },
 	action_bot: {
-		step: String,
+		step: { type: String, default: 0 },
 		action: {
 			type: String,
 			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY'],
@@ -31,7 +31,7 @@ const ClientSchema = new Schema({
 	wallet: {
 		id: Number,
 		address: { type: String, unique: true },
-		status: Boolean
+		status: { type: Boolean, default: false }
 	},
 	auth: {
 		access_token: String,

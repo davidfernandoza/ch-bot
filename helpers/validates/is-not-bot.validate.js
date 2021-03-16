@@ -10,7 +10,7 @@ class IsNotBotValidate {
 
 	index(CTX) {
 		if (CTX.from.is_bot) {
-			this.bot.telegram.sendMessage(CTX.from.id, this.messageString.msgEB001)
+			this.bot.telegram.sendMessage(CTX.from.id, this.messageString.isBot)
 			return false
 		}
 		return true

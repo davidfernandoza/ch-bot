@@ -1,6 +1,8 @@
 'use strict'
 
 const Controller = require('./controller')
+var QRCode = require('qrcode')
+const markup = require('telegraf/markup')
 class WalletRegisterController extends Controller {
 	constructor({
 		Bot,
@@ -35,29 +37,36 @@ class WalletRegisterController extends Controller {
 					method: POST
 				},
 				dataResponse = await super.apiRequest(request, dataSend)
-
 			console.log(dataResponse)
-
 			// Validacion de billetera creada correctamente
 			if (dataResponse) {
-				const payment = dataResponse.payment
-				this.client.where({ telegram_id: CTX.from.id }).update({
-					wallet: { ...payment }
+				await this.client.where({ telegram_id: CTX.from.id }).updateOne({
+					wallet: { ...dataResponse.payment },
+					action_bot: { step: 0, action: 'NONE' }
 				})
 
-				// const replyOptions = markup
-				// 	.inlineKeyboard([
-				// 		markup.callbackButton(
-				// 			'✔️ Aceptar',
-				// 			`acceptTerms:${sponsor_telegram_id}`
-				// 		)
-				// 	])
-				// 	.extra()
+				const replyOptions = markup
+					.inlineKeyboard([
+						markup.callbackButton('✔️ Validar Pago', `paymentValidate`),
+						markup.callbackButton('✔️ Cambiar direccion tron', `changeWallet`)
+					])
+					.extra()
 
-				// this.bot.telegram.sendMessage(
-				// 	client.id,
-				// 	`Se ha agregado la direccion ${CTX.text} a tu usuario. \n `
-				// )
+				QRCode.toDataURL(dataResponse.consignment.address, (err, url) => {
+					console.log(url)
+
+					let message = this.messageString.sendWalletConsignment
+					message = message.replace(
+						'#AMOUNT',
+						dataResponse.plan.consignment_value
+					)
+					message = message.replace(
+						'#ADDRESS',
+						dataResponse.consignment.address
+					)
+					this.bot.telegram.sendPhoto(CTX.from.id, url, 'Telegram Logo')
+					this.bot.telegram.sendMessage(CTX.from.id, message, replyOptions)
+				})
 			}
 		}
 	}
