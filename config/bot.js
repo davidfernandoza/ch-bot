@@ -1,8 +1,8 @@
 'use strict'
-const telegraf = require('telegraf')
+const { Telegraf } = require('telegraf')
 /*
  * Creacion del bot de telegram
  */
 module.exports = ({ Config }) => {
-	return new telegraf(Config.TOKEN_BOT)
+	return new Telegraf(Config.TOKEN_BOT)
 }

@@ -3,48 +3,53 @@
 /* -----------------------------------------------------*/
 /* System Config: 																			*/
 /*------------------------------------------------------*/
-const StartUp = require('./app/start-up')
-const Config = require('./config/env')
-const Bot = require('./config/bot')
-const Methods = require('./config/methods')
-const BotRegister = require('./app/bot-register')
+const StartUp = require('./start-up')
+const Config = require('./app')
+const Bot = require('./bot')
+const Methods = require('./methods')
+const BotRegister = require('../app/bot-register')
 const { asClass, asFunction, asValue, createContainer } = require('awilix')
 const container = createContainer()
 
 /* -----------------------------------------------------*/
 /* Validates:					 																	*/
 /*------------------------------------------------------*/
-const { IsNotBotValidate, WalletValidate } = require('./helpers/validates')
+const { IsNotBotValidate, WalletValidate } = require('../helpers/validates')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
 /*------------------------------------------------------*/
-const { MessageString, TermsString } = require('./helpers/strings')
+const { MessageString, DefaultString } = require('../helpers/strings')
 
 /* -----------------------------------------------------*/
 /* Services:			 																			*/
 /*------------------------------------------------------*/
-const { UrlBotService } = require('./app/services')
+const { UrlBotService, QrCode } = require('../app/services')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
 /*------------------------------------------------------*/
-const { CallbackQueryHandler, TextHandler } = require('./app/handlers')
+const { CallbackQueryHandler, TextHandler } = require('../app/handlers')
 
 /* -----------------------------------------------------*/
 /* Controllers:				 																	*/
 /*------------------------------------------------------*/
 const {
-	RegisterController,
-	StartController,
+	ClientController,
+	TermPlanController,
 	MenuController,
-	WalletRegisterController
-} = require('./app/controllers')
+	WalletController
+} = require('../app/controllers')
+
+/* -----------------------------------------------------*/
+/* Traits:						 																	*/
+/*------------------------------------------------------*/
+const { WalletTrait, TermPlanTrait } = require('../app/traits')
 
 /* -----------------------------------------------------*/
 /* Modelos:						 																	*/
 /*------------------------------------------------------*/
-const { Client } = require('./app/models')
+const { Client } = require('../app/models')
 
 //System Config:
 container
@@ -66,15 +71,21 @@ container
 	// Strings:
 	.register({
 		MessageString: asValue(MessageString),
-		TermsString: asValue(TermsString)
+		DefaultString: asValue(DefaultString)
 	})
 
 	// Controllers:
 	.register({
-		RegisterController: asClass(RegisterController).singleton(),
-		StartController: asClass(StartController).singleton(),
+		ClientController: asClass(ClientController).singleton(),
+		TermPlanController: asClass(TermPlanController).singleton(),
 		MenuController: asClass(MenuController).singleton(),
-		WalletRegisterController: asClass(WalletRegisterController).singleton()
+		WalletController: asClass(WalletController).singleton()
+	})
+
+	// Traits:
+	.register({
+		WalletTrait: asClass(WalletTrait).singleton(),
+		TermPlanTrait: asClass(TermPlanTrait).singleton()
 	})
 
 	// Models:
@@ -90,7 +101,8 @@ container
 
 	// Services:
 	.register({
-		UrlBotService: asClass(UrlBotService).singleton()
+		UrlBotService: asClass(UrlBotService).singleton(),
+		QrCode: asClass(QrCode).singleton()
 	})
 
 module.exports = container

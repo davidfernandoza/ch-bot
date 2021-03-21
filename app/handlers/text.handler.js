@@ -1,12 +1,12 @@
 'use strict'
 
 class TextHandler {
-	constructor({ Bot, Client, Config, WalletRegisterController }) {
+	constructor({ Bot, Client, Config, WalletController }) {
 		this.bot = Bot
 		this.config = Config
 		this.client = Client
 		this.controllers = {
-			WalletRegisterController
+			WalletController
 		}
 	}
 	/*
@@ -20,7 +20,7 @@ class TextHandler {
 
 			switch (actionBot.action) {
 				case 'GET_WALLET':
-					await this.controllers.WalletRegisterController.index(CTX)
+					await this.controllers.WalletController.store(CTX)
 					break
 			}
 		}

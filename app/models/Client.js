@@ -31,7 +31,9 @@ const ClientSchema = new Schema({
 	wallet: {
 		id: Number,
 		address: { type: String, unique: true },
-		status: { type: Boolean, default: false }
+		status: { type: Boolean, default: false },
+		//Acciones para crear o modificar la wallet en el back
+		action_wallet: { type: String, default: 'NONE' }
 	},
 	auth: {
 		access_token: String,

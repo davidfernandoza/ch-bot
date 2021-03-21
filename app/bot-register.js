@@ -16,14 +16,44 @@ module.exports = ({
 	Bot,
 	TextHandler,
 	MenuController,
-	StartController,
-	CallbackQueryHandler
+	TermPlanController,
+	CallbackQueryHandler,
+	WalletController,
+	Client
 }) => {
 	/*
 	 * Comandos
 	 */
-	Bot.command('/start', CTX => StartController.index(CTX))
+	Bot.command('/start', CTX => TermPlanController.getPlanAndTerms(CTX))
 	Bot.command('/menu', CTX => MenuController.index(CTX))
+	Bot.command('/test', async CTX => {
+		await Client.where({ telegram_id: CTX.from.id }).updateOne({
+			wallet: {
+				id: 5,
+				address: 'AKSETHbn1uTBNtz4zPsFRMDTb4QtswpQj8',
+				status: true,
+				action_wallet: 'POST'
+			}
+		})
+		let c = await Client.findOne({ telegram_id: CTX.from.id })
+		c.wallet.action_wallet = 'PUT'
+		await c.save()
+
+		// await Client.where({ telegram_id: CTX.from.id }).updateOne({
+		// 	$set: {
+		// 		wallet: {
+		// 			action_wallet: 'PUT'
+		// 		}
+		// 		// action_bot: { step: 0, action: 'GET_WALLET' }
+		// 	}
+		// })
+		c = await Client.findOne({ telegram_id: CTX.from.id })
+		console.log(c)
+		CTX.client = await Client.findOne({ telegram_id: CTX.from.id })
+		CTX.message.text = 'DavidHbn1uTBNtz4zPsFRMDTb4QtswpQj8'
+
+		// WalletController.store(CTX)
+	})
 
 	/*
 	 * Eventos

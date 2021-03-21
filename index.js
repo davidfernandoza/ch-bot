@@ -1,8 +1,8 @@
 'use strict'
-const container = require('./providers')
-const config = container.resolve('Config')
-const app = container.resolve('App')
-container.resolve('BotRegister')
+const provider = require('./config/providers')
+const config = provider.resolve('Config')
+const app = provider.resolve('App')
+provider.resolve('BotRegister')
 
 app
 	.start()

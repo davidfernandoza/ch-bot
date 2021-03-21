@@ -1,11 +1,11 @@
 'use strict'
-
 class CallbackQueryHandler {
-	constructor({ Bot, Config, RegisterController }) {
+	constructor({ Bot, Config, ClientController, WalletController }) {
 		this.bot = Bot
 		this.config = Config
 		this.controllers = {
-			RegisterController
+			ClientController,
+			WalletController
 		}
 	}
 	/*
@@ -20,7 +20,14 @@ class CallbackQueryHandler {
 			case 'acceptTerms':
 				CTX.sponsor_telegram_id = value
 				CTX.plan_id = buttonValueArray[2]
-				this.controllers.RegisterController.index(CTX)
+				this.controllers.ClientController.store(CTX)
+				break
+			case 'changeWallet':
+				CTX.action_wallet = value
+				this.controllers.WalletController.reset(CTX)
+				break
+			case 'consignmentValidate':
+				// this.controllers.ConsignmentController.validate(CTX)
 				break
 		}
 	}

@@ -11,20 +11,20 @@
 		"bot"
 	],
 	"dependencies": {
-		"awilix": "^4.2.3",
+		"awilix": "^4.3.3",
 		"axios": "^0.21.1",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"moment": "^2.24.0",
-		"mongoose": "^5.12.0",
+		"moment": "^2.29.1",
+		"mongoose": "^5.12.1",
 		"qrcode": "^1.4.4",
-		"telegraf": "^3.36.0",
+		"telegraf": "^4.3.0",
 		"telegram-keyboard": "^2.2.6",
 		"validate.js": "^0.13.1"
 	},
 	"devDependencies": {
-		"ngrok": "^3.2.7",
-		"nodemon": "^2.0.2"
+		"ngrok": "^3.4.1",
+		"nodemon": "^2.0.7"
 	},
 	"author": "",
 	"license": "MIT"

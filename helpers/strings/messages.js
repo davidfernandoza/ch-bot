@@ -14,8 +14,9 @@ module.exports = {
 	// Información
 	registerRule:
 		'¡Hola! #NAME, pon mucha atención a las reglas de Cadena ahorro: \n\n#TERM \n\n Plan de ahorro:\n\n #PLAN',
-	succesClient:
-		'¡Se ha creado el usuario con exito! \n\nPor favor envie su direccion tron \nNota: Tenga en cuenta que desde esta direccion tron se debe enviar las consignaciones y en esta misma recibira los pagos.',
+	succesClient: '¡Se ha creado el usuario con exito!',
+	sendTronAddress:
+		'Por favor envie su direccion tron \nNota: Tenga en cuenta que desde esta direccion tron se debe enviar las consignaciones y en esta misma recibira los pagos.',
 	sendWalletConsignment:
-		'Envia la cantidad de #AMOUNT QFS a la direccion:\n\n#ADDRESS\n\n'
+		'Envia la cantidad de #AMOUNT QFS a la dirección:\n\n#ADDRESS\n\nPuedes escanear el codigo QR\n- Despues de hacer la consignación solicita la validacion de esta.\nNota: corrobore bien la dirección tron que asigno a su cuenta antes de hacer la consignación, ya que con dicha dirección se validara la transacción.\n- Si la dirección tron que previamente asigno a su cuenta no es correcta, la puedes cambiar.'
 }

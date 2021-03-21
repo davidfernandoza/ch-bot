@@ -1,11 +1,11 @@
 'use strict'
-const Markup = require('telegraf/markup')
-const Controller = require('./controller')
+const { Markup } = require('telegraf')
 const { Keyboard } = require('telegram-keyboard')
+const Controller = require('./controller')
 
 class MenuController extends Controller {
-	constructor({ Config, Bot, IsNotBotValidate, MessageString, Methods }) {
-		super(Config, Bot, IsNotBotValidate, MessageString, Methods)
+	constructor({ Config, IsNotBotValidate, MessageString, Methods }) {
+		super(Config, IsNotBotValidate, MessageString, Methods)
 	}
 
 	/*
