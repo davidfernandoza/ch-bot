@@ -26,7 +26,7 @@ class WalletController extends Controller {
 		 * Validacion de la direccion
 		 */
 		const address = CTX.message.text
-		if (await this.walletValidate.index(CTX, { address })) {
+		if (await this.walletValidate.index(CTX, address)) {
 			const { POST, PUT } = this.methods,
 				wallet = CTX.client.wallet,
 				request = {
@@ -34,7 +34,7 @@ class WalletController extends Controller {
 					endpoint:
 						wallet.action_wallet == POST ? 'wallets' : `wallets/${wallet.id}`,
 					method: wallet.action_wallet == POST ? POST : PUT,
-					dataSend: { address: address, client_id: CTX.client.client_id }
+					dataSend: { key: address, client_id: CTX.client.client_id }
 				},
 				dataResponse = await super.apiRequest(request)
 			dataResponse.consignment = await this.getAvailableConsignmentWallet(CTX)
