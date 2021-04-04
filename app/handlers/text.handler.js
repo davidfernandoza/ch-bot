@@ -1,10 +1,8 @@
 'use strict'
 
 class TextHandler {
-	constructor({ Bot, Client, Config, WalletController }) {
-		this.bot = Bot
-		this.config = Config
-		this.client = Client
+	constructor({ ClientRepository, WalletController }) {
+		this.clientRepository = ClientRepository
 		this.controllers = {
 			WalletController
 		}
@@ -12,17 +10,20 @@ class TextHandler {
 	/*
 	 * Maneja el evento de texto enviado
 	 */
-	async index(CTX) {
-		const telegramId = CTX.from.id
-		CTX.client = await this.client.findOne({ telegram_id: telegramId })
+	async getClientAction(CTX) {
+		CTX.client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
 		if (CTX.client) {
-			const actionBot = CTX.client.action_bot
+			this.selectAction(CTX, CTX.client.action_bot)
+		}
+	}
 
-			switch (actionBot.action) {
-				case 'GET_WALLET':
-					await this.controllers.WalletController.store(CTX)
-					break
-			}
+	selectAction(CTX, actionBot) {
+		switch (actionBot.action) {
+			case 'GET_WALLET':
+				this.controllers.WalletController.storeWallet(CTX)
+				break
 		}
 	}
 }

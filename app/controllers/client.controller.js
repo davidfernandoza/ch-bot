@@ -1,7 +1,6 @@
 'use strict'
-const Controller = require('./controller')
 
-class ClientController extends Controller {
+class ClientController {
 	constructor({
 		Client,
 		Config,
@@ -11,7 +10,7 @@ class ClientController extends Controller {
 		IsNotBotValidate,
 		WalletController
 	}) {
-		super(Config, IsNotBotValidate, MessageString)
+		// super(Config, IsNotBotValidate, MessageString)
 		this.walletController = WalletController
 		this.menuController = MenuController
 		this.client = Client

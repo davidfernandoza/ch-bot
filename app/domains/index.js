@@ -2,7 +2,7 @@
 // Requiere package:
 const fs = require('fs')
 const path = require('path')
-const ignore = 'bot-kernel.js'
+const ignore = ''
 let fileName = ''
 
 // Lectura de archivos

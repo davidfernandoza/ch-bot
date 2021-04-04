@@ -1,7 +1,6 @@
 'use strict'
-const Controller = require('./controller')
 
-class TermPlanController extends Controller {
+class TermPlanController {
 	constructor({
 		Config,
 		Client,
@@ -12,7 +11,7 @@ class TermPlanController extends Controller {
 		MenuController,
 		IsNotBotValidate
 	}) {
-		super(Config, IsNotBotValidate, MessageString)
+		// super(Config, IsNotBotValidate, MessageString)
 		this.defaultString = DefaultString
 		this.menuController = MenuController
 		this.methods = Methods

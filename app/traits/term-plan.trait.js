@@ -6,7 +6,6 @@ class TermPlanTrait {
 		this.messageString = MessageString
 	}
 
-	// Responde con la direccion en qr
 	async responseWithCard(CTX, dataPlan, dataTerm) {
 		if (dataTerm && dataPlan) {
 			/*

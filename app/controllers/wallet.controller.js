@@ -1,27 +1,22 @@
 'use strict'
-const Controller = require('./controller')
 
-class WalletController extends Controller {
+class WalletController {
 	constructor({
-		Config,
-		Client,
-		Methods,
-		WalletTrait,
-		MessageString,
+		ErrorHandler,
 		WalletValidate,
-		IsNotBotValidate
+		ClientRepository,
+		ClientDomain
 	}) {
-		super(Config, IsNotBotValidate, MessageString)
 		this.walletValidate = WalletValidate
-		this.methods = Methods
-		this.client = Client
-		this.walletTrait = WalletTrait
+		this.clientRepository = ClientRepository
+		this.clientDomain = ClientDomain
+		this.errorHandler = ErrorHandler
 	}
 
 	/*
 	 * Registro de la billetera del cliente en el back
 	 */
-	async store(CTX) {
+	async storeWallet(CTX) {
 		/*
 		 * Validacion de la direccion
 		 */
@@ -42,25 +37,16 @@ class WalletController extends Controller {
 		}
 	}
 
-	async getAvailableConsignmentWallet(CTX) {
-		const { GET } = this.methods,
-			request = {
-				endpoint: 'wallets/get-consignment',
-				context: CTX,
-				method: GET
-			}
-		return await super.apiRequest(request)
-	}
-
-	/*
-	 * Resetear wallet
-	 */
-	async reset(CTX) {
-		const client = await this.client.findOne({ telegram_id: CTX.from.id })
-		client.wallet.action_wallet = CTX.action_wallet
-		client.action_bot = { step: 0, action: 'GET_WALLET' }
-		await client.save()
-		return await CTX.reply(this.messageString.sendTronAddress)
+	async resetActionInClientWallet(CTX) {
+		let telegramId = CTX.from.id,
+			client = await this.clientRepository.getClientByTelegramIdInMongo(
+				telegramId
+			)
+		client = await this.clientDomain.assignActionNewWallet(client, CTX)
+		if (await this.clientRepository.storeClientInMongo(client)) {
+			return await CTX.reply(this.messageString.sendTronAddress)
+		}
+		super.handlerError(CTX, resetActionInClientWallet.name)
 	}
 }
 

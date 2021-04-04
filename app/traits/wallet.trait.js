@@ -41,15 +41,5 @@ class WalletTrait {
 			return await CTX.reply(message, buttons)
 		}
 	}
-
-	async getAvailableConsignmentWallet(CTX) {
-		const { GET } = this.methods,
-			request = {
-				endpoint: 'wallets/get-consignment',
-				context: CTX,
-				method: GET
-			}
-		return await super.apiRequest(request)
-	}
 }
 module.exports = WalletTrait

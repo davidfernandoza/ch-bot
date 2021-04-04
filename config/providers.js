@@ -7,14 +7,34 @@ const StartUp = require('./start-up')
 const Config = require('./app')
 const Bot = require('./bot')
 const Methods = require('./methods')
-const BotRegister = require('../app/bot-register')
+const BotKernel = require('../app/handlers/bot-kernel')
 const { asClass, asFunction, asValue, createContainer } = require('awilix')
+const ErrorHandler = require('../helpers/error/error-handler')
 const container = createContainer()
 
 /* -----------------------------------------------------*/
 /* Validates:					 																	*/
 /*------------------------------------------------------*/
 const { IsNotBotValidate, WalletValidate } = require('../helpers/validates')
+
+/* -----------------------------------------------------*/
+/* Repositories:			 																	*/
+/*------------------------------------------------------*/
+const {
+	WalletRepository,
+	ClientRepository,
+	PlanRepository,
+	TermRepository
+} = require('../app/repositories')
+/* -----------------------------------------------------*/
+/* Presentations:			 																	*/
+/*------------------------------------------------------*/
+const { StartPresentation } = require('../app/presentations')
+
+/* -----------------------------------------------------*/
+/* Domain:						 																	*/
+/*------------------------------------------------------*/
+const { ClientDomain } = require('../app/domains')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
@@ -29,14 +49,18 @@ const { UrlBotService, QrCode } = require('../app/services')
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
 /*------------------------------------------------------*/
-const { CallbackQueryHandler, TextHandler } = require('../app/handlers')
+const {
+	CallbackQueryHandler,
+	TextHandler,
+	CommandHandler
+} = require('../app/handlers')
 
 /* -----------------------------------------------------*/
 /* Controllers:				 																	*/
 /*------------------------------------------------------*/
 const {
 	ClientController,
-	TermPlanController,
+	StartController,
 	MenuController,
 	WalletController
 } = require('../app/controllers')
@@ -59,7 +83,8 @@ container
 		Config: asValue(Config),
 		Bot: asFunction(Bot).singleton(),
 		Methods: asValue(Methods),
-		BotRegister: asFunction(BotRegister).singleton()
+		BotKernel: asFunction(BotKernel).singleton(),
+		ErrorHandler: asClass(ErrorHandler).singleton()
 	})
 
 	// Validates:
@@ -77,7 +102,7 @@ container
 	// Controllers:
 	.register({
 		ClientController: asClass(ClientController).singleton(),
-		TermPlanController: asClass(TermPlanController).singleton(),
+		StartController: asClass(StartController).singleton(),
 		MenuController: asClass(MenuController).singleton(),
 		WalletController: asClass(WalletController).singleton()
 	})
@@ -93,16 +118,35 @@ container
 		Client: asValue(Client)
 	})
 
-	// Event Handlers:
+	// Handlers:
 	.register({
 		TextHandler: asClass(TextHandler).singleton(),
-		CallbackQueryHandler: asClass(CallbackQueryHandler).singleton()
+		CallbackQueryHandler: asClass(CallbackQueryHandler).singleton(),
+		CommandHandler: asClass(CommandHandler).singleton()
 	})
 
 	// Services:
 	.register({
 		UrlBotService: asClass(UrlBotService).singleton(),
 		QrCode: asClass(QrCode).singleton()
+	})
+
+	// Repositories
+	.register({
+		WalletRepository: asClass(WalletRepository).singleton(),
+		ClientRepository: asClass(ClientRepository).singleton(),
+		PlanRepository: asClass(PlanRepository).singleton(),
+		TermRepository: asClass(TermRepository).singleton()
+	})
+
+	// Domain
+	.register({
+		ClientDomain: asClass(ClientDomain).singleton()
+	})
+
+	// Presentations
+	.register({
+		StartPresentation: asClass(StartPresentation).singleton()
 	})
 
 module.exports = container

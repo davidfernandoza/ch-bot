@@ -1,17 +1,16 @@
 'use strict'
 const { Markup } = require('telegraf')
 const { Keyboard } = require('telegram-keyboard')
-const Controller = require('./controller')
 
-class MenuController extends Controller {
+class MenuController {
 	constructor({ Config, IsNotBotValidate, MessageString, Methods }) {
-		super(Config, IsNotBotValidate, MessageString, Methods)
+		// super(Config, IsNotBotValidate, MessageString, Methods)
 	}
 
 	/*
 	 * Registro del cliente en el back
 	 */
-	async index(CTX) {
+	async sendMenu(CTX) {
 		return CTX.reply(
 			'Hola ',
 			Keyboard.reply(
