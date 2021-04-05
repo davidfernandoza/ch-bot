@@ -16,10 +16,10 @@ class WalletTrait {
 		 * Almacenar billetera en mongo y cambio de accion para texto
 		 */
 		if (dataResponse) {
-			await this.client.where({ telegram_id: CTX.from.id }).updateOne({
-				wallet: { ...dataResponse.payment },
-				action_bot: { step: 0, action: 'NONE' }
-			})
+			// await this.client.where({ telegram_id: CTX.from.id }).updateOne({
+			// 	wallet: { ...dataResponse.payment },
+			// 	action_bot: { step: 0, action: 'NONE' }
+			// })
 			const { PUT } = this.methods,
 				qrFile = await this.qrCode.generate(dataResponse.consignment.address),
 				buttons = Markup.inlineKeyboard([

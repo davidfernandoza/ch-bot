@@ -5,12 +5,14 @@ class StartController {
 		ErrorHandler,
 		TermRepository,
 		PlanRepository,
-		StartPresentation
+		StartView,
+		StartDomain
 	}) {
 		this.planRepository = PlanRepository
 		this.termRepository = TermRepository
-		this.startPresentation = StartPresentation
+		this.startView = StartView
 		this.errorHandler = ErrorHandler
+		this.startDomain = StartDomain
 	}
 
 	/*
@@ -27,20 +29,11 @@ class StartController {
 			const dataPrint = {
 				dataTerm: await this.termRepository.getDefaultTerm(),
 				dataPlan: await this.planRepository.getDefaultPlan(),
-				sponsorTelegramId: this.getSponsorTelegramId(CTX)
+				sponsorTelegramId: this.startDomain.getSponsorTelegramId(CTX)
 			}
-			return this.startPresentation.responseWithDataAndButton(CTX, dataPrint)
+			return this.startView.printInChat(CTX, dataPrint)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
-		}
-	}
-
-	getSponsorTelegramId(CTX) {
-		try {
-			const arrayText = CTX.update.message.text.split(' ')
-			return arrayText.length > 1 ? arrayText[1] : '1ROOT'
-		} catch (error) {
-			throw new Error(error)
 		}
 	}
 }

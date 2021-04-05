@@ -27,14 +27,20 @@ const {
 	TermRepository
 } = require('../app/repositories')
 /* -----------------------------------------------------*/
-/* Presentations:			 																	*/
+/* Views:			 																	*/
 /*------------------------------------------------------*/
-const { StartPresentation } = require('../app/presentations')
+const {
+	StartView,
+	ClientView,
+	MenuView,
+	ValidateView,
+	WalletView
+} = require('../app/views')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
 /*------------------------------------------------------*/
-const { ClientDomain } = require('../app/domains')
+const { ClientDomain, StartDomain, WalletDomain } = require('../app/domains')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
@@ -44,7 +50,7 @@ const { MessageString, DefaultString } = require('../helpers/strings')
 /* -----------------------------------------------------*/
 /* Services:			 																			*/
 /*------------------------------------------------------*/
-const { UrlBotService, QrCode } = require('../app/services')
+const { UrlBotService, QrCodeService } = require('../app/services')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -64,11 +70,6 @@ const {
 	MenuController,
 	WalletController
 } = require('../app/controllers')
-
-/* -----------------------------------------------------*/
-/* Traits:						 																	*/
-/*------------------------------------------------------*/
-const { WalletTrait, TermPlanTrait } = require('../app/traits')
 
 /* -----------------------------------------------------*/
 /* Modelos:						 																	*/
@@ -107,12 +108,6 @@ container
 		WalletController: asClass(WalletController).singleton()
 	})
 
-	// Traits:
-	.register({
-		WalletTrait: asClass(WalletTrait).singleton(),
-		TermPlanTrait: asClass(TermPlanTrait).singleton()
-	})
-
 	// Models:
 	.register({
 		Client: asValue(Client)
@@ -128,7 +123,7 @@ container
 	// Services:
 	.register({
 		UrlBotService: asClass(UrlBotService).singleton(),
-		QrCode: asClass(QrCode).singleton()
+		QrCodeService: asClass(QrCodeService).singleton()
 	})
 
 	// Repositories
@@ -141,12 +136,18 @@ container
 
 	// Domain
 	.register({
-		ClientDomain: asClass(ClientDomain).singleton()
+		ClientDomain: asClass(ClientDomain).singleton(),
+		StartDomain: asClass(StartDomain).singleton(),
+		WalletDomain: asClass(WalletDomain).singleton()
 	})
 
-	// Presentations
+	// Views
 	.register({
-		StartPresentation: asClass(StartPresentation).singleton()
+		StartView: asClass(StartView).singleton(),
+		ClientView: asClass(ClientView).singleton(),
+		MenuView: asClass(MenuView).singleton(),
+		ValidateView: asClass(ValidateView).singleton(),
+		WalletView: asClass(WalletView).singleton()
 	})
 
 module.exports = container

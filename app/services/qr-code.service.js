@@ -5,7 +5,7 @@ const qrcode = require('qrcode')
  * Genera codigo QR con valor pasado por parametro
  * retorna imagen PNG convertida de base64 a binario
  */
-class QrCode {
+class QrCodeService {
 	generate(toCode) {
 		return new Promise((resolve, reject) => {
 			qrcode.toDataURL(toCode, (error, code) => {
@@ -18,4 +18,4 @@ class QrCode {
 	}
 }
 
-module.exports = QrCode
+module.exports = QrCodeService

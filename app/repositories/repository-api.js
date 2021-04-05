@@ -62,7 +62,7 @@ class RepositoryAPI {
 			}
 			return response.data
 		} else {
-			throw new Error({ method: responseFormater.name, response: response })
+			throw new Error({ method: responseFormater.name, data: response })
 		}
 	}
 }

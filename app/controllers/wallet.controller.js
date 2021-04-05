@@ -3,50 +3,69 @@
 class WalletController {
 	constructor({
 		ErrorHandler,
+		WalletRepository,
 		WalletValidate,
+		WalletDomain,
+		WalletView,
 		ClientRepository,
-		ClientDomain
+		ClientDomain,
+		ValidateView
 	}) {
 		this.walletValidate = WalletValidate
+		this.walletView = WalletView
+		this.walletDomain = WalletDomain
+		this.walletRepository = WalletRepository
 		this.clientRepository = ClientRepository
 		this.clientDomain = ClientDomain
 		this.errorHandler = ErrorHandler
+		this.validateView = ValidateView
 	}
 
-	/*
-	 * Registro de la billetera del cliente en el back
-	 */
 	async storeWallet(CTX) {
-		/*
-		 * Validacion de la direccion
-		 */
-		const address = CTX.message.text
-		if (await this.walletValidate.index(CTX, address)) {
-			const { POST, PUT } = this.methods,
-				wallet = CTX.client.wallet,
-				request = {
-					context: CTX,
-					endpoint:
-						wallet.action_wallet == POST ? 'wallets' : `wallets/${wallet.id}`,
-					method: wallet.action_wallet == POST ? POST : PUT,
-					dataSend: { key: address, client_id: CTX.client.client_id }
-				},
-				dataResponse = await super.apiRequest(request)
-			dataResponse.consignment = await this.getAvailableConsignmentWallet(CTX)
-			return await this.walletTrait.responseWithQR(CTX, dataResponse)
+		try {
+			const keyWallet = CTX.message.text
+
+			// TODO: Hacer middleware para estas validaciones
+			if (!(await this.walletValidate.validateKeyWallet(keyWallet))) {
+				return await this.validateView.sendErrorKeyWallet(CTX)
+			}
+			const clientMongo = CTX.client,
+				walletMongo = CTX.client.wallet,
+				dataWallet = this.walletDomain.makeBackWallet(
+					keyWallet,
+					clientMongo.client_id
+				),
+				response =
+					walletMongo.action_wallet == 'CREATE_WALLET'
+						? await this.walletRepository.storeWallet(dataWallet)
+						: await this.walletRepository.updateWallet(
+								dataWallet,
+								walletMongo.id
+						  ),
+				dataPrint = this.walletDomain.responseManagerWhenCreatingWallet(
+					clientMongo,
+					response
+				)
+			return await this.walletView.sendMessageWithQRCode(CTX, dataPrint)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
 		}
 	}
 
-	async resetActionInClientWallet(CTX) {
-		let telegramId = CTX.from.id,
-			client = await this.clientRepository.getClientByTelegramIdInMongo(
-				telegramId
-			)
-		client = await this.clientDomain.assignActionNewWallet(client, CTX)
-		if (await this.clientRepository.storeClientInMongo(client)) {
+	async resetActionInClientWallet(CTX, action) {
+		try {
+			let actionWallet = !action ? 'CREATE_WALLET' : action,
+				actionBot = 'GET_WALLET',
+				telegramId = CTX.from.id,
+				client = await this.clientRepository.getClientByTelegramIdInMongo(
+					telegramId
+				)
+			client = this.clientDomain.assignAction(client, actionBot)
+			client = this.walletDomain.assignActionWallet(client, actionWallet)
 			return await CTX.reply(this.messageString.sendTronAddress)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
 		}
-		super.handlerError(CTX, resetActionInClientWallet.name)
 	}
 }
 

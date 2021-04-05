@@ -14,6 +14,14 @@ class PlanRepository extends RepositoryAPI {
 			throw new Error(error)
 		}
 	}
+
+	async getPlan(planId) {
+		try {
+			return await super.get(`${this.prefix}/${planId}`)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
 }
 
 module.exports = PlanRepository

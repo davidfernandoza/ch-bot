@@ -1,27 +1,18 @@
 'use strict'
-const axios = require('axios')
-
-/*
- * Valida si el que abre el chat es un bot
- */
 class WalletValidate {
-	constructor({ MessageString, Config }) {
-		this.messageString = MessageString
-		this.config = Config
+	constructor({ WalletRepository }) {
+		this.walletRepository = WalletRepository
 	}
 
-	async index(CTX, address) {
+	async validateKeyWallet(keyWallet) {
 		try {
-			const res = await axios(`${this.config.API_TRONGRID}/accounts/${address}`)
-			if (!res.data.success) {
-				CTX.reply(this.messageString.addresUnavalible)
-				return false
-			}
+			const response = await this.walletRepository.getWalletInfoInTronGrid(
+				keyWallet
+			)
+			if (!response.success) return false
 			return true
 		} catch (error) {
-			console.log(error)
-			CTX.reply(this.messageString.addresUnavalible)
-			return false
+			throw new Error(error)
 		}
 	}
 }
