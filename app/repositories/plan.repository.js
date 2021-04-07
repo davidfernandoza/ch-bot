@@ -17,7 +17,7 @@ class PlanRepository extends RepositoryAPI {
 
 	async getPlan(planId) {
 		try {
-			return await super.get(`${this.prefix}/${planId}`)
+			return await super.get(`${this.prefix}/get-by-id/${planId}`)
 		} catch (error) {
 			throw new Error(error)
 		}

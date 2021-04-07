@@ -6,7 +6,7 @@ class StartDomain {
 		this.planRepository = PlanRepository
 	}
 
-	async makeDataPrint() {
+	async makeDataPrint(CTX) {
 		try {
 			return {
 				dataTerm: await this.termRepository.getDefaultTerm(),

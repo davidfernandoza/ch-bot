@@ -18,7 +18,7 @@ class StartController {
 	 */
 	async sendTermsAndPlans(CTX) {
 		try {
-			const dataPrint = this.StartDomain.makeDataPrint(CTX)
+			const dataPrint = await this.startDomain.makeDataPrint(CTX)
 			return this.startChat.printInChat(CTX, dataPrint)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
