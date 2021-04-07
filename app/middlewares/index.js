@@ -2,7 +2,7 @@
 // Requiere package:
 const fs = require('fs')
 const path = require('path')
-const ignore = 'trait.js'
+const ignore = ''
 let fileName = ''
 
 // Lectura de archivos

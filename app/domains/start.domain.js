@@ -1,6 +1,23 @@
 'use strict'
 
 class StartDomain {
+	constructor({ TermRepository, PlanRepository }) {
+		this.termRepository = TermRepository
+		this.planRepository = PlanRepository
+	}
+
+	async makeDataPrint() {
+		try {
+			return {
+				dataTerm: await this.termRepository.getDefaultTerm(),
+				dataPlan: await this.planRepository.getDefaultPlan(),
+				sponsorTelegramId: this.getSponsorTelegramId(CTX)
+			}
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	getSponsorTelegramId(CTX) {
 		try {
 			const arrayText = CTX.update.message.text.split(' ')

@@ -6,19 +6,19 @@ class WalletController {
 		WalletRepository,
 		WalletValidate,
 		WalletDomain,
-		WalletView,
+		WalletChat,
 		ClientRepository,
 		ClientDomain,
-		ValidateView
+		ValidateChat
 	}) {
 		this.walletValidate = WalletValidate
-		this.walletView = WalletView
+		this.walletChat = WalletChat
 		this.walletDomain = WalletDomain
 		this.walletRepository = WalletRepository
 		this.clientRepository = ClientRepository
 		this.clientDomain = ClientDomain
 		this.errorHandler = ErrorHandler
-		this.validateView = ValidateView
+		this.validateChat = ValidateChat
 	}
 
 	async storeWallet(CTX) {
@@ -27,7 +27,7 @@ class WalletController {
 
 			// TODO: Hacer middleware para estas validaciones
 			if (!(await this.walletValidate.validateKeyWallet(keyWallet))) {
-				return await this.validateView.sendErrorKeyWallet(CTX)
+				return await this.validateChat.sendErrorKeyWallet(CTX)
 			}
 			const clientMongo = CTX.client,
 				walletMongo = CTX.client.wallet,
@@ -46,7 +46,7 @@ class WalletController {
 					clientMongo,
 					response
 				)
-			return await this.walletView.sendMessageWithQRCode(CTX, dataPrint)
+			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
 		}

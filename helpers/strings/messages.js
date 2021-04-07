@@ -7,6 +7,7 @@ module.exports = {
 	serverError:
 		'El chat en este momento no esta disponible, intenta mas tarde o contacte a soporte.',
 	isBot: 'No puede ser un bot para usar este chat.',
+	clientExistError: 'Bienvenido de nuevo.',
 	addresUnavalible:
 		'La direccion de tron no es valida, intenta enviarla otra vez.',
 

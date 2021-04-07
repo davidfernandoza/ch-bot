@@ -12,16 +12,28 @@
  * texto, un click, un stiker etc..
  * en cambio un comando se sebe disparar con el comando tecleado
  */
+
+var express = require('express')
+var app = express()
+
 module.exports = ({
 	Bot,
 	TextHandler,
 	CommandHandler,
-	CallbackQueryHandler
+	CallbackQueryHandler,
+	MiddlewareKernel
 }) => {
 	/*
 	 * Comandos
 	 */
-	Bot.command('/start', CTX => CommandHandler.startBot(CTX))
+	Bot.command('/start', CTX =>
+		MiddlewareKernel.routerToMiddleware({
+			middlewares: ['ClientMiddleware.clientExist'],
+			context: CTX,
+			next: CommandHandler.startBot(CTX)
+		})
+	)
+
 	Bot.command('/menu', CTX => CommandHandler.openMenu(CTX))
 
 	/*

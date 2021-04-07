@@ -1,7 +1,7 @@
 'use strict'
 const { Markup } = require('telegraf')
 
-class StartView {
+class StartChat {
 	constructor({ MessageString }) {
 		this.messageString = MessageString
 	}
@@ -33,4 +33,4 @@ class StartView {
 		}
 	}
 }
-module.exports = StartView
+module.exports = StartChat

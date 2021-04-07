@@ -1,16 +1,8 @@
 'use strict'
 
 class StartController {
-	constructor({
-		ErrorHandler,
-		TermRepository,
-		PlanRepository,
-		StartView,
-		StartDomain
-	}) {
-		this.planRepository = PlanRepository
-		this.termRepository = TermRepository
-		this.startView = StartView
+	constructor({ ErrorHandler, StartChat, StartDomain }) {
+		this.startChat = StartChat
 		this.errorHandler = ErrorHandler
 		this.startDomain = StartDomain
 	}
@@ -26,12 +18,8 @@ class StartController {
 	 */
 	async sendTermsAndPlans(CTX) {
 		try {
-			const dataPrint = {
-				dataTerm: await this.termRepository.getDefaultTerm(),
-				dataPlan: await this.planRepository.getDefaultPlan(),
-				sponsorTelegramId: this.startDomain.getSponsorTelegramId(CTX)
-			}
-			return this.startView.printInChat(CTX, dataPrint)
+			const dataPrint = this.StartDomain.makeDataPrint(CTX)
+			return this.startChat.printInChat(CTX, dataPrint)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
 		}

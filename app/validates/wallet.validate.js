@@ -9,10 +9,14 @@ class WalletValidate {
 			const response = await this.walletRepository.getWalletInfoInTronGrid(
 				keyWallet
 			)
-			if (!response.success) return false
+			if (!response.success) {
+				this.validateChat.sendErrorKeyWallet(CTX)
+				return false
+			}
 			return true
 		} catch (error) {
-			throw new Error(error)
+			this.errorHandler.sendError(error)
+			return false
 		}
 	}
 }

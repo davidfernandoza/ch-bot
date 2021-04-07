@@ -4,7 +4,7 @@ class ClientController {
 	constructor({
 		ClientRepository,
 		ClientDomain,
-		ClientView,
+		ClientChat,
 		ErrorHandler,
 		PlanRepository,
 		WalletController
@@ -14,7 +14,7 @@ class ClientController {
 		this.planRepository = PlanRepository
 		this.errorHandler = ErrorHandler
 		this.walletController = WalletController
-		this.clientView = ClientView
+		this.clientChat = ClientChat
 	}
 
 	async storeClient(CTX) {
@@ -31,7 +31,7 @@ class ClientController {
 					CTX.sponsorTelegramId
 				)
 			await this.clientRepository.storeClientInMongo(mongoClient)
-			await this.clientView.succesNewClient(CTX)
+			await this.clientChat.succesNewClient(CTX)
 			return await this.walletController.resetActionInClientWallet(CTX)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)

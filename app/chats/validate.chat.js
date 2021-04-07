@@ -1,6 +1,6 @@
 'use strict'
 
-class ValidateView {
+class ValidateChat {
 	constructor({ MessageString }) {
 		this.messageString = MessageString
 	}
@@ -8,5 +8,9 @@ class ValidateView {
 	async sendErrorKeyWallet(CTX) {
 		return await CTX.reply(this.messageString.succesClient)
 	}
+
+	async clientExist(CTX) {
+		return await CTX.reply(this.messageString.clientExistError)
+	}
 }
-module.exports = ValidateView
+module.exports = ValidateChat

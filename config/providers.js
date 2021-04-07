@@ -15,7 +15,20 @@ const container = createContainer()
 /* -----------------------------------------------------*/
 /* Validates:					 																	*/
 /*------------------------------------------------------*/
-const { IsNotBotValidate, WalletValidate } = require('../helpers/validates')
+const {
+	IsNotBotValidate,
+	WalletValidate,
+	ClientValidate
+} = require('../app/validates')
+
+/* -----------------------------------------------------*/
+/* Middlewares:					 																	*/
+/*------------------------------------------------------*/
+const {
+	ClientMiddleware,
+	MiddlewareKernel,
+	WalletMiddleware
+} = require('../app/middlewares')
 
 /* -----------------------------------------------------*/
 /* Repositories:			 																	*/
@@ -26,16 +39,17 @@ const {
 	PlanRepository,
 	TermRepository
 } = require('../app/repositories')
+
 /* -----------------------------------------------------*/
-/* Views:			 																	*/
+/* Chats:			 																	*/
 /*------------------------------------------------------*/
 const {
-	StartView,
-	ClientView,
-	MenuView,
-	ValidateView,
-	WalletView
-} = require('../app/views')
+	StartChat,
+	ClientChat,
+	MenuChat,
+	ValidateChat,
+	WalletChat
+} = require('../app/Chats')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -91,7 +105,8 @@ container
 	// Validates:
 	.register({
 		IsNotBotValidate: asClass(IsNotBotValidate).singleton(),
-		WalletValidate: asClass(WalletValidate).singleton()
+		WalletValidate: asClass(WalletValidate).singleton(),
+		ClientValidate: asClass(ClientValidate).singleton()
 	})
 
 	// Strings:
@@ -141,13 +156,19 @@ container
 		WalletDomain: asClass(WalletDomain).singleton()
 	})
 
-	// Views
+	// Chats
 	.register({
-		StartView: asClass(StartView).singleton(),
-		ClientView: asClass(ClientView).singleton(),
-		MenuView: asClass(MenuView).singleton(),
-		ValidateView: asClass(ValidateView).singleton(),
-		WalletView: asClass(WalletView).singleton()
+		StartChat: asClass(StartChat).singleton(),
+		ClientChat: asClass(ClientChat).singleton(),
+		MenuChat: asClass(MenuChat).singleton(),
+		ValidateChat: asClass(ValidateChat).singleton(),
+		WalletChat: asClass(WalletChat).singleton()
+	})
+	// Middlewares
+	.register({
+		ClientMiddleware: asClass(ClientMiddleware).singleton(),
+		WalletMiddleware: asClass(WalletMiddleware).singleton(),
+		MiddlewareKernel: asClass(MiddlewareKernel).singleton()
 	})
 
 module.exports = container

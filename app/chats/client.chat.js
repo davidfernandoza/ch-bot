@@ -1,6 +1,6 @@
 'use strict'
 
-class MenuView {
+class ClientChat {
 	constructor({ MessageString }) {
 		this.messageString = MessageString
 	}
@@ -9,4 +9,4 @@ class MenuView {
 		return await CTX.reply(this.messageString.succesClient)
 	}
 }
-module.exports = MenuView
+module.exports = ClientChat
