@@ -1,21 +1,23 @@
 'use strict'
 class WalletValidate {
-	constructor({ WalletRepository }) {
+	constructor({ WalletRepository, ErrorHandler, ValidateChat }) {
 		this.walletRepository = WalletRepository
+		this.errorHandler = ErrorHandler
+		this.validateChat = ValidateChat
 	}
 
-	async validateKeyWallet(keyWallet) {
+	async validateKeyWallet(CTX, keyWallet) {
 		try {
 			const response = await this.walletRepository.getWalletInfoInTronGrid(
 				keyWallet
 			)
 			if (!response.success) {
-				this.validateChat.sendErrorKeyWallet(CTX)
+				await this.validateChat.sendErrorKeyWallet(CTX)
 				return false
 			}
 			return true
 		} catch (error) {
-			this.errorHandler.sendError(error)
+			this.errorHandler.sendError(CTX, error)
 			return false
 		}
 	}

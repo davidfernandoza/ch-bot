@@ -27,9 +27,9 @@ class ActionWalletDomain {
 		}
 	}
 
-	async resetActionInClientWallet(CTX, isUpdate) {
+	async resetActionInClientWallet(CTX, action) {
 		try {
-			const actionWallet = !isUpdate
+			const actionWallet = !action
 				? this.config.STRINGS.CREATE_WALLET
 				: this.config.STRINGS.UPDATE_WALLET
 

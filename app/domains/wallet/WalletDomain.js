@@ -1,5 +1,7 @@
 'use strict'
 
+const { response } = require('express')
+
 class WalletDomain {
 	constructor({
 		ClientRepository,
@@ -15,18 +17,28 @@ class WalletDomain {
 		this.config = Config
 	}
 
-	async storeWalletInBack(clientMongo, dataResponse) {
+	async storeWalletInBack(keyWallet, clientMongo) {
 		try {
-			clientMongo.wallet = { ...dataResponse }
-			return await this.clientRepository.updateClientInMongo(clientMongo)
+			const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
+				wallet = await this.walletRepository.storeWallet(dataWallet)
+			return await this.storeWalletInMongo(clientMongo, wallet)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+	async updateWalletInBack(keyWallet, clientMongo, walletId) {
+		try {
+			const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
+				wallet = await this.walletRepository.updateWallet(dataWallet, walletId)
+			return await this.storeWalletInMongo(clientMongo, wallet)
 		} catch (error) {
 			throw new Error(error)
 		}
 	}
 
-	async storeWalletInMongo(clientMongo, dataResponse) {
+	async storeWalletInMongo(clientMongo, walletData) {
 		try {
-			clientMongo.wallet = { ...dataResponse }
+			clientMongo.wallet = { ...walletData }
 			return await this.clientRepository.updateClientInMongo(clientMongo)
 		} catch (error) {
 			throw new Error(error)

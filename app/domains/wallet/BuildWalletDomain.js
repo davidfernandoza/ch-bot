@@ -15,14 +15,10 @@ class BuildWalletDomain {
 		this.config = Config
 	}
 
-	async makeBackWallet(keyWallet, clientId) {
-		return { key: keyWallet, client_id: clientId }
-	}
-
 	async makeDataPrintForConsignmentWallet(clientMongo) {
 		try {
 			const plan = await this.planRepository.getPlan(clientMongo.plan_id),
-				consignmentWallet = await this.getConsignmentWalletAvailable()
+				consignmentWallet = await this.walletRepository.getConsignmentWalletAvailable()
 			return {
 				plan: plan,
 				consignment: consignmentWallet,

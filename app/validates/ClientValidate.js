@@ -17,22 +17,22 @@ class ClientValidate {
 			const response = await this.clientRepository.getClientByTelegramIdInMongo(
 				telegramId
 			)
-			if (isExist && response) {
-				// Error si el cliente existe
-				this.validateChat.clientExist(CTX)
-				this.menuController.openMenu(CTX)
-				return false
-			} else if (!isExist && !response) {
-				// Error si el cliente no existe
-				this.validateChat.clientNotExist(CTX)
-				this.menuController.openMenu(CTX)
-				return false
-			}
+
+			if (isExist && response)
+				return await this.failResponse(CTX, 'clientExist')
+			else if (!isExist && !response)
+				return await this.failResponse(CTX, 'clientNotExist')
 			return true
 		} catch (error) {
 			this.errorHandler.sendError(error)
 			return false
 		}
+	}
+
+	async failResponse(CTX, fileType) {
+		await this.validateChat[fileType](CTX)
+		await this.menuController.openMenu(CTX)
+		return false
 	}
 }
 

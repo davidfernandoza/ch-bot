@@ -13,5 +13,14 @@ class ClientMiddleware {
 			return true
 		return false
 	}
+
+	async clientNotExistValidate(CTX) {
+		const telegramId = CTX.from.id
+		if (
+			await this.clientValidate.clientExistByTelegramId(CTX, telegramId, false)
+		)
+			return true
+		return false
+	}
 }
 module.exports = ClientMiddleware

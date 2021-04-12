@@ -35,10 +35,13 @@ class WalletRepository extends Repository {
 
 	async getWalletInfoInTronGrid(keyWallet) {
 		try {
-			const response = await axios.get(
-				`${this.tronGridApi}/accounts/${keyWallet}`
-			)
-			return await super.responseFormater(response)
+			return await axios
+				.get(`${this.tronGridApi}/accounts/${keyWallet}`)
+				.then(response => response.data)
+				.catch(error => {
+					if (error.response.status == 400) return error.response.data
+					throw new Error(error)
+				})
 		} catch (error) {
 			throw new Error(error)
 		}

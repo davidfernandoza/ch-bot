@@ -6,7 +6,7 @@ class ValidateChat {
 	}
 
 	async sendErrorKeyWallet(CTX) {
-		return await CTX.reply(this.messageString.succesClient)
+		return await CTX.reply(this.messageString.addresUnavalible)
 	}
 
 	async clientExist(CTX) {

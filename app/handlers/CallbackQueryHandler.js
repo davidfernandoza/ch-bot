@@ -28,7 +28,15 @@ class CallbackQueryHandler {
 				})
 				break
 			case 'changeWallet':
-				this.controllers.WalletController.updateWalletAction(CTX)
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['ClientMiddleware.clientNotExistValidate'],
+					request: { context: CTX, value: buttonValue },
+					next: () =>
+						this.controllers.WalletController.assingWalletAction(
+							CTX,
+							buttonValue
+						)
+				})
 				break
 		}
 	}

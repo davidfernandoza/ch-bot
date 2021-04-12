@@ -4,82 +4,35 @@ class WalletController {
 	constructor({
 		ErrorHandler,
 		ActionWalletDomain,
-		WalletRepository,
-		WalletValidate,
+		BuildWalletDomain,
 		WalletDomain,
 		WalletChat,
-		ClientRepository,
-		ClientDomain,
-		ValidateChat,
 		Config
 	}) {
 		this.actionWalletDomain = ActionWalletDomain
-		this.walletValidate = WalletValidate
 		this.walletChat = WalletChat
 		this.walletDomain = WalletDomain
-		this.walletRepository = WalletRepository
-		this.clientRepository = ClientRepository
-		this.clientDomain = ClientDomain
 		this.errorHandler = ErrorHandler
-		this.validateChat = ValidateChat
+		this.buildWalletDomain = BuildWalletDomain
 		this.config = Config
 	}
 
-	async storWallet(CTX) {
+	async storeWallet(CTX) {
 		try {
-			const keyWallet = CTX.message.text
-
-			// TODO: Hacer middleware para estas validaciones
-			if (!(await this.walletValidate.validateKeyWallet(keyWallet))) {
-				return await this.validateChat.sendErrorKeyWallet(CTX)
-			}
-			const clientMongo = CTX.client,
+			const walletKey = CTX.message.text,
 				walletMongo = CTX.client.wallet,
-				dataWallet = this.walletDomain.makeBackWallet(
-					keyWallet,
-					clientMongo.client_id
-				),
-				response =
-					walletMongo.action_wallet == 'CREATE_WALLET'
-						? await this.walletRepository.storeWallet(dataWallet)
-						: await this.walletRepository.updateWallet(
-								dataWallet,
-								walletMongo.id
-						  ),
-				dataPrint = this.walletDomain.managerResponseWhenCreatingWallet(
-					clientMongo,
-					response
+				clientMongo = CTX.client,
+				dataPrint = await this.buildWalletDomain.makeDataPrintForConsignmentWallet(
+					clientMongo
 				)
-			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
-		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
-		}
-	}
-
-	async storWallet(CTX) {
-		try {
-			const keyWallet = CTX.message.text
-
-			// TODO: Hacer middleware para estas validaciones
-			if (!(await this.walletValidate.validateKeyWallet(keyWallet))) {
-				return await this.validateChat.sendErrorKeyWallet(CTX)
-			}
-			const clientMongo = CTX.client,
-				walletMongo = CTX.client.wallet,
-				dataWallet = this.walletDomain.makeBackWallet(
-					keyWallet,
-					clientMongo.client_id
-				),
-				response =
-					walletMongo.action_wallet == 'CREATE_WALLET'
-						? await this.walletRepository.storeWallet(dataWallet)
-						: await this.walletRepository.updateWallet(
-								dataWallet,
-								walletMongo.id
-						  ),
-				dataPrint = this.walletDomain.managerResponseWhenCreatingWallet(
+			console.log(walletMongo)
+			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET)
+				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
+			else
+				await this.walletDomain.updateWalletInBack(
+					walletKey,
 					clientMongo,
-					response
+					walletMongo.id
 				)
 			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
 		} catch (error) {

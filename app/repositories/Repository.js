@@ -62,7 +62,9 @@ class Repository {
 			}
 			return response.data
 		} else {
-			throw new Error({ method: responseFormater.name, data: response })
+			throw new Error(
+				JSON.stringify({ method: this.responseFormater.name, data: response })
+			)
 		}
 	}
 }
