@@ -3,14 +3,17 @@
 class WalletController {
 	constructor({
 		ErrorHandler,
+		ActionWalletDomain,
 		WalletRepository,
 		WalletValidate,
 		WalletDomain,
 		WalletChat,
 		ClientRepository,
 		ClientDomain,
-		ValidateChat
+		ValidateChat,
+		Config
 	}) {
+		this.actionWalletDomain = ActionWalletDomain
 		this.walletValidate = WalletValidate
 		this.walletChat = WalletChat
 		this.walletDomain = WalletDomain
@@ -19,6 +22,7 @@ class WalletController {
 		this.clientDomain = ClientDomain
 		this.errorHandler = ErrorHandler
 		this.validateChat = ValidateChat
+		this.config = Config
 	}
 
 	async storeWallet(CTX) {
@@ -42,7 +46,7 @@ class WalletController {
 								dataWallet,
 								walletMongo.id
 						  ),
-				dataPrint = this.walletDomain.responseManagerWhenCreatingWallet(
+				dataPrint = this.walletDomain.managerResponseWhenCreatingWallet(
 					clientMongo,
 					response
 				)
@@ -52,17 +56,10 @@ class WalletController {
 		}
 	}
 
-	async resetActionInClientWallet(CTX, action) {
+	async assingWalletAction(CTX, action) {
 		try {
-			let actionWallet = !action ? 'CREATE_WALLET' : action,
-				actionBot = 'GET_WALLET',
-				telegramId = CTX.from.id,
-				client = await this.clientRepository.getClientByTelegramIdInMongo(
-					telegramId
-				)
-			client = this.clientDomain.assignAction(client, actionBot)
-			client = this.walletDomain.assignActionWallet(client, actionWallet)
-			return await CTX.reply(this.messageString.sendTronAddress)
+			await this.actionWalletDomain.resetActionInClientWallet(CTX, action)
+			return await this.walletChat.askTronWallet(CTX)
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
 		}

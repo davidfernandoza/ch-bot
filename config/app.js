@@ -1,5 +1,6 @@
 'use strict'
 require('dotenv').config()
+const defaultStrings = require('../helpers/strings/default')
 
 const { NODE_ENV } = process.env,
 	DATA = {
@@ -12,7 +13,8 @@ const { NODE_ENV } = process.env,
 		TOKEN_ORIGIN: process.env.TOKEN_ORIGIN,
 		BD_CONNECTION_URL: process.env.BD_CONNECTION_URL,
 		API_TRONGRID: process.env.API_TRONGRID,
-		ASSET_ID: process.env.ASSET_ID
+		ASSET_ID: process.env.ASSET_ID,
+		STRINGS: defaultStrings
 	},
 	PRODUCTION = DATA,
 	DEVELOPMENT = {

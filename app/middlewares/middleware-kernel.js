@@ -10,27 +10,24 @@ class MiddlewareKernel {
 
 	async routerToMiddleware(data) {
 		let middlewaresAmount = data.middlewares.length,
-			middlewareStep = 0,
-			status = false
+			middlewareStep = 1
 
-		data.middlewares.every(middlewareAndMethod => {
+		return data.middlewares.every(async middlewareAndMethod => {
 			const middlewareArray = middlewareAndMethod.split('.'),
 				middleware = middlewareArray[0],
-				method = middlewareArray[1]
-			if (!this.middlewaresList[middleware][method](data.context)) {
-				status = false
+				method = middlewareArray[1],
+				reponse = await this.middlewaresList[middleware][method](
+					data.request.context
+				)
+			if (!reponse) {
 				return false
 			}
 
 			if (middlewareStep >= middlewaresAmount) {
-				status = true
-				return false
+				return await data.next(data.request.context, data.request.value)
 			}
 			middlewareStep++
 		})
-
-		if (status) return data.next()
-		else return status
 	}
 }
 module.exports = MiddlewareKernel

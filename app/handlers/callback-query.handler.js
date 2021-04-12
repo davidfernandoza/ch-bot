@@ -1,6 +1,7 @@
 'use strict'
 class CallbackQueryHandler {
-	constructor({ ClientController, WalletController }) {
+	constructor({ ClientController, WalletController, MiddlewareKernel }) {
+		this.middlewareKernel = MiddlewareKernel
 		this.controllers = {
 			ClientController,
 			WalletController
@@ -19,13 +20,15 @@ class CallbackQueryHandler {
 	selectAction(CTX, buttonAction, buttonValue) {
 		switch (buttonAction) {
 			case 'acceptTerms':
-				this.controllers.ClientController.storeClient(CTX, buttonValue)
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['ClientMiddleware.clientExistValidate'],
+					request: { context: CTX, value: buttonValue },
+					next: () =>
+						this.controllers.ClientController.storeClient(CTX, buttonValue)
+				})
 				break
 			case 'changeWallet':
-				this.controllers.WalletController.resetActionInClientWallet(
-					CTX,
-					buttonValue
-				)
+				this.controllers.WalletController.updateWalletAction(CTX)
 				break
 		}
 	}

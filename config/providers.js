@@ -54,7 +54,13 @@ const {
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
 /*------------------------------------------------------*/
-const { ClientDomain, StartDomain, WalletDomain } = require('../app/domains')
+const {
+	WalletDomain,
+	ActionWalletDomain,
+	BuildWalletDomain
+} = require('../app/domains/wallet')
+const { ClientDomain, BuildClientDomain } = require('../app/domains/clients')
+const { StartDomain } = require('../app/domains/start')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
@@ -153,7 +159,10 @@ container
 	.register({
 		ClientDomain: asClass(ClientDomain).singleton(),
 		StartDomain: asClass(StartDomain).singleton(),
-		WalletDomain: asClass(WalletDomain).singleton()
+		ActionWalletDomain: asClass(ActionWalletDomain).singleton(),
+		BuildWalletDomain: asClass(BuildWalletDomain).singleton(),
+		WalletDomain: asClass(WalletDomain).singleton(),
+		BuildClientDomain: asClass(BuildClientDomain).singleton()
 	})
 
 	// Chats
@@ -164,6 +173,7 @@ container
 		ValidateChat: asClass(ValidateChat).singleton(),
 		WalletChat: asClass(WalletChat).singleton()
 	})
+
 	// Middlewares
 	.register({
 		ClientMiddleware: asClass(ClientMiddleware).singleton(),

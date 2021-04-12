@@ -1,6 +1,6 @@
 'use strict'
 
-class WalletDomain {
+class BuildWalletDomain {
 	constructor({
 		ClientRepository,
 		QrCodeService,
@@ -17,34 +17,6 @@ class WalletDomain {
 
 	async makeBackWallet(keyWallet, clientId) {
 		return { key: keyWallet, client_id: clientId }
-	}
-
-	async responseManagerWhenCreatingWallet(clientMongo, dataResponse) {
-		try {
-			await this.clientDomain.assignAction(clientMongo) //Resetea la accion del cliente
-			await this.storeNewWalletInMongo(clientMongo, dataResponse)
-			return await this.makeDataPrintForConsignmentWallet(clientMongo)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	async assignActionWallet(client, actionWallet) {
-		try {
-			client.wallet.action_wallet = actionWallet
-			return await this.clientRepository.updateClientInMongo(client)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	async storeNewWalletInMongo(clientMongo, dataResponse) {
-		try {
-			clientMongo.wallet = { ...dataResponse }
-			return await this.clientRepository.updateClientInMongo(clientMongo)
-		} catch (error) {
-			throw new Error(error)
-		}
 	}
 
 	async makeDataPrintForConsignmentWallet(clientMongo) {
@@ -72,4 +44,4 @@ class WalletDomain {
 	}
 }
 
-module.exports = WalletDomain
+module.exports = BuildWalletDomain

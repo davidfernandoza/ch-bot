@@ -25,6 +25,13 @@ class WalletChat {
 			throw new Error(error)
 		}
 	}
+	async askTronWallet(CTX) {
+		try {
+			return await CTX.reply(this.messageString.sendTronAddress)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
 
 	makeMessageOfTheConsignmentWallet(dataPrint) {
 		try {

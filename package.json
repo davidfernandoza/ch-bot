@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "dev",
-		"dev": "nodemon index.js"
+		"watch": "nodemon index.js"
 	},
 	"keywords": [
 		"bot"

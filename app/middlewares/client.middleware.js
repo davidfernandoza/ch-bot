@@ -5,11 +5,12 @@ class ClientMiddleware {
 		this.clientValidate = ClientValidate
 	}
 
-	async clientExist(CTX) {
+	async clientExistValidate(CTX) {
 		const telegramId = CTX.from.id
-		if (await this.clientValidate.clientExistByTelegramId(CTX, telegramId)) {
+		if (
+			await this.clientValidate.clientExistByTelegramId(CTX, telegramId, true)
+		)
 			return true
-		}
 		return false
 	}
 }

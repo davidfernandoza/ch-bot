@@ -6,7 +6,7 @@ class StartChat {
 		this.messageString = MessageString
 	}
 
-	async printInChat(CTX, dataPrint) {
+	async sendTermAndPlan(CTX, dataPrint) {
 		try {
 			const message = this.makeMessageWithTermAndPlans(CTX, dataPrint),
 				button = Markup.inlineKeyboard([

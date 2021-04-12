@@ -10,6 +10,8 @@ module.exports = {
 	clientExistError: 'Bienvenido de nuevo.',
 	addresUnavalible:
 		'La direccion de tron no es valida, intenta enviarla otra vez.',
+	clientExistError: 'El usuario ya existe en el sistema.',
+	clientNotExistError: 'El usuario no existe en el sistema.',
 
 	// msgA -> Alertas
 
