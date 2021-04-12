@@ -25,7 +25,6 @@ class WalletController {
 				dataPrint = await this.buildWalletDomain.makeDataPrintForConsignmentWallet(
 					clientMongo
 				)
-			console.log(walletMongo)
 			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET)
 				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
 			else

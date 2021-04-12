@@ -39,7 +39,6 @@ class ActionWalletDomain {
 					telegramId
 				)
 			client = await this.clientDomain.assignActionToClient(client, actionBot)
-			console.log(client)
 			return await this.assignActionWallet(client, actionWallet)
 		} catch (error) {
 			throw new Error(error)
