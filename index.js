@@ -1,5 +1,5 @@
 'use strict'
-const provider = require('./config/providers')
+const provider = require('./config/Providers')
 const config = provider.resolve('Config')
 const app = provider.resolve('App')
 provider.resolve('BotKernel')

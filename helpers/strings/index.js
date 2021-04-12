@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
-	MessageString: require('./messages'),
-	DefaultString: require('./default')
+	MessageString: require('./Messages'),
+	DefaultString: require('./Default')
 }

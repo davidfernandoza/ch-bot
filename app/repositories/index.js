@@ -2,7 +2,7 @@
 // Requiere package:
 const fs = require('fs')
 const path = require('path')
-const ignore = 'repository-api.js'
+const ignore = 'Repository.js'
 let fileName = ''
 
 // Lectura de archivos

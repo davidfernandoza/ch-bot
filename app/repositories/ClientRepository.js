@@ -1,6 +1,7 @@
 'use strict'
-const RepositoryAPI = require('./repository-api')
-class ClientRepository extends RepositoryAPI {
+const Repository = require('./Repository')
+
+class ClientRepository extends Repository {
 	constructor({ Client, Config }) {
 		super(Config)
 		this.client = Client

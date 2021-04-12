@@ -1,8 +1,8 @@
 'use strict'
 const axios = require('axios')
-const RepositoryAPI = require('./repository-api')
+const Repository = require('./Repository')
 
-class WalletRepository extends RepositoryAPI {
+class WalletRepository extends Repository {
 	constructor({ Config }) {
 		super(Config)
 		this.tronGridApi = Config.API_TRONGRID

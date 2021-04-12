@@ -1,8 +1,9 @@
 'use strict'
 
 class TextHandler {
-	constructor({ ClientRepository, WalletController }) {
+	constructor({ ClientRepository, WalletController, MiddlewareKernel }) {
 		this.clientRepository = ClientRepository
+		this.middlewareKernel = MiddlewareKernel
 		this.controllers = {
 			WalletController
 		}
@@ -22,7 +23,11 @@ class TextHandler {
 	selectAction(CTX, actionBot) {
 		switch (actionBot.action) {
 			case 'GET_WALLET':
-				this.controllers.WalletController.storeWallet(CTX)
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['WalletMiddleware.correctWallet'],
+					request: { context: CTX, value: null },
+					next: () => this.controllers.WalletController.storeWallet(CTX)
+				})
 				break
 		}
 	}

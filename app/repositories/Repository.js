@@ -1,6 +1,6 @@
 'use strict'
 const axios = require('axios')
-class RepositoryAPI {
+class Repository {
 	constructor(config) {
 		this.config = config
 		this.baseUrl = config.API
@@ -66,4 +66,4 @@ class RepositoryAPI {
 		}
 	}
 }
-module.exports = RepositoryAPI
+module.exports = Repository

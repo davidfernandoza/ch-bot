@@ -1,7 +1,7 @@
 'use strict'
-const RepositoryAPI = require('./repository-api')
+const Repository = require('./Repository')
 
-class TermRepository extends RepositoryAPI {
+class TermRepository extends Repository {
 	constructor({ Config }) {
 		super(Config)
 		this.prefix = 'terms'

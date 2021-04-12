@@ -3,14 +3,13 @@
  * Valida si el que abre el chat es un bot
  */
 class IsNotBotValidate {
-	constructor({ Bot, MessageString }) {
-		this.bot = Bot
-		this.messageString = MessageString
+	constructor({ ValidateChat }) {
+		this.validateChat = ValidateChat
 	}
 
-	index(CTX) {
+	async IsBotError(CTX) {
 		if (CTX.from.is_bot) {
-			this.bot.telegram.sendMessage(CTX.from.id, this.messageString.isBot)
+			await this.validateChat.chatIsBot(CTX)
 			return false
 		}
 		return true

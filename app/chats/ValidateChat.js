@@ -12,8 +12,13 @@ class ValidateChat {
 	async clientExist(CTX) {
 		return await CTX.reply(this.messageString.clientExistError)
 	}
+
 	async clientNotExist(CTX) {
 		return await CTX.reply(this.messageString.clientNotExistError)
+	}
+
+	async chatIsBot(CTX) {
+		return await CTX.reply(this.messageString.isBot)
 	}
 }
 module.exports = ValidateChat

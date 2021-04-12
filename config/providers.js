@@ -3,13 +3,12 @@
 /* -----------------------------------------------------*/
 /* System Config: 																			*/
 /*------------------------------------------------------*/
-const StartUp = require('./start-up')
-const Config = require('./app')
-const Bot = require('./bot')
-const Methods = require('./methods')
-const BotKernel = require('../app/handlers/bot-kernel')
+const StartUp = require('./StartUp')
+const Config = require('./App')
+const Bot = require('./Bot')
+const BotKernel = require('../app/handlers/BotKernel')
 const { asClass, asFunction, asValue, createContainer } = require('awilix')
-const ErrorHandler = require('../helpers/error/error-handler')
+const ErrorHandler = require('../helpers/error/ErrorHandler')
 const container = createContainer()
 
 /* -----------------------------------------------------*/
@@ -103,7 +102,6 @@ container
 		App: asClass(StartUp).singleton(),
 		Config: asValue(Config),
 		Bot: asFunction(Bot).singleton(),
-		Methods: asValue(Methods),
 		BotKernel: asFunction(BotKernel).singleton(),
 		ErrorHandler: asClass(ErrorHandler).singleton()
 	})

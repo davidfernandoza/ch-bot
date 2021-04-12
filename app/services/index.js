@@ -2,7 +2,7 @@
 // Requiere package:
 const fs = require('fs')
 const path = require('path')
-const ignore = 'service.js'
+const ignore = 'Service.js'
 let fileName = ''
 
 // Lectura de archivos
