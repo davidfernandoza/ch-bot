@@ -17,7 +17,10 @@ class ClientController {
 
 	async storeClient(CTX, sponsorId) {
 		try {
-			const backClientData = await this.buildClientDomain.makeBackUser(CTX, sponsorId),
+			const backClientData = await this.buildClientDomain.makeBackUser(
+					CTX,
+					sponsorId
+				),
 				clientInBack = await this.clientDomain.storeClientInBack(
 					backClientData
 				),

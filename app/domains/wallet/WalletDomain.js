@@ -28,7 +28,11 @@ class WalletDomain {
 	}
 	async updateWalletInBack(keyWallet, clientMongo, walletId) {
 		try {
-			const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
+			const dataWallet = {
+					id: walletId,
+					key: keyWallet,
+					client_id: clientMongo.client_id
+				},
 				wallet = await this.walletRepository.updateWallet(dataWallet, walletId)
 			return await this.storeWalletInMongo(clientMongo, wallet)
 		} catch (error) {
