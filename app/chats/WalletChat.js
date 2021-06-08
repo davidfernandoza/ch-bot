@@ -11,8 +11,8 @@ class WalletChat {
 			const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
 				buttons = Markup.inlineKeyboard([
 					Markup.button.callback(
-						'✔️ Validar consignación',
-						`consignmentValidate:NONE`
+						'✔️ Validar Transacción',
+						`transactionValidate:NONE`
 					),
 					Markup.button.callback(
 						'✔️ Cambiar direccion tron',

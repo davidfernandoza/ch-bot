@@ -1,10 +1,16 @@
 'use strict'
 class CallbackQueryHandler {
-	constructor({ ClientController, WalletController, MiddlewareKernel }) {
+	constructor({
+		ClientController,
+		TransactionController,
+		WalletController,
+		MiddlewareKernel
+	}) {
 		this.middlewareKernel = MiddlewareKernel
 		this.controllers = {
 			ClientController,
-			WalletController
+			WalletController,
+			TransactionController
 		}
 	}
 	/*
@@ -36,6 +42,13 @@ class CallbackQueryHandler {
 							CTX,
 							buttonValue
 						)
+				})
+			case 'transactionValidate':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['ClientMiddleware.clientNotExistValidate'],
+					request: { context: CTX, value: buttonValue },
+					next: () =>
+						this.controllers.TransactionController.getValidationInBack(CTX)
 				})
 				break
 		}

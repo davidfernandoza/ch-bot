@@ -36,7 +36,8 @@ const {
 	WalletRepository,
 	ClientRepository,
 	PlanRepository,
-	TermRepository
+	TermRepository,
+	TransactionRepository
 } = require('../app/repositories')
 
 /* -----------------------------------------------------*/
@@ -47,7 +48,8 @@ const {
 	ClientChat,
 	MenuChat,
 	ValidateChat,
-	WalletChat
+	WalletChat,
+	TransactionChat
 } = require('../app/Chats')
 
 /* -----------------------------------------------------*/
@@ -58,6 +60,8 @@ const {
 	ActionWalletDomain,
 	BuildWalletDomain
 } = require('../app/domains/wallet')
+
+const { TransactionValidateDomain } = require('../app/domains/transaction')
 const { ClientDomain, BuildClientDomain } = require('../app/domains/clients')
 const { StartDomain } = require('../app/domains/start')
 
@@ -87,7 +91,8 @@ const {
 	ClientController,
 	StartController,
 	MenuController,
-	WalletController
+	WalletController,
+	TransactionController
 } = require('../app/controllers')
 
 /* -----------------------------------------------------*/
@@ -124,7 +129,8 @@ container
 		ClientController: asClass(ClientController).singleton(),
 		StartController: asClass(StartController).singleton(),
 		MenuController: asClass(MenuController).singleton(),
-		WalletController: asClass(WalletController).singleton()
+		WalletController: asClass(WalletController).singleton(),
+		TransactionController: asClass(TransactionController).singleton()
 	})
 
 	// Models:
@@ -150,7 +156,8 @@ container
 		WalletRepository: asClass(WalletRepository).singleton(),
 		ClientRepository: asClass(ClientRepository).singleton(),
 		PlanRepository: asClass(PlanRepository).singleton(),
-		TermRepository: asClass(TermRepository).singleton()
+		TermRepository: asClass(TermRepository).singleton(),
+		TransactionRepository: asClass(TransactionRepository).singleton()
 	})
 
 	// Domain
@@ -160,7 +167,8 @@ container
 		ActionWalletDomain: asClass(ActionWalletDomain).singleton(),
 		BuildWalletDomain: asClass(BuildWalletDomain).singleton(),
 		WalletDomain: asClass(WalletDomain).singleton(),
-		BuildClientDomain: asClass(BuildClientDomain).singleton()
+		BuildClientDomain: asClass(BuildClientDomain).singleton(),
+		TransactionValidateDomain: asClass(TransactionValidateDomain).singleton()
 	})
 
 	// Chats
@@ -169,7 +177,8 @@ container
 		ClientChat: asClass(ClientChat).singleton(),
 		MenuChat: asClass(MenuChat).singleton(),
 		ValidateChat: asClass(ValidateChat).singleton(),
-		WalletChat: asClass(WalletChat).singleton()
+		WalletChat: asClass(WalletChat).singleton(),
+		TransactionChat: asClass(TransactionChat).singleton()
 	})
 
 	// Middlewares
