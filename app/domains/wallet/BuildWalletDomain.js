@@ -18,7 +18,8 @@ class BuildWalletDomain {
 	async makeDataPrintForConsignmentWallet(clientMongo) {
 		try {
 			const plan = await this.planRepository.getPlan(clientMongo.plan_id),
-				consignmentWallet = await this.walletRepository.getConsignmentWalletAvailable()
+				consignmentWallet =
+					await this.walletRepository.getConsignmentWalletAvailable()
 			return {
 				plan: plan,
 				consignment: consignmentWallet,

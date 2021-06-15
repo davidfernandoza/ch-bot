@@ -3,15 +3,8 @@
 const { response } = require('express')
 
 class WalletDomain {
-	constructor({
-		ClientRepository,
-		QrCodeService,
-		WalletRepository,
-		PlanRepository,
-		Config
-	}) {
+	constructor({ ClientRepository, WalletRepository, PlanRepository, Config }) {
 		this.clientRepository = ClientRepository
-		this.qrCodeService = QrCodeService
 		this.walletRepository = WalletRepository
 		this.planRepository = PlanRepository
 		this.config = Config

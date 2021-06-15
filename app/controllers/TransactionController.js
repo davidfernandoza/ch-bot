@@ -9,11 +9,15 @@ class TransactionController {
 
 	async getValidationInBack(CTX) {
 		try {
-			const validate =
+			const response =
 				await this.transactionValidateDomain.getValidatedForTransaction(CTX)
-			if (validate) {
-				return await this.transactionChat.correctTransaction(CTX)
-			} else return await this.transactionChat.incorrectTransaction(CTX)
+			if (response.status == 'COMPLETE') {
+				return await this.transactionChat.completeTransaction(CTX, response)
+			} else if (response.status == 'INCOMPLETE') {
+				return await this.transactionChat.incompleteTransaction(CTX, response)
+			} else {
+				return await this.transactionChat.noneTransaction(CTX)
+			}
 		} catch (error) {
 			this.errorHandler.sendError(CTX, error)
 		}

@@ -3,7 +3,6 @@
 class ActionWalletDomain {
 	constructor({
 		ClientRepository,
-		QrCodeService,
 		WalletRepository,
 		PlanRepository,
 		ClientDomain,
@@ -11,7 +10,7 @@ class ActionWalletDomain {
 	}) {
 		this.clientRepository = ClientRepository
 		this.clientDomain = ClientDomain
-		this.qrCodeService = QrCodeService
+
 		this.walletRepository = WalletRepository
 		this.planRepository = PlanRepository
 		this.config = Config
