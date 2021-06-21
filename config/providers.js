@@ -37,7 +37,8 @@ const {
 	ClientRepository,
 	PlanRepository,
 	TermRepository,
-	TransactionRepository
+	TransactionRepository,
+	AuthRepository
 } = require('../app/repositories')
 
 /* -----------------------------------------------------*/
@@ -64,6 +65,7 @@ const {
 const { TransactionValidateDomain } = require('../app/domains/transaction')
 const { ClientDomain, BuildClientDomain } = require('../app/domains/clients')
 const { StartDomain } = require('../app/domains/start')
+const { AuthDomain } = require('../app/domains/auth')
 
 /* -----------------------------------------------------*/
 /* Strings:				 																			*/
@@ -157,7 +159,8 @@ container
 		ClientRepository: asClass(ClientRepository).singleton(),
 		PlanRepository: asClass(PlanRepository).singleton(),
 		TermRepository: asClass(TermRepository).singleton(),
-		TransactionRepository: asClass(TransactionRepository).singleton()
+		TransactionRepository: asClass(TransactionRepository).singleton(),
+		AuthRepository: asClass(AuthRepository).singleton()
 	})
 
 	// Domain
@@ -168,7 +171,8 @@ container
 		BuildWalletDomain: asClass(BuildWalletDomain).singleton(),
 		WalletDomain: asClass(WalletDomain).singleton(),
 		BuildClientDomain: asClass(BuildClientDomain).singleton(),
-		TransactionValidateDomain: asClass(TransactionValidateDomain).singleton()
+		TransactionValidateDomain: asClass(TransactionValidateDomain).singleton(),
+		AuthDomain: asClass(AuthDomain).singleton()
 	})
 
 	// Chats

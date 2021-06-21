@@ -6,21 +6,21 @@ class TransactionChat {
 		this.messageString = MessageString
 	}
 
-	async completeTransaction(CTX, dataPrint) {
+	async transactionComplete(CTX, dataPrint) {
 		const button = this.getButtonOpenMenu()
 		const message = this.makeMessageOfTheComplete(dataPrint, button)
 		return await CTX.reply(message)
 	}
 
-	async incompleteTransaction(CTX, dataPrint) {
+	async transactionIncomplete(CTX, dataPrint) {
 		const message = this.makeMessageOfTheIncompleteError(dataPrint)
 		const button = this.getButtonValidate()
 		await CTX.replyWithPhoto({ source: dataPrint.qrFile })
 		return await CTX.reply(message, button)
 	}
-	async noneTransaction(CTX) {
+	async transactionNone(CTX) {
 		const button = this.getButtonValidate()
-		return await CTX.reply(this.messageString.noneTransaction, button)
+		return await CTX.reply(this.messageString.transactionNone, button)
 	}
 
 	makeMessageOfTheIncompleteError(dataPrint) {
@@ -31,7 +31,7 @@ class TransactionChat {
 		return message
 	}
 	makeMessageOfTheComplete(dataPrint) {
-		let message = this.messageString.completeTransaction
+		let message = this.messageString.transactionComplete
 		message = message.replace('#DATE', dataPrint.period)
 		return message
 	}

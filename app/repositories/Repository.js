@@ -13,7 +13,8 @@ class Repository {
 
 	async get(endpoint, access_token) {
 		try {
-			if (access_token) this.optionAxios.headers.access_token = access_token
+			if (access_token)
+				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
 			return this.responseFormater(
 				await axios.get(`${this.baseUrl}/${endpoint}`, this.optionAxios)
 			)
@@ -24,7 +25,8 @@ class Repository {
 
 	async post(endpoint, data, access_token) {
 		try {
-			if (access_token) this.optionAxios.headers.access_token = access_token
+			if (access_token)
+				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
 			return this.responseFormater(
 				await axios.post(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
 			)
@@ -35,7 +37,8 @@ class Repository {
 
 	async put(endpoint, data, access_token) {
 		try {
-			if (access_token) this.optionAxios.headers.access_token = access_token
+			if (access_token)
+				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
 			return this.responseFormater(
 				await axios.put(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
 			)
@@ -46,7 +49,8 @@ class Repository {
 
 	async delete(endpoint, access_token) {
 		try {
-			if (access_token) this.optionAxios.headers.access_token = access_token
+			if (access_token)
+				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
 			return this.responseFormater(
 				await axios.delete(`${this.baseUrl}/${endpoint}`, this.optionAxios)
 			)

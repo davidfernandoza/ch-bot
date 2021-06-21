@@ -10,7 +10,7 @@ class ClientRepository extends Repository {
 
 	async storeClientInBack(clientData) {
 		try {
-			return await super.post(`${this.prefix}`, clientData)
+			return await super.post(`${this.prefix}/telegram`, clientData)
 		} catch (error) {
 			throw new Error(error)
 		}

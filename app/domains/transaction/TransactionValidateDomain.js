@@ -4,7 +4,9 @@ class TransactionValidateDomain {
 		ClientRepository,
 		TransactionRepository,
 		WalletRepository,
+		AuthDomain,
 		QrCodeService,
+		DefaultString,
 		Config
 	}) {
 		this.clientRepository = ClientRepository
@@ -12,6 +14,8 @@ class TransactionValidateDomain {
 		this.walletRepository = WalletRepository
 		this.config = Config
 		this.qrCodeService = QrCodeService
+		this.authDomain = AuthDomain
+		this.defaultString = DefaultString
 	}
 
 	async getValidatedForTransaction(CTX) {
@@ -23,7 +27,11 @@ class TransactionValidateDomain {
 					await this.transactionRepository.getTransactionValidate(
 						client.client_id
 					)
+			console.log('====================================')
+			console.log(transactionResponse)
+			console.log('====================================')
 
+			const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
 			if (transactionResponse.status == 'INCOMPLETE') {
 				transactionResponse.consignment =
 					await this.walletRepository.getConsignmentWalletAvailable()
@@ -31,6 +39,11 @@ class TransactionValidateDomain {
 					transactionResponse.difference,
 					transactionResponse.consignment
 				)
+			} else if (arrayValidate.includes(transactionResponse.status)) {
+				client.status = 'ACTIVE'
+				client.action_bot = { action: 'NONE' }
+				client.period = transactionResponse.period
+				await this.authDomain.login(client)
 			}
 			return transactionResponse
 		} catch (error) {
