@@ -21,7 +21,7 @@ class StartController {
 			const dataPrint = await this.startDomain.makeDataPrint(CTX)
 			return this.startChat.sendTermAndPlan(CTX, dataPrint)
 		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
+			return this.errorHandler.sendError(CTX, error)
 		}
 	}
 }

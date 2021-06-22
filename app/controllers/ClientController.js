@@ -32,7 +32,7 @@ class ClientController {
 			await this.clientChat.succesNewClient(CTX)
 			return await this.walletController.assingWalletAction(CTX)
 		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
+			return this.errorHandler.sendError(CTX, error)
 		}
 	}
 }

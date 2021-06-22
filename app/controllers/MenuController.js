@@ -1,24 +1,24 @@
 'use strict'
-const { Markup } = require('telegraf')
-const { Keyboard } = require('telegram-keyboard')
 
 class MenuController {
+	constructor({ MenuChat, ErrorHandler }) {
+		this.menuChat = MenuChat
+		this.errorHandler = ErrorHandler
+	}
+
 	async openMenu(CTX) {
-		return CTX.reply(
-			'Hola ',
-			Keyboard.reply(
-				[
-					'🤝 Link Referido',
-					'👨‍👧‍👦 Referidos',
-					'📈 Balance',
-					'💵 Cobrar',
-					'📆 Ciclo',
-					'⚖️ Reglas',
-					'🔙 Atras'
-				],
-				{ columns: 2 }
-			)
-		)
+		try {
+			return this.menuChat.openMenu(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+	async openWebKValidate(CTX) {
+		try {
+			return this.menuChat.sendWebKMessage(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
 	}
 }
 module.exports = MenuController

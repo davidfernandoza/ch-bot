@@ -14,14 +14,21 @@ class CommandHandler {
 	 */
 	startBot(CTX) {
 		this.middlewareKernel.routerToMiddleware({
-			middlewares: ['ClientMiddleware.clientExistValidate'],
+			middlewares: ['ClientMiddleware.clientNotExistValidate'],
 			request: { context: CTX, value: null },
 			next: () => this.controllers.StartController.sendTermsAndPlans(CTX)
 		})
 	}
 
 	openMenu(CTX) {
-		this.controllers.MenuController.sendMenu(CTX)
+		this.middlewareKernel.routerToMiddleware({
+			middlewares: [
+				'ClientMiddleware.clientExistValidate',
+				'AuthMiddleware.isActive'
+			],
+			request: { context: CTX, value: null },
+			next: () => this.controllers.MenuController.openMenu(CTX)
+		})
 	}
 }
 module.exports = CommandHandler

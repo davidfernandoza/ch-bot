@@ -22,9 +22,10 @@ class WalletController {
 			const walletKey = CTX.message.text,
 				walletMongo = CTX.client.wallet,
 				clientMongo = CTX.client,
-				dataPrint = await this.buildWalletDomain.makeDataPrintForConsignmentWallet(
-					clientMongo
-				)
+				dataPrint =
+					await this.buildWalletDomain.makeDataPrintForConsignmentWallet(
+						clientMongo
+					)
 			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET)
 				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
 			else
@@ -35,7 +36,7 @@ class WalletController {
 				)
 			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
 		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
+			return this.errorHandler.sendError(CTX, error)
 		}
 	}
 
@@ -44,7 +45,7 @@ class WalletController {
 			await this.actionWalletDomain.resetActionInClientWallet(CTX, action)
 			return await this.walletChat.askTronWallet(CTX)
 		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
+			return this.errorHandler.sendError(CTX, error)
 		}
 	}
 }

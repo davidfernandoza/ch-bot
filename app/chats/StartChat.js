@@ -15,7 +15,7 @@ class StartChat {
 						`acceptTerms:${dataPrint.sponsorTelegramId}`
 					)
 				])
-			return await CTX.reply(message, button)
+			return await CTX.replyWithMarkdown(message, button)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -31,6 +31,12 @@ class StartChat {
 		} catch (error) {
 			throw new Error(error)
 		}
+	}
+
+	getButtonNewClient() {
+		return Markup.inlineKeyboard([
+			Markup.button.callback('🤵 Crear Nuevo Usuario', `newClient:NONE`)
+		])
 	}
 }
 module.exports = StartChat

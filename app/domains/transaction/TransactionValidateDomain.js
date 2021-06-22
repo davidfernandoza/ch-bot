@@ -27,10 +27,6 @@ class TransactionValidateDomain {
 					await this.transactionRepository.getTransactionValidate(
 						client.client_id
 					)
-			console.log('====================================')
-			console.log(transactionResponse)
-			console.log('====================================')
-
 			const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
 			if (transactionResponse.status == 'INCOMPLETE') {
 				transactionResponse.consignment =

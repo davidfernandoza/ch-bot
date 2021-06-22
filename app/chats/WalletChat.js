@@ -8,26 +8,34 @@ class WalletChat {
 
 	async sendMessageWithQRCode(CTX, dataPrint) {
 		try {
-			const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
-				buttons = Markup.inlineKeyboard([
-					Markup.button.callback(
-						'✔️ Validar Transacción',
-						`transactionValidate:NONE`
-					),
-					Markup.button.callback(
-						'✔️ Cambiar direccion tron',
-						`changeWallet:UPDATE_WALLET`
-					)
-				])
-			await CTX.replyWithPhoto({ source: dataPrint.qrFile })
-			return await CTX.reply(message, buttons)
+			await this.sendInfoForTransaction(CTX, dataPrint)
+			return await CTX.replyWithMarkdown(
+				this.messageString.sendChangeToWallet,
+				this.makeChangeWalletButton()
+			)
 		} catch (error) {
 			throw new Error(error)
 		}
 	}
+
+	async sendInfoForTransaction(CTX, dataPrint) {
+		const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
+			validateButton = this.makeValidateTransactionButton()
+		await CTX.replyWithPhoto({ source: dataPrint.qrFile })
+		return await CTX.replyWithMarkdown(message, validateButton)
+	}
+
+	async changeToWallet(CTX) {
+		const changeButton = this.makeChangeWalletButton()
+		return await CTX.replyWithMarkdown(
+			this.messageString.wishChangeToWallet,
+			changeButton
+		)
+	}
+
 	async askTronWallet(CTX) {
 		try {
-			return await CTX.reply(this.messageString.sendTronAddress)
+			return await CTX.replyWithMarkdown(this.messageString.sendTronAddress)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -42,6 +50,23 @@ class WalletChat {
 		} catch (error) {
 			throw new Error(error)
 		}
+	}
+
+	makeValidateTransactionButton() {
+		return Markup.inlineKeyboard([
+			Markup.button.callback(
+				'✔️ Validar Transacción',
+				`transactionValidate:NONE`
+			)
+		])
+	}
+	makeChangeWalletButton() {
+		return Markup.inlineKeyboard([
+			Markup.button.callback(
+				'✔️ Cambiar direccion tron',
+				`changeWallet:UPDATE_WALLET`
+			)
+		])
 	}
 }
 module.exports = WalletChat

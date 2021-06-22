@@ -26,7 +26,7 @@ class TransactionController {
 				return await this.transactionChat.transactionNone(CTX)
 			}
 		} catch (error) {
-			this.errorHandler.sendError(CTX, error)
+			return this.errorHandler.sendError(CTX, error)
 		}
 	}
 }

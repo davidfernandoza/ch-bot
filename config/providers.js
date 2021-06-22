@@ -26,7 +26,8 @@ const {
 const {
 	ClientMiddleware,
 	MiddlewareKernel,
-	WalletMiddleware
+	WalletMiddleware,
+	AuthMiddleware
 } = require('../app/middlewares')
 
 /* -----------------------------------------------------*/
@@ -189,6 +190,7 @@ container
 	.register({
 		ClientMiddleware: asClass(ClientMiddleware).singleton(),
 		WalletMiddleware: asClass(WalletMiddleware).singleton(),
+		AuthMiddleware: asClass(AuthMiddleware).singleton(),
 		MiddlewareKernel: asClass(MiddlewareKernel).singleton()
 	})
 

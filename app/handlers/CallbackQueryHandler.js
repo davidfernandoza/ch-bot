@@ -4,13 +4,17 @@ class CallbackQueryHandler {
 		ClientController,
 		TransactionController,
 		WalletController,
-		MiddlewareKernel
+		MenuController,
+		MiddlewareKernel,
+		StartController
 	}) {
 		this.middlewareKernel = MiddlewareKernel
 		this.controllers = {
 			ClientController,
 			WalletController,
-			TransactionController
+			TransactionController,
+			MenuController,
+			StartController
 		}
 	}
 	/*
@@ -25,9 +29,16 @@ class CallbackQueryHandler {
 
 	selectAction(CTX, buttonAction, buttonValue) {
 		switch (buttonAction) {
+			case 'newClient':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['ClientMiddleware.clientNotExistValidate'],
+					request: { context: CTX, value: buttonValue },
+					next: () => this.controllers.StartController.sendTermsAndPlans(CTX)
+				})
+				break
 			case 'acceptTerms':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientExistValidate'],
+					middlewares: ['ClientMiddleware.clientNotExistValidate'],
 					request: { context: CTX, value: buttonValue },
 					next: () =>
 						this.controllers.ClientController.storeClient(CTX, buttonValue)
@@ -35,7 +46,7 @@ class CallbackQueryHandler {
 				break
 			case 'changeWallet':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientNotExistValidate'],
+					middlewares: ['ClientMiddleware.clientExistValidate'],
 					request: { context: CTX, value: buttonValue },
 					next: () =>
 						this.controllers.WalletController.assingWalletAction(
@@ -43,12 +54,33 @@ class CallbackQueryHandler {
 							buttonValue
 						)
 				})
+				break
 			case 'transactionValidate':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientNotExistValidate'],
+					middlewares: ['ClientMiddleware.clientExistValidate'],
 					request: { context: CTX, value: buttonValue },
 					next: () =>
 						this.controllers.TransactionController.getValidationInBack(CTX)
+				})
+				break
+			case 'openMenu':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: buttonValue },
+					next: () => this.controllers.MenuController.openMenu(CTX)
+				})
+				break
+			case 'openWebK':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: buttonValue },
+					next: () => this.controllers.MenuController.openWebKValidate(CTX)
 				})
 				break
 		}
