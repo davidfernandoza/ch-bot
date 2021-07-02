@@ -51,7 +51,8 @@ const {
 	MenuChat,
 	ValidateChat,
 	WalletChat,
-	TransactionChat
+	TransactionChat,
+	ReferredLinkChat
 } = require('../app/Chats')
 
 /* -----------------------------------------------------*/
@@ -95,7 +96,8 @@ const {
 	StartController,
 	MenuController,
 	WalletController,
-	TransactionController
+	TransactionController,
+	ReferredLinkController
 } = require('../app/controllers')
 
 /* -----------------------------------------------------*/
@@ -133,7 +135,8 @@ container
 		StartController: asClass(StartController).singleton(),
 		MenuController: asClass(MenuController).singleton(),
 		WalletController: asClass(WalletController).singleton(),
-		TransactionController: asClass(TransactionController).singleton()
+		TransactionController: asClass(TransactionController).singleton(),
+		ReferredLinkController: asClass(ReferredLinkController).singleton()
 	})
 
 	// Models:
@@ -183,7 +186,8 @@ container
 		MenuChat: asClass(MenuChat).singleton(),
 		ValidateChat: asClass(ValidateChat).singleton(),
 		WalletChat: asClass(WalletChat).singleton(),
-		TransactionChat: asClass(TransactionChat).singleton()
+		TransactionChat: asClass(TransactionChat).singleton(),
+		ReferredLinkChat: asClass(ReferredLinkChat).singleton()
 	})
 
 	// Middlewares

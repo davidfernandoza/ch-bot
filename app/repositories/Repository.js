@@ -27,6 +27,7 @@ class Repository {
 		try {
 			if (access_token)
 				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
+			console.log(this.optionAxios)
 			return this.responseFormater(
 				await axios.post(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
 			)

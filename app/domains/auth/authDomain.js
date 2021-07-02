@@ -13,12 +13,7 @@ class AuthDomain {
 				telegram_id
 			)
 			if (client.auth.expires_in > moment().format('YYYY-MM-DD')) {
-				const auth = await this.authRepository.refresh(client.auth.access_token)
-				client.auth = {
-					...auth,
-					expires_in: moment().add(auth.expires_in, 's').format('YYYY-MM-DD')
-				}
-				await this.clientRepository.updateClientInMongo(client)
+				client = await this.login(client)
 			}
 			return client.auth.access_token
 		} catch (error) {

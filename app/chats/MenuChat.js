@@ -1,6 +1,6 @@
 'use strict'
 const { Markup } = require('telegraf')
-const { Keyboard, Key } = require('telegram-keyboard')
+const { Keyboard } = require('telegram-keyboard')
 class MenuChat {
 	constructor({ MessageString }) {
 		this.messageString = MessageString
@@ -11,16 +11,52 @@ class MenuChat {
 			'No ves el menu? Usa el siguiente boton.',
 			this.getButtonInfoWebK()
 		)
+		return await this.newMenu(CTX)
+	}
+
+	async newMenu(CTX) {
 		const keyboard = Keyboard.make([
-			[
-				Key.callback('🤝 Link Referido', 'getLink'),
-				Key.callback('👨‍👧‍👦 Referidos', 'getLink')
-			],
-			['📈 Balance', '💵 Cobrar'],
+			['🤝 Link Referido', '👨‍👧‍👦 Referidos'],
+			['💵 Cobrar'],
 			['📆 Ciclo', '⚖️ Reglas']
 		]).reply()
+		return await CTX.reply('Menu Principal', keyboard)
+	}
 
-		return await CTX.reply('Hola de nuevo!', keyboard)
+	referralsMenu(CTX) {
+		const keyboard = Keyboard.make([
+			['🧍🏽‍♂️ Referido 1', '👨‍👦 Referido 2', '👨‍👧‍👦 Referido 3'],
+			['🧑🏽‍🦱 Nivel 1', '👨🏼‍🦰 Nivel 2', '👨🏼‍🦳 Nivel 3'],
+			['👨🏽‍💼 Patrocinador'],
+			['⬅️ Menu Principal']
+		]).reply()
+		return CTX.reply('Menu de Referidos!', keyboard)
+	}
+
+	rulesMenu(CTX) {
+		const keyboard = Keyboard.make([
+			['🔃 Matriz Forzada', '💰 Plan de Pagos'],
+			['🔖 Importante', '⚖️ Terminos y Condiciones'],
+			['⬅️ Menu Principal']
+		]).reply()
+		return CTX.reply('Menu de Reglas!', keyboard)
+	}
+
+	cycleMenu(CTX) {
+		const keyboard = Keyboard.make([
+			['🔄 Estado', '💵 Pagar Ciclo'],
+			['⬅️ Menu Principal']
+		]).reply()
+		return CTX.reply('Menu de Ciclos!', keyboard)
+	}
+
+	chargeMenu(CTX) {
+		const keyboard = Keyboard.make([
+			['💳 Cambiar Direccion Tron', '📊 Cobrar Saldo'],
+			['🗂 Historial'],
+			['⬅️ Menu Principal']
+		]).reply()
+		return CTX.reply('Menu de Cobranza!', keyboard)
 	}
 
 	async sendWebKMessage(CTX) {

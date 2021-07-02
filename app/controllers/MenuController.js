@@ -13,6 +13,38 @@ class MenuController {
 			return this.errorHandler.sendError(CTX, error)
 		}
 	}
+
+	async openReferralsMenu(CTX) {
+		try {
+			return this.menuChat.referralsMenu(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	async openChargeMenu(CTX) {
+		try {
+			return this.menuChat.chargeMenu(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	async openCycleMenu(CTX) {
+		try {
+			return this.menuChat.cycleMenu(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+	async openRulesMenu(CTX) {
+		try {
+			return this.menuChat.rulesMenu(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
 	async openWebKValidate(CTX) {
 		try {
 			return this.menuChat.sendWebKMessage(CTX)
