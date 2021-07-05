@@ -6,14 +6,16 @@ class TextHandler {
 		WalletController,
 		MiddlewareKernel,
 		ReferredLinkController,
-		MenuController
+		MenuController,
+		ClientReferralsController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
 		this.controllers = {
 			WalletController,
 			ReferredLinkController,
-			MenuController
+			MenuController,
+			ClientReferralsController
 		}
 	}
 	/*
@@ -91,6 +93,114 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openRulesMenu(CTX)
+				})
+				break
+			case '⬅️ Menu Principal':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () => this.controllers.MenuController.openMenu(CTX)
+				})
+				break
+			case '🧍🏽‍♂️ Ref. Izquierdo':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'REFERAL_LEFT'
+						)
+				})
+				break
+			case '🧍🏽 Ref. Central':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'REFERAL_CENTER'
+						)
+				})
+				break
+			case '🧍🏽‍♀️ Ref. Derecho':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'REFERAL_RIGTH'
+						)
+				})
+				break
+			case '🧑🏽‍🦱 Generacion 1':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'GENERATION_1'
+						)
+				})
+				break
+			case '👨🏼‍🦰 Generacion 2':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'GENERATION_2'
+						)
+				})
+				break
+			case '👨🏼‍🦳 Generacion 3':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'GENERATION_3'
+						)
+				})
+				break
+			case '👨🏽‍💼 Patrocinador':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () =>
+						this.controllers.ClientReferralsController.getClientReferrals(
+							CTX,
+							'SPONSOR'
+						)
 				})
 				break
 		}

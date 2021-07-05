@@ -9,12 +9,12 @@ class AuthDomain {
 
 	async getAccessToken(telegram_id) {
 		try {
-			const client = await this.clientRepository.getClientByTelegramIdInMongo(
-				telegram_id
-			)
-			if (client.auth.expires_in > moment().format('YYYY-MM-DD')) {
-				client = await this.login(client)
-			}
+			let client = await this.clientRepository.getClientByTelegramIdInMongo(
+					telegram_id
+				),
+				dateNow = moment().format('YYYY-MM-DD HH:mm:ss'),
+				dateUser = moment(client.auth.expires_in).format('YYYY-MM-DD HH:mm:ss')
+			if (dateUser < dateNow) client = await this.login(client)
 			return client.auth.access_token
 		} catch (error) {
 			throw new Error(error)

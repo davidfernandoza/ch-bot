@@ -7,22 +7,30 @@ class ClientMiddleware {
 
 	// Si existe retorna True
 	async clientExistValidate(CTX) {
-		const telegramId = CTX.from.id
-		return await this.clientValidate.clientExistByTelegramId(
-			CTX,
-			telegramId,
-			false
-		)
+		try {
+			const telegramId = CTX.from.id
+			return await this.clientValidate.clientExistByTelegramId(
+				CTX,
+				telegramId,
+				false
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 
 	// Si no existe retorna True
 	async clientNotExistValidate(CTX) {
-		const telegramId = CTX.from.id
-		return await this.clientValidate.clientExistByTelegramId(
-			CTX,
-			telegramId,
-			true
-		)
+		try {
+			const telegramId = CTX.from.id
+			return await this.clientValidate.clientExistByTelegramId(
+				CTX,
+				telegramId,
+				true
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 }
 module.exports = ClientMiddleware

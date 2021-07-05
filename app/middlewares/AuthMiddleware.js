@@ -7,17 +7,25 @@ class AuthMiddleware {
 	}
 
 	async isActive(CTX) {
-		const telegramId = CTX.from.id
-		if (await this.clientValidate.isActive(CTX, telegramId)) {
-			await this.setAccessToken(CTX)
-			return true
+		try {
+			const telegramId = CTX.from.id
+			if (await this.clientValidate.isActive(CTX, telegramId)) {
+				await this.setAccessToken(CTX)
+				return true
+			}
+			return false
+		} catch (error) {
+			throw new Error(error)
 		}
-		return false
 	}
 
 	async setAccessToken(CTX) {
-		const telegramId = CTX.from.id
-		CTX.accessToken = await this.authDomain.getAccessToken(telegramId)
+		try {
+			const telegramId = CTX.from.id
+			CTX.accessToken = await this.authDomain.getAccessToken(telegramId)
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 }
 module.exports = AuthMiddleware

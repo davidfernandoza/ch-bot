@@ -23,6 +23,17 @@ class ClientRepository extends Repository {
 		}
 	}
 
+	async getClientWithReferrals(client_id, accessToken) {
+		try {
+			return await super.get(
+				`${this.prefix}/referrals/${client_id}`,
+				accessToken
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	//  Mongo ----------------------------------
 
 	async storeClientInMongo(dataClient) {

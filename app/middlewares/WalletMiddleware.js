@@ -6,9 +6,14 @@ class WalletMiddleware {
 	}
 
 	async correctWallet(CTX) {
-		const walletKey = CTX.message.text
-		if (await this.walletValidate.validateKeyWallet(CTX, walletKey)) return true
-		return false
+		try {
+			const walletKey = CTX.message.text
+			if (await this.walletValidate.validateKeyWallet(CTX, walletKey))
+				return true
+			return false
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 }
 module.exports = WalletMiddleware

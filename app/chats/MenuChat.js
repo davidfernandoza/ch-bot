@@ -17,16 +17,16 @@ class MenuChat {
 	async newMenu(CTX) {
 		const keyboard = Keyboard.make([
 			['🤝 Link Referido', '👨‍👧‍👦 Referidos'],
-			['💵 Cobrar'],
-			['📆 Ciclo', '⚖️ Reglas']
+			['📆 Ciclo', '💵 Cobrar'],
+			['👤 My Informacion', '⚖️ Reglas']
 		]).reply()
 		return await CTX.reply('Menu Principal', keyboard)
 	}
 
 	referralsMenu(CTX) {
 		const keyboard = Keyboard.make([
-			['🧍🏽‍♂️ Referido 1', '👨‍👦 Referido 2', '👨‍👧‍👦 Referido 3'],
-			['🧑🏽‍🦱 Nivel 1', '👨🏼‍🦰 Nivel 2', '👨🏼‍🦳 Nivel 3'],
+			['🧍🏽‍♂️ Ref. Izquierdo', '🧍🏽 Ref. Central', '🧍🏽‍♀️ Ref. Derecho'],
+			['🧑🏽‍🦱 Generacion 1', '👨🏼‍🦰 Generacion 2', '👨🏼‍🦳 Generacion 3'],
 			['👨🏽‍💼 Patrocinador'],
 			['⬅️ Menu Principal']
 		]).reply()

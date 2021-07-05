@@ -52,7 +52,8 @@ const {
 	ValidateChat,
 	WalletChat,
 	TransactionChat,
-	ReferredLinkChat
+	ReferredLinkChat,
+	ClientReferralsChat
 } = require('../app/Chats')
 
 /* -----------------------------------------------------*/
@@ -65,7 +66,11 @@ const {
 } = require('../app/domains/wallet')
 
 const { TransactionValidateDomain } = require('../app/domains/transaction')
-const { ClientDomain, BuildClientDomain } = require('../app/domains/clients')
+const {
+	ClientDomain,
+	BuildClientDomain,
+	ClientReferralsDomain
+} = require('../app/domains/clients')
 const { StartDomain } = require('../app/domains/start')
 const { AuthDomain } = require('../app/domains/auth')
 
@@ -97,7 +102,8 @@ const {
 	MenuController,
 	WalletController,
 	TransactionController,
-	ReferredLinkController
+	ReferredLinkController,
+	ClientReferralsController
 } = require('../app/controllers')
 
 /* -----------------------------------------------------*/
@@ -136,7 +142,8 @@ container
 		MenuController: asClass(MenuController).singleton(),
 		WalletController: asClass(WalletController).singleton(),
 		TransactionController: asClass(TransactionController).singleton(),
-		ReferredLinkController: asClass(ReferredLinkController).singleton()
+		ReferredLinkController: asClass(ReferredLinkController).singleton(),
+		ClientReferralsController: asClass(ClientReferralsController).singleton()
 	})
 
 	// Models:
@@ -176,7 +183,8 @@ container
 		WalletDomain: asClass(WalletDomain).singleton(),
 		BuildClientDomain: asClass(BuildClientDomain).singleton(),
 		TransactionValidateDomain: asClass(TransactionValidateDomain).singleton(),
-		AuthDomain: asClass(AuthDomain).singleton()
+		AuthDomain: asClass(AuthDomain).singleton(),
+		ClientReferralsDomain: asClass(ClientReferralsDomain).singleton()
 	})
 
 	// Chats
@@ -187,7 +195,8 @@ container
 		ValidateChat: asClass(ValidateChat).singleton(),
 		WalletChat: asClass(WalletChat).singleton(),
 		TransactionChat: asClass(TransactionChat).singleton(),
-		ReferredLinkChat: asClass(ReferredLinkChat).singleton()
+		ReferredLinkChat: asClass(ReferredLinkChat).singleton(),
+		ClientReferralsChat: asClass(ClientReferralsChat).singleton()
 	})
 
 	// Middlewares
