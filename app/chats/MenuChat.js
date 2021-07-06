@@ -18,7 +18,7 @@ class MenuChat {
 		const keyboard = Keyboard.make([
 			['🤝 Link Referido', '👨‍👧‍👦 Referidos'],
 			['📆 Ciclo', '💵 Cobrar'],
-			['👤 My Informacion', '⚖️ Reglas']
+			['👤 Mi Informacion', '⚖️ Reglas']
 		]).reply()
 		return await CTX.reply('Menu Principal', keyboard)
 	}
@@ -57,6 +57,16 @@ class MenuChat {
 			['⬅️ Menu Principal']
 		]).reply()
 		return CTX.reply('Menu de Cobranza!', keyboard)
+	}
+
+	myInfoMenu(CTX) {
+		const keyboard = Keyboard.make([
+			['👤 Ver mi Informacion'],
+			['🇪🇨 Agregar Pais', '📞 Agregar Telefono'],
+			['🌐 Agregar Email', '🎉 Agregar Fecha de Nacimiento'],
+			['⬅️ Menu Principal']
+		]).reply()
+		return CTX.reply('Menu de Información!', keyboard)
 	}
 
 	async sendWebKMessage(CTX) {

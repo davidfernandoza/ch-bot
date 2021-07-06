@@ -6,13 +6,15 @@ class ClientController {
 		BuildClientDomain,
 		ClientChat,
 		ErrorHandler,
-		WalletController
+		WalletController,
+		ClientReferralsChat
 	}) {
 		this.clientDomain = ClientDomain
 		this.buildClientDomain = BuildClientDomain
 		this.errorHandler = ErrorHandler
 		this.walletController = WalletController
 		this.clientChat = ClientChat
+		this.clientReferralsChat = ClientReferralsChat
 	}
 
 	async storeClient(CTX, sponsorId) {
@@ -31,6 +33,15 @@ class ClientController {
 			await this.clientDomain.storeClientInMongo(mongoClientData)
 			await this.clientChat.succesNewClient(CTX)
 			return await this.walletController.assingWalletAction(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	showClientInfo(CTX) {
+		try {
+			const client = this.clientDomain.showClientInfo(CTX)
+			this.clientReferralsChat.printClient(CTX, client)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

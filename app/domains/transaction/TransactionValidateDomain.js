@@ -38,6 +38,7 @@ class TransactionValidateDomain {
 			} else if (arrayValidate.includes(transactionResponse.status)) {
 				client.status = 'ACTIVE'
 				client.action_bot = { action: 'NONE' }
+				client.wallet = { action_wallet: 'NONE' }
 				client.period = transactionResponse.period
 				await this.authDomain.login(client)
 			}

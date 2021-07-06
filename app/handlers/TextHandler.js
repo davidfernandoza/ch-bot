@@ -7,7 +7,8 @@ class TextHandler {
 		MiddlewareKernel,
 		ReferredLinkController,
 		MenuController,
-		ClientReferralsController
+		ClientReferralsController,
+		ClientController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -15,7 +16,8 @@ class TextHandler {
 			WalletController,
 			ReferredLinkController,
 			MenuController,
-			ClientReferralsController
+			ClientReferralsController,
+			ClientController
 		}
 	}
 	/*
@@ -95,6 +97,16 @@ class TextHandler {
 					next: () => this.controllers.MenuController.openRulesMenu(CTX)
 				})
 				break
+			case '👤 Mi Informacion':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () => this.controllers.MenuController.openMyInfoMenu(CTX)
+				})
+				break
 			case '⬅️ Menu Principal':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
@@ -103,6 +115,16 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openMenu(CTX)
+				})
+				break
+			case '👤 Ver mi Informacion':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () => this.controllers.ClientController.showClientInfo(CTX)
 				})
 				break
 			case '🧍🏽‍♂️ Ref. Izquierdo':

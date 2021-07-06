@@ -35,6 +35,6 @@ module.exports = {
 	transactionIncomplete:
 		'Hay varias transacciones que no completan el valor total de #TOTAL QFS para la consignacion, hace fatal #AMOUNT QFS para activar la cuenta.\n\nUsar el anterior codigo QR o envia la cantidad de #AMOUNT QFS a la siguiente direccion: \n\n#KEY \n\n',
 	referred:
-		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*Telefono*: #PHONE\n*Cumpleños*: #BIRTHDAY',
+		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*Telefono*: #PHONE\n*Pais*: #COUNTRY\n*Cumpleaños (mes-dia)*: #BIRTHDAY',
 	notReferred: 'No existe usuario en esta posición.'
 }

@@ -9,7 +9,11 @@ const ClientSchema = new Schema({
 	plan_id: String,
 	sponsor_telegram_id: { type: String, default: '1ROOT' },
 	full_name: String,
-	country_id: String,
+	country: {
+		name: { type: String },
+		prefix: { type: String },
+		country_id: { type: String }
+	},
 	birthday: Date,
 	username: { type: String, unique: true },
 	phone: String,
@@ -26,7 +30,7 @@ const ClientSchema = new Schema({
 	},
 	status: {
 		type: String,
-		enum: ['ACTIVE', 'COMPANY', 'INACTIVE', 'DEBT'],
+		enum: ['ACTIVE', 'INFO', 'COMPANY', 'INACTIVE', 'DEBT'],
 		default: 'INACTIVE'
 	},
 	wallet: {
