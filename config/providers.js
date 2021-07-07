@@ -17,7 +17,8 @@ const container = createContainer()
 const {
 	IsNotBotValidate,
 	WalletValidate,
-	ClientValidate
+	ClientValidate,
+	InfoValidate
 } = require('../app/validates')
 
 /* -----------------------------------------------------*/
@@ -27,7 +28,8 @@ const {
 	ClientMiddleware,
 	MiddlewareKernel,
 	WalletMiddleware,
-	AuthMiddleware
+	AuthMiddleware,
+	InfoMiddleware
 } = require('../app/middlewares')
 
 /* -----------------------------------------------------*/
@@ -126,7 +128,8 @@ container
 	.register({
 		IsNotBotValidate: asClass(IsNotBotValidate).singleton(),
 		WalletValidate: asClass(WalletValidate).singleton(),
-		ClientValidate: asClass(ClientValidate).singleton()
+		ClientValidate: asClass(ClientValidate).singleton(),
+		InfoValidate: asClass(InfoValidate).singleton()
 	})
 
 	// Strings:
@@ -204,7 +207,8 @@ container
 		ClientMiddleware: asClass(ClientMiddleware).singleton(),
 		WalletMiddleware: asClass(WalletMiddleware).singleton(),
 		AuthMiddleware: asClass(AuthMiddleware).singleton(),
-		MiddlewareKernel: asClass(MiddlewareKernel).singleton()
+		MiddlewareKernel: asClass(MiddlewareKernel).singleton(),
+		InfoMiddleware: asClass(InfoMiddleware).singleton()
 	})
 
 module.exports = container

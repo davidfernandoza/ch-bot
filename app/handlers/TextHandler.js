@@ -50,7 +50,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -61,7 +62,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openReferralsMenu(CTX)
@@ -71,7 +73,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openChargeMenu(CTX)
@@ -81,7 +84,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openCycleMenu(CTX)
@@ -91,7 +95,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () => this.controllers.MenuController.openRulesMenu(CTX)
@@ -131,7 +136,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -145,7 +151,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -159,7 +166,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -173,7 +181,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -187,7 +196,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -201,7 +211,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>
@@ -215,7 +226,8 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
 					next: () =>

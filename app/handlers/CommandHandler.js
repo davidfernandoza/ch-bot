@@ -24,7 +24,8 @@ class CommandHandler {
 		this.middlewareKernel.routerToMiddleware({
 			middlewares: [
 				'ClientMiddleware.clientExistValidate',
-				'AuthMiddleware.isActive'
+				'AuthMiddleware.isActive',
+				'InfoMiddleware.infoExistValidate'
 			],
 			request: { context: CTX, value: null },
 			next: () => this.controllers.MenuController.openMenu(CTX)

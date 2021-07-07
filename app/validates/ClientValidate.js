@@ -36,7 +36,7 @@ class ClientValidate {
 			)
 
 			let response = true
-			if (client.status == 'ACTIVE') {
+			if (client.status == 'ACTIVE' || client.status == 'INFO') {
 				if (
 					moment(client.period).format('YYYY-MM-DD') <
 					moment().format('YYYY-MM-DD')

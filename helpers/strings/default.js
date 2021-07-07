@@ -17,5 +17,11 @@ module.exports = {
 		COMPANY: 'Inactivo',
 		DEBT: 'Inactivo',
 		INACTIVE: 'Inactivo'
+	},
+	INFO: {
+		phone: 'el *Telefono*',
+		email: 'el *Email*',
+		country: 'el *Pais*',
+		birthday: 'la *Fecha de nacimiento*'
 	}
 }

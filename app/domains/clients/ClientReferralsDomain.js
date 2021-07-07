@@ -77,6 +77,7 @@ class ClientReferralsDomain {
 	}
 
 	formattingToClientData(client) {
+		if (!client) return null
 		return {
 			full_name: client.full_name ? client.full_name : '*No Existe*',
 			status: client.status ? client.status : '*No Existe*',

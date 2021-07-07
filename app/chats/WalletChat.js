@@ -53,20 +53,28 @@ class WalletChat {
 	}
 
 	makeValidateTransactionButton() {
-		return Markup.inlineKeyboard([
-			Markup.button.callback(
-				'✔️ Validar Transacción',
-				`transactionValidate:NONE`
-			)
-		])
+		try {
+			return Markup.inlineKeyboard([
+				Markup.button.callback(
+					'✔️ Validar Transacción',
+					`transactionValidate:NONE`
+				)
+			])
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 	makeChangeWalletButton() {
-		return Markup.inlineKeyboard([
-			Markup.button.callback(
-				'✔️ Cambiar direccion tron',
-				`changeWallet:UPDATE_WALLET`
-			)
-		])
+		try {
+			return Markup.inlineKeyboard([
+				Markup.button.callback(
+					'✔️ Cambiar direccion tron',
+					`changeWallet:UPDATE_WALLET`
+				)
+			])
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 }
 module.exports = WalletChat

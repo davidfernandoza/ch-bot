@@ -7,13 +7,15 @@ class MiddlewareKernel {
 		ClientMiddleware,
 		WalletMiddleware,
 		AuthMiddleware,
+		InfoMiddleware,
 		ErrorHandler
 	}) {
 		this.errorHandler = ErrorHandler
 		this.middlewaresList = {
 			ClientMiddleware,
 			WalletMiddleware,
-			AuthMiddleware
+			AuthMiddleware,
+			InfoMiddleware
 		}
 	}
 
