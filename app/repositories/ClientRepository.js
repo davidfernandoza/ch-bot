@@ -34,6 +34,18 @@ class ClientRepository extends Repository {
 		}
 	}
 
+	async setCountryForClient(client_id, countryId, accessToken) {
+		try {
+			return await super.post(
+				`${this.prefix}/set-country/${countryId}/${client_id}`,
+				{},
+				accessToken
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	//  Mongo ----------------------------------
 
 	async storeClientInMongo(dataClient) {

@@ -14,7 +14,6 @@ const ClientSchema = new Schema({
 		prefix: { type: String },
 		country_id: { type: String }
 	},
-	birthday: Date,
 	username: { type: String, unique: true },
 	phone: String,
 	telegram_id: { type: String, unique: true },
@@ -24,14 +23,7 @@ const ClientSchema = new Schema({
 		step: { type: String, default: 0 },
 		action: {
 			type: String,
-			enum: [
-				'NONE',
-				'GET_WALLET',
-				'GET_COUNTRY',
-				'GET_PHONE',
-				'GET_EMAIL',
-				'GET_BIRTHDAY'
-			],
+			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY', 'GET_PHONE', 'GET_EMAIL'],
 			default: 'NONE'
 		}
 	},

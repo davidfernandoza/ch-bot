@@ -1,13 +1,11 @@
 'use strict'
-
-const { response } = require('express')
-
 class MiddlewareKernel {
 	constructor({
 		ClientMiddleware,
 		WalletMiddleware,
 		AuthMiddleware,
 		InfoMiddleware,
+		CountryMiddleware,
 		ErrorHandler
 	}) {
 		this.errorHandler = ErrorHandler
@@ -15,7 +13,8 @@ class MiddlewareKernel {
 			ClientMiddleware,
 			WalletMiddleware,
 			AuthMiddleware,
-			InfoMiddleware
+			InfoMiddleware,
+			CountryMiddleware
 		}
 	}
 

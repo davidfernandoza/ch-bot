@@ -19,18 +19,26 @@ class WalletChat {
 	}
 
 	async sendInfoForTransaction(CTX, dataPrint) {
-		const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
-			validateButton = this.makeValidateTransactionButton()
-		await CTX.replyWithPhoto({ source: dataPrint.qrFile })
-		return await CTX.replyWithMarkdown(message, validateButton)
+		try {
+			const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
+				validateButton = this.makeValidateTransactionButton()
+			await CTX.replyWithPhoto({ source: dataPrint.qrFile })
+			return await CTX.replyWithMarkdown(message, validateButton)
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 
 	async changeToWallet(CTX) {
-		const changeButton = this.makeChangeWalletButton()
-		return await CTX.replyWithMarkdown(
-			this.messageString.wishChangeToWallet,
-			changeButton
-		)
+		try {
+			const changeButton = this.makeChangeWalletButton()
+			return await CTX.replyWithMarkdown(
+				this.messageString.wishChangeToWallet,
+				changeButton
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
 	}
 
 	async askTronWallet(CTX) {

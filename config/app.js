@@ -1,6 +1,6 @@
 'use strict'
 require('dotenv').config()
-const defaultStrings = require('../helpers/strings/Default')
+const defaultStrings = require('../helpers/strings/DefaultString')
 
 const { NODE_ENV } = process.env,
 	DATA = {

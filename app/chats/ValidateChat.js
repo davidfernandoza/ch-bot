@@ -1,5 +1,6 @@
 'use strict'
 
+const { Markup } = require('telegraf')
 class ValidateChat {
 	constructor({
 		MessageString,
@@ -76,6 +77,39 @@ class ValidateChat {
 			message = message.replace('#INFO', attributeSelected)
 			await CTX.replyWithMarkdown(message)
 			return await this.menuChat.myInfoMenu(CTX)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async sendDefaultMessage(CTX) {
+		try {
+			const client = CTX.client
+			const actionMessage = this.defaultString.ACTIONS[client.action_bot.action]
+			let message = this.messageString.defaultTextMessage
+			const button = Markup.inlineKeyboard([
+				Markup.button.callback('✔️ Cancelar acción', `actionCancel:NONE`)
+			])
+			message = message.replace('#ACTION', actionMessage)
+			return await CTX.replyWithMarkdown(message, button)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async actionCancelMessage(CTX) {
+		try {
+			const message = this.messageString.cancelActionMessage
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async otherTextSended(CTX) {
+		try {
+			const message = this.messageString.otherTextSended
+			return await CTX.replyWithMarkdown(message)
 		} catch (error) {
 			throw new Error(error)
 		}

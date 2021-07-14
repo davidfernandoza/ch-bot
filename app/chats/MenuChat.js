@@ -88,7 +88,7 @@ class MenuChat {
 			const keyboard = Keyboard.make([
 				['👤 Ver mi Informacion'],
 				['🇪🇨 Agregar Pais', '📞 Agregar Telefono'],
-				['🌐 Agregar Email', '🎉 Agregar Fecha de Nacimiento'],
+				['🌐 Agregar Email'],
 				['⬅️ Menu Principal']
 			]).reply()
 			return CTX.reply('Menu de Información!', keyboard)

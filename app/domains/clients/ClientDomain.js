@@ -1,5 +1,5 @@
 'use strict'
-const str = require('string')
+
 class ClientDomain {
 	constructor({ ClientRepository, PlanRepository }) {
 		this.clientRepository = ClientRepository
@@ -43,7 +43,6 @@ class ClientDomain {
 					full_name: client.full_name ? client.full_name : '*No Existe*',
 					status: client.status ? client.status : '*No Existe*',
 					phone: client.phone ? client.phone : '*No Existe*',
-					birthday: client.birthday ? client.birthday : '*No Existe*',
 					country:
 						JSON.stringify(client.country) != '{}'
 							? client.country
@@ -51,6 +50,14 @@ class ClientDomain {
 					user_email: client.email ? client.email : '*No Existe*'
 				}
 			}
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async updateUserInMongo(client) {
+		try {
+			return await this.clientRepository.updateClientInMongo(client)
 		} catch (error) {
 			throw new Error(error)
 		}

@@ -6,6 +6,7 @@ class WalletController {
 		ActionWalletDomain,
 		BuildWalletDomain,
 		WalletDomain,
+		ClientDomain,
 		WalletChat,
 		Config
 	}) {
@@ -13,6 +14,7 @@ class WalletController {
 		this.walletChat = WalletChat
 		this.walletDomain = WalletDomain
 		this.errorHandler = ErrorHandler
+		this.clientDomain = ClientDomain
 		this.buildWalletDomain = BuildWalletDomain
 		this.config = Config
 	}
@@ -26,15 +28,17 @@ class WalletController {
 					await this.buildWalletDomain.makeDataPrintForConsignmentWallet(
 						clientMongo
 					)
-			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET)
+			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET) {
 				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
-			else
+			} else {
 				await this.walletDomain.updateWalletInBack(
 					walletKey,
 					clientMongo,
 					walletMongo.id
 				)
-			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
+				await this.clientDomain.assignActionToClient(clientMongo)
+				return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
+			}
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

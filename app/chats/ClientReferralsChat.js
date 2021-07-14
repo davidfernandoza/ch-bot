@@ -37,12 +37,6 @@ class ClientReferralsChat {
 				)
 			} else message = message.replace('#PHONE', client.data.phone)
 
-			if (client.data.birthday != '*No Existe*') {
-				message = message.replace(
-					'#BIRTHDAY',
-					moment(client.data.birthday).format('MM-DD')
-				)
-			} else message = message.replace('#BIRTHDAY', client.data.birthday)
 			if (client.data.country != '*No Existe*') {
 				message = message.replace(
 					'#COUNTRY',

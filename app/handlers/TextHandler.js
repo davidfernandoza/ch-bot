@@ -3,22 +3,24 @@
 class TextHandler {
 	constructor({
 		ClientRepository,
-		WalletController,
 		MiddlewareKernel,
+		WalletController,
 		ReferredLinkController,
 		MenuController,
 		ClientReferralsController,
-		ClientController
+		ClientController,
+		CountryController,
+		DefaultController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
-		this.controllers = {
-			WalletController,
-			ReferredLinkController,
-			MenuController,
-			ClientReferralsController,
-			ClientController
-		}
+		this.walletController = WalletController
+		this.referredLinkController = ReferredLinkController
+		this.menuController = MenuController
+		this.clientReferralsController = ClientReferralsController
+		this.clientController = ClientController
+		this.countryController = CountryController
+		this.defaultController = DefaultController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -27,13 +29,20 @@ class TextHandler {
 		CTX.client = await this.clientRepository.getClientByTelegramIdInMongo(
 			CTX.from.id
 		)
-		const action =
-			CTX.client.action_bot.action != 'NONE'
-				? CTX.client.action_bot.action
-				: CTX.update.message.text
-
 		if (CTX.client) {
+			const action =
+				CTX.client.action_bot.action != 'NONE'
+					? CTX.client.action_bot.action
+					: CTX.update.message.text
 			this.selectAction(CTX, action)
+		} else {
+			this.middlewareKernel.routerToMiddleware({
+				middlewares: ['ClientMiddleware.clientExistValidate'],
+				request: { context: CTX, value: null },
+				next: () => {
+					return
+				}
+			})
 		}
 	}
 
@@ -43,7 +52,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['WalletMiddleware.correctWallet'],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.WalletController.storeWallet(CTX)
+					next: () => this.walletController.storeWallet(CTX)
 				})
 				break
 			case '🤝 Link Referido':
@@ -54,8 +63,7 @@ class TextHandler {
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
-					next: () =>
-						this.controllers.ReferredLinkController.senReferradLink(CTX)
+					next: () => this.referredLinkController.senReferradLink(CTX)
 				})
 				break
 			case '👨‍👧‍👦 Referidos':
@@ -66,7 +74,7 @@ class TextHandler {
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openReferralsMenu(CTX)
+					next: () => this.menuController.openReferralsMenu(CTX)
 				})
 				break
 			case '💵 Cobrar':
@@ -77,7 +85,7 @@ class TextHandler {
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openChargeMenu(CTX)
+					next: () => this.menuController.openChargeMenu(CTX)
 				})
 				break
 			case '📆 Ciclo':
@@ -88,7 +96,7 @@ class TextHandler {
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openCycleMenu(CTX)
+					next: () => this.menuController.openCycleMenu(CTX)
 				})
 				break
 			case '⚖️ Reglas':
@@ -99,7 +107,7 @@ class TextHandler {
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openRulesMenu(CTX)
+					next: () => this.menuController.openRulesMenu(CTX)
 				})
 				break
 			case '👤 Mi Informacion':
@@ -109,7 +117,17 @@ class TextHandler {
 						'AuthMiddleware.isActive'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openMyInfoMenu(CTX)
+					next: () => this.menuController.openMyInfoMenu(CTX)
+				})
+				break
+			case '🇪🇨 Agregar Pais':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX, value: null },
+					next: () => this.countryController.getAllCountries(CTX)
 				})
 				break
 			case '⬅️ Menu Principal':
@@ -119,7 +137,7 @@ class TextHandler {
 						'AuthMiddleware.isActive'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.MenuController.openMenu(CTX)
+					next: () => this.menuController.openMenu(CTX)
 				})
 				break
 			case '👤 Ver mi Informacion':
@@ -129,7 +147,7 @@ class TextHandler {
 						'AuthMiddleware.isActive'
 					],
 					request: { context: CTX, value: null },
-					next: () => this.controllers.ClientController.showClientInfo(CTX)
+					next: () => this.clientController.showClientInfo(CTX)
 				})
 				break
 			case '🧍🏽‍♂️ Ref. Izquierdo':
@@ -141,7 +159,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'REFERAL_LEFT'
 						)
@@ -156,7 +174,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'REFERAL_CENTER'
 						)
@@ -171,7 +189,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'REFERAL_RIGTH'
 						)
@@ -186,7 +204,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'GENERATION_1'
 						)
@@ -201,7 +219,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'GENERATION_2'
 						)
@@ -216,7 +234,7 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
+						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'GENERATION_3'
 						)
@@ -231,11 +249,19 @@ class TextHandler {
 					],
 					request: { context: CTX, value: null },
 					next: () =>
-						this.controllers.ClientReferralsController.getClientReferrals(
-							CTX,
-							'SPONSOR'
-						)
+						this.clientReferralsController.getClientReferrals(CTX, 'SPONSOR')
 				})
+				break
+			default:
+				if (CTX.client.action_bot.action != 'NONE') {
+					this.middlewareKernel.routerToMiddleware({
+						middlewares: ['ClientMiddleware.clientExistValidate'],
+						request: { context: CTX, value: null },
+						next: () => this.defaultController.defaultHandler(CTX)
+					})
+				} else {
+					this.defaultController.otherTextSended(CTX)
+				}
 				break
 		}
 	}

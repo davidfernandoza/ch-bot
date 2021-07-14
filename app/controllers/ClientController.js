@@ -20,10 +20,10 @@ class ClientController {
 	async storeClient(CTX, sponsorId) {
 		try {
 			const backClientData = await this.buildClientDomain.makeBackUser(
-					CTX,
-					sponsorId
-				),
-				clientInBack = await this.clientDomain.storeClientInBack(
+				CTX,
+				sponsorId
+			)
+			const clientInBack = await this.clientDomain.storeClientInBack(
 					backClientData
 				),
 				mongoClientData = await this.buildClientDomain.makeMongoUser(
