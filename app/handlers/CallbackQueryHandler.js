@@ -34,28 +34,28 @@ class CallbackQueryHandler {
 			case 'newClient':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientNotExistValidate'],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.startController.sendTermsAndPlans(CTX)
 				})
 				break
 			case 'acceptTerms':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientNotExistValidate'],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.clientController.storeClient(CTX, buttonValue)
 				})
 				break
 			case 'changeWallet':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientExistValidate'],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.walletController.assingWalletAction(CTX, buttonValue)
 				})
 				break
 			case 'transactionValidate':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientExistValidate'],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.transactionController.getValidationInBack(CTX)
 				})
 				break
@@ -63,9 +63,10 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.menuController.openMenu(CTX)
 				})
 				break
@@ -73,9 +74,10 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.menuController.openWebKValidate(CTX)
 				})
 				break
@@ -83,10 +85,11 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'CountryMiddleware.getCountryValidate'
 					],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () =>
 						this.countryController.setCountryForClient(CTX, buttonValue)
 				})
@@ -94,7 +97,7 @@ class CallbackQueryHandler {
 			case 'actionCancel':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientExistValidate'],
-					request: { context: CTX, value: buttonValue },
+					request: { context: CTX },
 					next: () => this.defaultController.cancelHandler(CTX)
 				})
 				break

@@ -1,8 +1,16 @@
 'use strict'
 
 class CommandHandler {
-	constructor({ MenuController, StartController, MiddlewareKernel }) {
+	constructor({
+		MenuController,
+		StartController,
+		MiddlewareKernel,
+		ClientRepository,
+		DefaultController
+	}) {
 		this.middlewareKernel = MiddlewareKernel
+		this.clientRepository = ClientRepository
+		this.defaultController = DefaultController
 		this.controllers = {
 			MenuController,
 			StartController
@@ -15,19 +23,20 @@ class CommandHandler {
 	startBot(CTX) {
 		this.middlewareKernel.routerToMiddleware({
 			middlewares: ['ClientMiddleware.clientNotExistValidate'],
-			request: { context: CTX, value: null },
+			request: { context: CTX },
 			next: () => this.controllers.StartController.sendTermsAndPlans(CTX)
 		})
 	}
 
-	openMenu(CTX) {
+	async openMenu(CTX) {
 		this.middlewareKernel.routerToMiddleware({
 			middlewares: [
 				'ClientMiddleware.clientExistValidate',
+				'WalletMiddleware.clientWithWallet',
 				'AuthMiddleware.isActive',
 				'InfoMiddleware.infoExistValidate'
 			],
-			request: { context: CTX, value: null },
+			request: { context: CTX },
 			next: () => this.controllers.MenuController.openMenu(CTX)
 		})
 	}

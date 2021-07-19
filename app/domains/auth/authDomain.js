@@ -14,6 +14,7 @@ class AuthDomain {
 				),
 				dateNow = moment().format('YYYY-MM-DD HH:mm:ss'),
 				dateUser = moment(client.auth.expires_in).format('YYYY-MM-DD HH:mm:ss')
+			if (!client.auth) return false
 			if (dateUser < dateNow) client = await this.login(client)
 			return client.auth.access_token
 		} catch (error) {

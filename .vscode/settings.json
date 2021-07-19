@@ -1,8 +1,0 @@
-{
-  "files.exclude": {
-    "": true
-  },
-  "cSpell.enableFiletypes": [
-    "blade"
-  ]
-}

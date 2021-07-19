@@ -36,9 +36,9 @@ class WalletController {
 					clientMongo,
 					walletMongo.id
 				)
-				await this.clientDomain.assignActionToClient(clientMongo)
-				return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
 			}
+			await this.clientDomain.assignActionToClient(clientMongo)
+			return await this.walletChat.sendMessageWithQRCode(CTX, dataPrint)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

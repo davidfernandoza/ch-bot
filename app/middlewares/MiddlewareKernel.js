@@ -20,24 +20,26 @@ class MiddlewareKernel {
 
 	async routerToMiddleware(data) {
 		try {
-			let middlewaresAmount = data.middlewares.length,
-				middlewareStep = 1
+			let middlewaresAmount = data.middlewares.length
+			if (middlewaresAmount == 0) {
+				data.next()
+				return true
+			}
 
-			return data.middlewares.every(middlewareAndMethod => {
-				const middlewareArray = middlewareAndMethod.split('.'),
-					middleware = middlewareArray[0],
-					method = middlewareArray[1]
-				return this.middlewaresList[middleware][method](
-					data.request.context
-				).then(response => {
-					if (!response) return false
-					if (middlewareStep >= middlewaresAmount) {
-						data.next(data.request.context, data.request.value)
-						return true
-					}
-					middlewareStep++
-				})
-			})
+			const middlewareArray = data.middlewares[0].split('.'),
+				middleware = middlewareArray[0],
+				method = middlewareArray[1]
+
+			const response = await this.middlewaresList[middleware][method](
+				data.request.context
+			)
+
+			if (response) {
+				data.middlewares.shift()
+				this.routerToMiddleware(data)
+			} else {
+				return false
+			}
 		} catch (error) {
 			this.errorHandler.sendError(data.request.context, error)
 			return false

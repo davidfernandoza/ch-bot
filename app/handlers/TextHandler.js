@@ -29,6 +29,7 @@ class TextHandler {
 		CTX.client = await this.clientRepository.getClientByTelegramIdInMongo(
 			CTX.from.id
 		)
+
 		if (CTX.client) {
 			const action =
 				CTX.client.action_bot.action != 'NONE'
@@ -38,7 +39,7 @@ class TextHandler {
 		} else {
 			this.middlewareKernel.routerToMiddleware({
 				middlewares: ['ClientMiddleware.clientExistValidate'],
-				request: { context: CTX, value: null },
+				request: { context: CTX },
 				next: () => {
 					return
 				}
@@ -51,7 +52,7 @@ class TextHandler {
 			case 'GET_WALLET':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['WalletMiddleware.correctWallet'],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.walletController.storeWallet(CTX)
 				})
 				break
@@ -59,10 +60,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.referredLinkController.senReferradLink(CTX)
 				})
 				break
@@ -70,10 +72,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openReferralsMenu(CTX)
 				})
 				break
@@ -81,10 +84,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openChargeMenu(CTX)
 				})
 				break
@@ -92,10 +96,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
 				})
 				break
@@ -103,10 +108,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openRulesMenu(CTX)
 				})
 				break
@@ -114,9 +120,10 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openMyInfoMenu(CTX)
 				})
 				break
@@ -124,9 +131,10 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.countryController.getAllCountries(CTX)
 				})
 				break
@@ -134,9 +142,10 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.menuController.openMenu(CTX)
 				})
 				break
@@ -144,9 +153,10 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () => this.clientController.showClientInfo(CTX)
 				})
 				break
@@ -154,10 +164,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -169,10 +180,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -184,10 +196,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -199,10 +212,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -214,10 +228,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -229,10 +244,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(
 							CTX,
@@ -244,10 +260,11 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
-					request: { context: CTX, value: null },
+					request: { context: CTX },
 					next: () =>
 						this.clientReferralsController.getClientReferrals(CTX, 'SPONSOR')
 				})
@@ -255,8 +272,11 @@ class TextHandler {
 			default:
 				if (CTX.client.action_bot.action != 'NONE') {
 					this.middlewareKernel.routerToMiddleware({
-						middlewares: ['ClientMiddleware.clientExistValidate'],
-						request: { context: CTX, value: null },
+						middlewares: [
+							'ClientMiddleware.clientExistValidate',
+							'WalletMiddleware.clientWithWallet'
+						],
+						request: { context: CTX },
 						next: () => this.defaultController.defaultHandler(CTX)
 					})
 				} else {

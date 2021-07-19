@@ -12,15 +12,15 @@
  * texto, un click, un stiker etc..
  * en cambio un comando se sebe disparar con el comando tecleado
  */
-let isNotBotValidate
+let validateChat
 module.exports = ({
 	Bot,
 	TextHandler,
 	CommandHandler,
 	CallbackQueryHandler,
-	IsNotBotValidate
+	ValidateChat
 }) => {
-	isNotBotValidate = IsNotBotValidate
+	validateChat = ValidateChat
 	/*
 	 * Comandos
 	 */
@@ -50,7 +50,9 @@ module.exports = ({
 }
 
 async function botManager(dataContext) {
-	if (await isNotBotValidate.IsBotError(dataContext.context)) {
-		dataContext.handler()
+	if (dataContext.context.from.is_bot) {
+		await validateChat.chatIsBot(dataContext.context)
+		return false
 	}
+	dataContext.handler()
 }

@@ -1,6 +1,7 @@
 .env
 .eslintrc.js
 prettier.config.js
+jsconfig.json
 
 *.jpg
 *.jpeg
