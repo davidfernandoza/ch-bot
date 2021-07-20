@@ -64,7 +64,8 @@ class CallbackQueryHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openMenu(CTX)

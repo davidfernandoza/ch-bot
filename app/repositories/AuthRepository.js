@@ -24,7 +24,6 @@ class AuthRepository extends Repository {
 	}
 
 	async refresh(authToken) {
-		console.log(authToken)
 		try {
 			return await super.post(`${this.prefix}/refresh`, {}, authToken)
 		} catch (error) {

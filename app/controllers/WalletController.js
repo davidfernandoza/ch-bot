@@ -31,10 +31,11 @@ class WalletController {
 			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET) {
 				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
 			} else {
+				const walet_id = walletMongo.id
 				await this.walletDomain.updateWalletInBack(
 					walletKey,
 					clientMongo,
-					walletMongo.id
+					walet_id
 				)
 			}
 			await this.clientDomain.assignActionToClient(clientMongo)

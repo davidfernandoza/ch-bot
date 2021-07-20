@@ -37,6 +37,7 @@ class WalletMiddleware {
 			throw new Error(error)
 		}
 	}
+
 	async clientWithWallet(CTX) {
 		try {
 			const client = await this.clientRepository.getClientByTelegramIdInMongo(
@@ -45,6 +46,7 @@ class WalletMiddleware {
 			if (client) {
 				if (client.wallet.key) {
 					if (!client.wallet.action_wallet) return true
+					else if (client.wallet.action_wallet == 'NONE') return true
 				}
 			}
 			await this.walletChat.askTronWallet(CTX)
