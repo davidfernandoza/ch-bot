@@ -1,4 +1,6 @@
 'use strict'
+
+const moment = require('moment')
 class AuthMiddleware {
 	constructor({ ClientRepository, AuthDomain, ValidateChat }) {
 		this.clientRepository = ClientRepository
@@ -26,8 +28,11 @@ class AuthMiddleware {
 
 	async setAccessToken(CTX) {
 		try {
-			const telegramId = CTX.from.id
-			CTX.accessToken = await this.authDomain.getAccessToken(telegramId)
+			const telegramId = CTX.from.id,
+				accessToken = await this.authDomain.getAccessToken(telegramId)
+			if (!accessToken) return false
+			CTX.accessToken = accessToken
+			return true
 		} catch (error) {
 			throw new Error(error)
 		}
