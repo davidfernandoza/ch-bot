@@ -7,6 +7,7 @@ class TransactionValidateDomain {
 		AuthDomain,
 		QrCodeService,
 		DefaultString,
+		StatusClientDomain,
 		Config
 	}) {
 		this.clientRepository = ClientRepository
@@ -16,6 +17,7 @@ class TransactionValidateDomain {
 		this.qrCodeService = QrCodeService
 		this.authDomain = AuthDomain
 		this.defaultString = DefaultString
+		this.statusClientDomain = StatusClientDomain
 	}
 
 	async getValidatedForTransaction(CTX) {
@@ -35,8 +37,12 @@ class TransactionValidateDomain {
 					transactionResponse.difference,
 					transactionResponse.consignment
 				)
+				await this.statusClientDomain.updateClientStatus(client)
 			} else if (arrayValidate.includes(transactionResponse.status)) {
-				client.status = 'ACTIVE'
+				await this.statusClientDomain.updateClientStatus(
+					client,
+					transactionResponse.client_status
+				)
 				client.action_bot = { ...client.action_bot, action: 'NONE' }
 				client.wallet = { ...client.wallet, action_wallet: 'NONE' }
 				client.period = transactionResponse.period

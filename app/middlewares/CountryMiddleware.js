@@ -1,9 +1,10 @@
 'use strict'
 
 class CountryMiddleware {
-	constructor({ ClientRepository, DefaultString }) {
+	constructor({ ClientRepository, DefaultString, ValidateChat }) {
 		this.clientRepository = ClientRepository
 		this.defaultString = DefaultString
+		this.validateChat = ValidateChat
 	}
 
 	async getCountryValidate(CTX) {
@@ -17,6 +18,22 @@ class CountryMiddleware {
 			} else {
 				return false
 			}
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async countryExist(CTX) {
+		try {
+			const telegramId = CTX.from.id
+			CTX.client = await this.clientRepository.getClientByTelegramIdInMongo(
+				telegramId
+			)
+			if (CTX.client.country.name) {
+				return true
+			}
+			await this.validateChat.countryNotExist(CTX)
+			return false
 		} catch (error) {
 			throw new Error(error)
 		}

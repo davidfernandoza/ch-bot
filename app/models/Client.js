@@ -9,11 +9,7 @@ const ClientSchema = new Schema({
 	plan_id: String,
 	sponsor_telegram_id: { type: String, default: '1ROOT' },
 	full_name: String,
-	country: {
-		name: { type: String },
-		prefix: { type: String },
-		country_id: { type: String }
-	},
+	period: Date,
 	username: { type: String, unique: true },
 	phone: String,
 	telegram_id: { type: String, unique: true },
@@ -29,22 +25,35 @@ const ClientSchema = new Schema({
 	},
 	status: {
 		type: String,
-		enum: ['ACTIVE', 'INFO', 'COMPANY', 'INACTIVE', 'DEBT'],
+		enum: [
+			'ACTIVE',
+			'INFO',
+			'INFO_ACTIVE',
+			'COMPANY',
+			'INACTIVE',
+			'DEBT',
+			'INCOMPLETE'
+		],
 		default: 'INACTIVE'
 	},
+
 	wallet: {
 		id: Number,
 		key: { type: String, unique: true },
 		status: { type: Boolean, default: false },
-		//Acciones para crear o modificar la wallet en el back
-		action_wallet: { type: String, default: 'NONE' }
+		action_wallet: { type: String, default: 'NONE' } //Update or Created
 	},
 	auth: {
 		access_token: String,
 		token_type: String,
 		expires_in: Date
 	},
-	period: Date
+	country: {
+		name: { type: String },
+		prefix: { type: String },
+		characters_phone: { type: Number },
+		id: { type: String }
+	}
 })
 
 module.exports = mongoose.model('Client', ClientSchema)

@@ -34,11 +34,41 @@ class ClientRepository extends Repository {
 		}
 	}
 
-	async setCountryForClient(client_id, countryId, accessToken) {
+	async setCountryForClient(clientId, countryId, accessToken) {
 		try {
-			return await super.post(
-				`${this.prefix}/set-country/${countryId}/${client_id}`,
-				{},
+			return await super.put(
+				`${this.prefix}/set-country/client/${clientId}`,
+				{
+					country_id: countryId
+				},
+				accessToken
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async setPhoneForClient(clientId, phone, accessToken) {
+		try {
+			return await super.put(
+				`${this.prefix}/set-phone/client/${clientId}`,
+				{
+					phone: phone
+				},
+				accessToken
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async setEmailForClient(clientId, email, accessToken) {
+		try {
+			return await super.put(
+				`${this.prefix}/set-email/client/${clientId}`,
+				{
+					email: email
+				},
 				accessToken
 			)
 		} catch (error) {

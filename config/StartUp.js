@@ -3,11 +3,12 @@ const Express = require('express')
 const mongoose = require('mongoose')
 
 class StartUp {
-	constructor({ Config, Bot, UrlBotService }) {
-		this.config = Config
-		this.express = Express()
-		this.bot = Bot
+	constructor({ Config, Bot, UrlBotService, Router }) {
 		this.urlBotService = UrlBotService
+		this.config = Config
+		this.router = Router
+		this.bot = Bot
+		this.express = Express()
 	}
 
 	/*
@@ -37,6 +38,7 @@ class StartUp {
 					this.bot.webhookCallback(`/${this.config.END_POIND_BOT}`)
 				)
 				this.bot.telegram.setWebhook(`${botUrl}/${this.config.END_POIND_BOT}`)
+				this.express.use(this.router)
 
 				/*
 				 * Correr el servidor

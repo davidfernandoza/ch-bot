@@ -1,5 +1,5 @@
 'use strict'
-
+const errorApi = 'ERR422'
 class ClientController {
 	constructor({
 		ClientDomain,
@@ -7,7 +7,8 @@ class ClientController {
 		ClientChat,
 		ErrorHandler,
 		WalletController,
-		ClientReferralsChat
+		ClientReferralsChat,
+		StatusClientDomain
 	}) {
 		this.clientDomain = ClientDomain
 		this.buildClientDomain = BuildClientDomain
@@ -15,6 +16,7 @@ class ClientController {
 		this.walletController = WalletController
 		this.clientChat = ClientChat
 		this.clientReferralsChat = ClientReferralsChat
+		this.statusClientDomain = StatusClientDomain
 	}
 
 	async storeClient(CTX, sponsorId) {
@@ -44,6 +46,20 @@ class ClientController {
 			this.clientReferralsChat.printClient(CTX, client)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	async activeInfoClientByAPI(req, res) {
+		try {
+			const telegramId = req.body.telegram_id
+			if (await this.statusClientDomain.addInfoActiveClient(telegramId)) {
+				return res.status(200).send()
+			} else throw new Error(errorApi)
+		} catch (error) {
+			if (error.message == errorApi) {
+				return this.errorHandler.api({ message: errorApi }, req, res, null)
+			}
+			throw new Error(error)
 		}
 	}
 }

@@ -1,9 +1,10 @@
 'use strict'
 
 class InfoMiddleware {
-	constructor({ ValidateChat, ClientRepository }) {
+	constructor({ ValidateChat, ClientRepository, StatusClientDomain }) {
 		this.validateChat = ValidateChat
 		this.clientRepository = ClientRepository
+		this.statusClientDomain = StatusClientDomain
 	}
 
 	async infoExistValidate(CTX) {
@@ -22,17 +23,14 @@ class InfoMiddleware {
 			)
 
 			if (JSON.stringify(client.country) == '{}') {
-				return await this.sendError(CTX, client, 'country')
+				return await this.sendError(CTX, 'country')
 			} else if (!client.phone) {
-				return await this.sendError(CTX, client, 'phone')
+				return await this.sendError(CTX, 'phone')
 			} else if (!client.email) {
-				return await this.sendError(CTX, client, 'email')
-			} else if (!client.birthday) {
-				return await this.sendError(CTX, client, 'birthday')
+				return await this.sendError(CTX, 'email')
 			} else {
-				if (client.status == 'INFO') {
-					client.status = 'ACTIVE'
-					await this.clientRepository.updateClientInMongo()
+				if (client.status == 'INFO_ACTIVE') {
+					await this.statusClientDomain.activeClient(client)
 				}
 				return true
 			}
@@ -41,12 +39,45 @@ class InfoMiddleware {
 		}
 	}
 
-	async sendError(CTX, client, attribute) {
+	async clientIsInfo(CTX) {
 		try {
-			if (client.status != 'INFO') {
-				client.status = 'INFO'
-				await this.clientRepository.updateClientInMongo(client)
+			const telegramId = CTX.from.id
+			const client = await this.clientRepository.getClientByTelegramIdInMongo(
+				telegramId
+			)
+			if (JSON.stringify(client.country) == '{}') return false
+			if (!client.phone) return false
+			if (!client.email) return false
+			if (client.status == 'INFO') {
+				await this.validateChat.infoBackMissing(CTX)
+				return false
 			}
+			return true
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async clientIsActive(CTX) {
+		try {
+			const telegramId = CTX.from.id
+			const client = await this.clientRepository.getClientByTelegramIdInMongo(
+				telegramId
+			)
+			if (JSON.stringify(client.country) == '{}') return true
+			if (!client.phone) return true
+			if (!client.email) return true
+			if (client.status == 'INFO_ACTIVE') {
+				await this.statusClientDomain.activeClient(client)
+			}
+			return true
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async sendError(CTX, attribute) {
+		try {
 			await this.validateChat.infoIsMissing(CTX, attribute)
 			return false
 		} catch (error) {

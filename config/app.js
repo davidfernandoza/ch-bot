@@ -14,7 +14,8 @@ const { NODE_ENV } = process.env,
 		BD_CONNECTION_URL: process.env.BD_CONNECTION_URL,
 		API_TRONGRID: process.env.API_TRONGRID,
 		ASSET_ID: process.env.ASSET_ID,
-		STRINGS: defaultStrings
+		STRINGS: defaultStrings,
+		ORIGIN_CLIENT_CODE: process.env.ORIGIN_CLIENT_CODE
 	},
 	PRODUCTION = DATA,
 	DEVELOPMENT = {

@@ -10,20 +10,24 @@ module.exports = {
 	UPDATE_WALLET: 'UPDATE_WALLET',
 	GET_WALLET: 'GET_WALLET',
 	GET_COUNTRY: 'GET_COUNTRY',
+	GET_PHONE: 'GET_PHONE',
+	GET_EMAIL: 'GET_EMAIL',
 	VALIDATE_TRANSACTION_STATUS: ['EXCEEDED', 'COMPLETE'],
 	URL_REFERRED: 'https://t.me/ahorroFacilBot?start=#',
+	URL_SUPPORT: 'https://t.me/supportAhorroFacil?start=#',
 	STATUS: {
 		ACTIVE: 'Activo',
-		INFO: 'Perfil Incompleto',
+		INFO: 'Perfil Incompleto ó Sin Posición',
+		INFO_ACTIVE: 'Perfil Incompleto',
 		COMPANY: 'Inactivo',
 		DEBT: 'Inactivo',
-		INACTIVE: 'Inactivo'
+		INACTIVE: 'Inactivo',
+		INCOMPLETE: 'Inactivo con Pago Incompleto'
 	},
 	INFO: {
 		phone: 'el *Teléfono*',
 		email: 'el *Email*',
-		country: 'el *País*',
-		birthday: 'la *Fecha de nacimiento*'
+		country: 'el *País*'
 	},
 	ACTIONS: {
 		GET_WALLET: 'una *dirección tron*',

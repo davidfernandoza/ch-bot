@@ -12,10 +12,12 @@ class CountryChat {
 		try {
 			const button = Markup.inlineKeyboard(
 				countriesList.map(country => {
-					return Markup.button.callback(
-						str(country.name).capitalize().s,
-						`setCountry:${country.id}`
-					)
+					return [
+						Markup.button.callback(
+							str(country.name).capitalize().s,
+							`setCountry:${country.id}`
+						)
+					]
 				})
 			)
 			return await CTX.replyWithMarkdown(this.messageString.getCountry, button)

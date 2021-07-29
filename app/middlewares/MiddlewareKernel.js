@@ -6,6 +6,8 @@ class MiddlewareKernel {
 		AuthMiddleware,
 		InfoMiddleware,
 		CountryMiddleware,
+		PhoneMiddleware,
+		EmailMiddleware,
 		ErrorHandler
 	}) {
 		this.errorHandler = ErrorHandler
@@ -14,7 +16,9 @@ class MiddlewareKernel {
 			WalletMiddleware,
 			AuthMiddleware,
 			InfoMiddleware,
-			CountryMiddleware
+			CountryMiddleware,
+			PhoneMiddleware,
+			EmailMiddleware
 		}
 	}
 

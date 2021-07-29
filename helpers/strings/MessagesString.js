@@ -15,7 +15,7 @@ module.exports = {
 		'El usuario no esta activo en la plataforma debe de hacer la siguiente transacción.',
 
 	webKvalidate:
-		'Hola!! Si estas en la plataforma web de "*Telegram WebK*" o la plataforma web de "*Telegram WebZ*" te recomendamos que descargues la aplicación de escritorio para tu sistema operativo correspondiente, ya que dischas plataformas web están limitadas para todas las opciones de la plataforma.\n\nPuedes descargar telegram para tu sistema operativo desde el siguiente link.\n\nhttps://telegram.org/apps',
+		'Hola!! Si estas en la plataforma web de "*Telegram WebK*" o la plataforma web de "*Telegram WebZ*" te recomendamos que descargues la aplicación de escritorio para tu sistema operativo correspondiente, ya que dichas plataformas web están limitadas para todas las opciones de la plataforma.\n\nPuedes descargar telegram para tu sistema operativo desde el siguiente link.\n\nhttps://telegram.org/apps',
 
 	registerRule:
 		'¡Hola! #NAME, pon mucha atención a las reglas de Cadena ahorro: \n\n#TERM \n\nPlan de ahorro:\n\n #PLAN',
@@ -35,7 +35,7 @@ module.exports = {
 	transactionIncomplete:
 		'Hay varias transacciones que no completan el valor total de #TOTAL QFS para la consignación, hace fatal #AMOUNT QFS para activar la cuenta.\n\nUsar el anterior código QR o enviá la cantidad de #AMOUNT QFS a la siguiente dirección: \n\n#KEY \n\n',
 	referred:
-		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*Teléfono*: #PHONE\n*País*: #COUNTRY',
+		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*País*: #COUNTRY\n*Teléfono*: #PHONE',
 	notReferred: 'No existe usuario en esta posición.',
 	infoValidate:
 		'Falta información personal para que puedas seguir usando la plataforma.\nEmpieza por #INFO',
@@ -44,5 +44,18 @@ module.exports = {
 	defaultTextMessage:
 		'La plataforma esta esperando #ACTION, si quiere puedes enviar el requerimiento o cancelar la acción con el siguiente botón.',
 	cancelActionMessage: 'Acción cancelada.',
-	otherTextSended: 'La plataforma no esta esperando texto en este momento.'
+	otherTextSended: 'La plataforma no esta esperando texto en este momento.',
+	countryNotExistError: 'Debes de seleccionar primero el país.',
+	getPhoneMessage:
+		'Escribe tu numero de teléfono celular que estés usando con este telegram.',
+	getEmailMessage: 'Escribe tu correo electrónico.',
+	isNotPhone: 'El teléfono enviado no es valido, intenta enviarlo otra vez.',
+	isNotEmail:
+		'El correo electrónico enviado no es valido, intenta enviarlo otra vez.',
+	setEmail: 'Selección de correo electrónico hecha correctamente.',
+	setPhone: 'Selección de teléfono hecha correctamente.',
+	incompleteMessage:
+		'Termina de pagar tu consignación con la cantidad que te enviamos.',
+	infoBackMissing:
+		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL'
 }

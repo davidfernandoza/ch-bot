@@ -10,7 +10,9 @@ class TextHandler {
 		ClientReferralsController,
 		ClientController,
 		CountryController,
-		DefaultController
+		DefaultController,
+		PhoneController,
+		EmailController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -21,6 +23,8 @@ class TextHandler {
 		this.clientController = ClientController
 		this.countryController = CountryController
 		this.defaultController = DefaultController
+		this.phoneController = PhoneController
+		this.emailController = EmailController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -56,13 +60,38 @@ class TextHandler {
 					next: () => this.walletController.storeWallet(CTX)
 				})
 				break
+			case 'GET_PHONE':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'PhoneMiddleware.phoneValidate'
+					],
+					request: { context: CTX },
+					next: () => this.phoneController.setPhoneToClient(CTX)
+				})
+				break
+			case 'GET_EMAIL':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'EmailMiddleware.emailValidate'
+					],
+					request: { context: CTX },
+					next: () => this.emailController.setEmailToClient(CTX)
+				})
+				break
 			case '🤝 Link Referido':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
 					next: () => this.referredLinkController.senReferradLink(CTX)
@@ -74,7 +103,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openReferralsMenu(CTX)
@@ -86,7 +116,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openChargeMenu(CTX)
@@ -98,7 +129,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
@@ -121,7 +153,8 @@ class TextHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.clientIsActive'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openMyInfoMenu(CTX)
@@ -136,6 +169,29 @@ class TextHandler {
 					],
 					request: { context: CTX },
 					next: () => this.countryController.getAllCountries(CTX)
+				})
+				break
+			case '📞 Agregar Telefono':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'CountryMiddleware.countryExist'
+					],
+					request: { context: CTX },
+					next: () => this.phoneController.setActionForGetPhone(CTX)
+				})
+				break
+			case '🌐 Agregar Email':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive'
+					],
+					request: { context: CTX },
+					next: () => this.emailController.setActionForGetEmail(CTX)
 				})
 				break
 			case '⬅️ Menu Principal':

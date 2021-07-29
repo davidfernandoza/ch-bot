@@ -50,6 +50,16 @@ class ValidateChat {
 		}
 	}
 
+	async countryNotExist(CTX) {
+		try {
+			return await CTX.replyWithMarkdown(
+				this.messageString.countryNotExistError
+			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	async chatIsBot(CTX) {
 		try {
 			return await CTX.replyWithMarkdown(this.messageString.isBot)
@@ -109,6 +119,46 @@ class ValidateChat {
 	async otherTextSended(CTX) {
 		try {
 			const message = this.messageString.otherTextSended
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async isNotPhone(CTX) {
+		try {
+			const message = this.messageString.isNotPhone
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async isNotEmail(CTX) {
+		try {
+			const message = this.messageString.isNotEmail
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async incompleteMessage(CTX) {
+		try {
+			const message = this.messageString.incompleteMessage
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async infoBackMissing(CTX) {
+		try {
+			const telegramId = CTX.from.id
+			let message = this.messageString.infoBackMissing
+			let defaultStrings = this.defaultString.URL_SUPPORT
+			defaultStrings = defaultStrings.replace('#', telegramId)
+			message = message.replace('#URL', defaultStrings)
 			return await CTX.replyWithMarkdown(message)
 		} catch (error) {
 			throw new Error(error)

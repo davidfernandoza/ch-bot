@@ -2,10 +2,16 @@
 
 const moment = require('moment')
 class AuthMiddleware {
-	constructor({ ClientRepository, AuthDomain, ValidateChat }) {
+	constructor({
+		ClientRepository,
+		StatusClientDomain,
+		AuthDomain,
+		ValidateChat
+	}) {
 		this.clientRepository = ClientRepository
 		this.authDomain = AuthDomain
 		this.validateChat = ValidateChat
+		this.statusClientDomain = StatusClientDomain
 	}
 
 	async isActive(CTX) {
@@ -40,14 +46,20 @@ class AuthMiddleware {
 
 	async isActiveClient(CTX, client) {
 		try {
-			let response = true
-			if (client.status == 'ACTIVE' || client.status == 'INFO') {
+			let response = true,
+				activesStatuses = ['ACTIVE', 'INFO_ACTIVE', 'INFO']
+			if (activesStatuses.includes(client.status)) {
 				if (
 					moment(client.period).format('YYYY-MM-DD') <
 					moment().format('YYYY-MM-DD')
 				) {
-					response = await this.updateStatusClient(CTX, client)
+					await this.statusClientDomain.addDebtClient(client)
+					await this.openPayment(CTX, client)
+					response = false
 				}
+			} else if (client.status == 'INCOMPLETE') {
+				await this.openIncompleteMessage(CTX)
+				response = false
 			} else {
 				await this.openPayment(CTX, client)
 				response = false
@@ -58,20 +70,16 @@ class AuthMiddleware {
 		}
 	}
 
-	async updateStatusClient(CTX, client) {
+	async openPayment(CTX, client) {
 		try {
-			client.status = 'DEBT'
-			client = await this.clientRepository.updateClientInMongo(client)
-			await this.openPayment(CTX, client)
-			return false
+			await this.validateChat.openPayment(CTX, client)
 		} catch (error) {
 			throw new Error(error)
 		}
 	}
-
-	async openPayment(CTX, client) {
+	async openIncompleteMessage(CTX) {
 		try {
-			await this.validateChat.openPayment(CTX, client)
+			await this.validateChat.incompleteMessage(CTX)
 		} catch (error) {
 			throw new Error(error)
 		}

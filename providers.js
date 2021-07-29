@@ -18,6 +18,8 @@ const ReferredLinkController = require('./app/controllers/ReferredLinkController
 const ClientReferralsController = require('./app/controllers/ClientReferralsController')
 const CountryController = require('./app/controllers/CountryController')
 const DefaultController = require('./app/controllers/DefaultController')
+const PhoneController = require('./app/controllers/PhoneController')
+const EmailController = require('./app/controllers/EmailController')
 
 /* -----------------------------------------------------*/
 /* Chats:			 																					*/
@@ -31,6 +33,8 @@ const TransactionChat = require('./app/Chats/TransactionChat')
 const ReferredLinkChat = require('./app/Chats/ReferredLinkChat')
 const ClientReferralsChat = require('./app/Chats/ClientReferralsChat')
 const CountryChat = require('./app/Chats/CountryChat')
+const PhoneChat = require('./app/Chats/PhoneChat')
+const EmailChat = require('./app/Chats/EmailChat')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -38,18 +42,17 @@ const CountryChat = require('./app/Chats/CountryChat')
 const WalletDomain = require('./app/domains/wallet/WalletDomain')
 const ActionWalletDomain = require('./app/domains/wallet/ActionWalletDomain')
 const BuildWalletDomain = require('./app/domains/wallet/BuildWalletDomain')
-
 const TransactionValidateDomain = require('./app/domains/transaction/TransactionValidateDomain')
 const ClientDomain = require('./app/domains/clients/ClientDomain')
 const BuildClientDomain = require('./app/domains/clients/BuildClientDomain')
 const ClientReferralsDomain = require('./app/domains/clients/ClientReferralsDomain')
 const DefaultActionDomain = require('./app/domains/clients/DefaultActionDomain')
-
 const StartDomain = require('./app/domains/start/StartDomain')
-
 const AuthDomain = require('./app/domains/auth/authDomain')
-
 const CountryDomain = require('./app/domains/country/CountryDomain')
+const PhoneDomain = require('./app/domains/phone/PhoneDomain')
+const EmailDomain = require('./app/domains/email/EmailDomain')
+const StatusClientDomain = require('./app/domains/clients/StatusClientDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -72,6 +75,10 @@ const WalletMiddleware = require('./app/middlewares/WalletMiddleware')
 const AuthMiddleware = require('./app/middlewares/AuthMiddleware')
 const InfoMiddleware = require('./app/middlewares/InfoMiddleware')
 const CountryMiddleware = require('./app/middlewares/CountryMiddleware')
+const PhoneMiddleware = require('./app/middlewares/PhoneMiddleware')
+const EmailMiddleware = require('./app/middlewares/EmailMiddleware')
+const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
+const TelegramIdMiddleware = require('./app/middlewares/api/TelegramIdMiddleware')
 
 /* -----------------------------------------------------*/
 /* Repositories:			 																	*/
@@ -85,10 +92,17 @@ const CountryRepository = require('./app/repositories/CountryRepository')
 const WalletRepository = require('./app/repositories/WalletRepository')
 
 /* -----------------------------------------------------*/
+/* Routes:				 																			*/
+/*------------------------------------------------------*/
+const Router = require('./app/routes/index')
+const ClientRoute = require('./app/routes/ClientRoute')
+
+/* -----------------------------------------------------*/
 /* Strings:				 																			*/
 /*------------------------------------------------------*/
 const MessageString = require('./helpers/strings/MessagesString')
 const DefaultString = require('./helpers/strings/DefaultString')
+const ApiErrorString = require('./helpers/strings/ApiErrorString')
 
 /* -----------------------------------------------------*/
 /* Services:			 																			*/
@@ -120,7 +134,9 @@ container
 		ReferredLinkController: asClass(ReferredLinkController).singleton(),
 		ClientReferralsController: asClass(ClientReferralsController).singleton(),
 		CountryController: asClass(CountryController).singleton(),
-		DefaultController: asClass(DefaultController).singleton()
+		DefaultController: asClass(DefaultController).singleton(),
+		PhoneController: asClass(PhoneController).singleton(),
+		EmailController: asClass(EmailController).singleton()
 	})
 
 	// Chats
@@ -133,7 +149,9 @@ container
 		TransactionChat: asClass(TransactionChat).singleton(),
 		ReferredLinkChat: asClass(ReferredLinkChat).singleton(),
 		ClientReferralsChat: asClass(ClientReferralsChat).singleton(),
-		CountryChat: asClass(CountryChat).singleton()
+		CountryChat: asClass(CountryChat).singleton(),
+		PhoneChat: asClass(PhoneChat).singleton(),
+		EmailChat: asClass(EmailChat).singleton()
 	})
 
 	// Domain
@@ -148,7 +166,10 @@ container
 		AuthDomain: asClass(AuthDomain).singleton(),
 		ClientReferralsDomain: asClass(ClientReferralsDomain).singleton(),
 		CountryDomain: asClass(CountryDomain).singleton(),
-		DefaultActionDomain: asClass(DefaultActionDomain).singleton()
+		DefaultActionDomain: asClass(DefaultActionDomain).singleton(),
+		PhoneDomain: asClass(PhoneDomain).singleton(),
+		EmailDomain: asClass(EmailDomain).singleton(),
+		StatusClientDomain: asClass(StatusClientDomain).singleton()
 	})
 
 	// Events Handler:
@@ -170,7 +191,11 @@ container
 		AuthMiddleware: asClass(AuthMiddleware).singleton(),
 		MiddlewareKernel: asClass(MiddlewareKernel).singleton(),
 		InfoMiddleware: asClass(InfoMiddleware).singleton(),
-		CountryMiddleware: asClass(CountryMiddleware).singleton()
+		CountryMiddleware: asClass(CountryMiddleware).singleton(),
+		PhoneMiddleware: asClass(PhoneMiddleware).singleton(),
+		EmailMiddleware: asClass(EmailMiddleware).singleton(),
+		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
+		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton()
 	})
 
 	// Repositories
@@ -184,10 +209,17 @@ container
 		CountryRepository: asClass(CountryRepository).singleton()
 	})
 
+	// Router
+	.register({
+		Router: asFunction(Router).singleton(),
+		ClientRoute: asFunction(ClientRoute).singleton()
+	})
+
 	// Strings:
 	.register({
 		MessageString: asValue(MessageString),
-		DefaultString: asValue(DefaultString)
+		DefaultString: asValue(DefaultString),
+		ApiErrorString: asValue(ApiErrorString)
 	})
 
 	// Services:

@@ -31,22 +31,15 @@ class CountryDomain {
 					countryId,
 					CTX.accessToken
 				)
-			client.country = this.buidCountryObject(backClient.country)
+
+			client.country = {
+				...backClient.country,
+				characters_phone: parseInt(backClient.country.characters_phone)
+			}
+
 			client.action_bot.action = 'NONE'
 			await this.clientRepository.updateClientInMongo(client)
 			return true
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	async buidCountryObject(country) {
-		try {
-			return {
-				name: country.name,
-				prefix: country.prefix,
-				country_id: country.id
-			}
 		} catch (error) {
 			throw new Error(error)
 		}
