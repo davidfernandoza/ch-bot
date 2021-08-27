@@ -57,5 +57,7 @@ module.exports = {
 	incompleteMessage:
 		'Termina de pagar tu consignación con la cantidad que te enviamos.',
 	infoBackMissing:
+		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL',
+	statusPeriodMessage:
 		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL'
 }

@@ -20,6 +20,7 @@ const CountryController = require('./app/controllers/CountryController')
 const DefaultController = require('./app/controllers/DefaultController')
 const PhoneController = require('./app/controllers/PhoneController')
 const EmailController = require('./app/controllers/EmailController')
+const PeriodController = require('./app/controllers/PeriodController')
 
 /* -----------------------------------------------------*/
 /* Chats:			 																					*/
@@ -35,6 +36,7 @@ const ClientReferralsChat = require('./app/Chats/ClientReferralsChat')
 const CountryChat = require('./app/Chats/CountryChat')
 const PhoneChat = require('./app/Chats/PhoneChat')
 const EmailChat = require('./app/Chats/EmailChat')
+const PeriodChat = require('./app/Chats/PeriodChat')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -53,6 +55,7 @@ const CountryDomain = require('./app/domains/country/CountryDomain')
 const PhoneDomain = require('./app/domains/phone/PhoneDomain')
 const EmailDomain = require('./app/domains/email/EmailDomain')
 const StatusClientDomain = require('./app/domains/clients/StatusClientDomain')
+const PeriodDomain = require('./app/domains/period/PeriodDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -136,7 +139,8 @@ container
 		CountryController: asClass(CountryController).singleton(),
 		DefaultController: asClass(DefaultController).singleton(),
 		PhoneController: asClass(PhoneController).singleton(),
-		EmailController: asClass(EmailController).singleton()
+		EmailController: asClass(EmailController).singleton(),
+		PeriodController: asClass(PeriodController).singleton()
 	})
 
 	// Chats
@@ -151,7 +155,8 @@ container
 		ClientReferralsChat: asClass(ClientReferralsChat).singleton(),
 		CountryChat: asClass(CountryChat).singleton(),
 		PhoneChat: asClass(PhoneChat).singleton(),
-		EmailChat: asClass(EmailChat).singleton()
+		EmailChat: asClass(EmailChat).singleton(),
+		PeriodChat: asClass(PeriodChat).singleton()
 	})
 
 	// Domain
@@ -169,7 +174,8 @@ container
 		DefaultActionDomain: asClass(DefaultActionDomain).singleton(),
 		PhoneDomain: asClass(PhoneDomain).singleton(),
 		EmailDomain: asClass(EmailDomain).singleton(),
-		StatusClientDomain: asClass(StatusClientDomain).singleton()
+		StatusClientDomain: asClass(StatusClientDomain).singleton(),
+		PeriodDomain: asClass(PeriodDomain).singleton()
 	})
 
 	// Events Handler:

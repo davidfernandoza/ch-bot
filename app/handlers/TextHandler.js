@@ -12,7 +12,8 @@ class TextHandler {
 		CountryController,
 		DefaultController,
 		PhoneController,
-		EmailController
+		EmailController,
+		PeriodController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -25,6 +26,7 @@ class TextHandler {
 		this.defaultController = DefaultController
 		this.phoneController = PhoneController
 		this.emailController = EmailController
+		this.periodController = PeriodController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -128,12 +130,23 @@ class TextHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
 						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
+				})
+				break
+			case '🔄 Estado':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
+					],
+					request: { context: CTX },
+					next: () => this.periodController.getStatusToPeriod(CTX)
 				})
 				break
 			case '⚖️ Reglas':
