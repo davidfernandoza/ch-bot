@@ -40,5 +40,16 @@ class CommandHandler {
 			next: () => this.controllers.MenuController.openMenu(CTX)
 		})
 	}
+
+	async openCycleMenu(CTX) {
+		this.middlewareKernel.routerToMiddleware({
+			middlewares: [
+				'ClientMiddleware.clientExistValidate',
+				'WalletMiddleware.clientWithWallet'
+			],
+			request: { context: CTX },
+			next: () => this.controllers.MenuController.openCycleMenu(CTX)
+		})
+	}
 }
 module.exports = CommandHandler

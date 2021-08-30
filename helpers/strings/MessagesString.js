@@ -58,6 +58,11 @@ module.exports = {
 		'Termina de pagar tu consignación con la cantidad que te enviamos.',
 	infoBackMissing:
 		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL',
-	statusPeriodMessage:
-		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL'
+	historicPeriodMessage:
+		'*Ciclo: #CODE*\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*Cantidad de transacciones:* #CONSIGNMENTS_AMOUNT\n*Estado:* #STATUS',
+	statusClientInPeriodMessage:
+		'*Ciclo: #CODE* (Actual)\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*En el actual ciclo tienes un estado de:* #CLIENT_STATUS',
+	historicPeriodTitleMessage: '*Historico de ciclos pagos:*',
+	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
+	notHavePeriodMessage: '🚫 *No hay periodos pagos*'
 }

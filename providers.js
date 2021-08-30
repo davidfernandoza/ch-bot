@@ -93,6 +93,7 @@ const TransactionRepository = require('./app/repositories/TransactionRepository'
 const AuthRepository = require('./app/repositories/AuthRepository')
 const CountryRepository = require('./app/repositories/CountryRepository')
 const WalletRepository = require('./app/repositories/WalletRepository')
+const PeriodRepository = require('./app/repositories/PeriodRepository')
 
 /* -----------------------------------------------------*/
 /* Routes:				 																			*/
@@ -212,7 +213,8 @@ container
 		TermRepository: asClass(TermRepository).singleton(),
 		TransactionRepository: asClass(TransactionRepository).singleton(),
 		AuthRepository: asClass(AuthRepository).singleton(),
-		CountryRepository: asClass(CountryRepository).singleton()
+		CountryRepository: asClass(CountryRepository).singleton(),
+		PeriodRepository: asClass(PeriodRepository).singleton()
 	})
 
 	// Router

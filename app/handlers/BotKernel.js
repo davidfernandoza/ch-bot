@@ -22,13 +22,19 @@ module.exports = ({
 }) => {
 	validateChat = ValidateChat
 	/*
-	 * Comandos
+	 * Comandos (Not clients)
 	 */
 	Bot.command('/start', CTX =>
 		botManager({ context: CTX, handler: () => CommandHandler.startBot(CTX) })
 	)
 	Bot.command('/menu', CTX =>
 		botManager({ context: CTX, handler: () => CommandHandler.openMenu(CTX) })
+	)
+	Bot.command('/ciclo', CTX =>
+		botManager({
+			context: CTX,
+			handler: () => CommandHandler.openCycleMenu(CTX)
+		})
 	)
 
 	/*

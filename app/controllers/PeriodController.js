@@ -9,8 +9,8 @@ class PeriodController {
 
 	async getStatusToPeriod(CTX) {
 		try {
-			await this.periodDomain.getStatusToPeriod(CTX)
-			return this.periodChat.sendPeriodStatusMessage(CTX)
+			const periods = await this.periodDomain.getStatusToPeriod(CTX)
+			return this.periodChat.sendPeriodStatusMessage(CTX, periods)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

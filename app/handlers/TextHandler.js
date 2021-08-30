@@ -129,9 +129,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'InfoMiddleware.infoExistValidate',
-						'InfoMiddleware.clientIsInfo'
+						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
@@ -141,9 +139,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'InfoMiddleware.infoExistValidate',
-						'InfoMiddleware.clientIsInfo'
+						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.periodController.getStatusToPeriod(CTX)
