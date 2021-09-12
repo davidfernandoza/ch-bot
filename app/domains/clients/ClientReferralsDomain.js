@@ -38,30 +38,6 @@ class ClientReferralsDomain {
 						  )
 						: null
 					return client
-				case 'GENERATION_1':
-					client.title = 'Generación 1 (Padre)'
-					client.data = authClient.tree.generation1_father_tree
-						? this.formattingToClientData(
-								authClient.tree.generation1_father_tree.client
-						  )
-						: null
-					return client
-				case 'GENERATION_2':
-					client.title = 'Generación 2 (Abuelo)'
-					client.data = authClient.tree.generation2_father_tree
-						? this.formattingToClientData(
-								authClient.tree.generation2_father_tree.client
-						  )
-						: null
-					return client
-				case 'GENERATION_3':
-					client.title = 'Generación 3 (Bisabuelo)'
-					client.data = this.formattingToClientData(
-						authClient.tree.generation3_father_tree
-					)
-						? authClient.tree.generation3_father_tree.client
-						: null
-					return client
 				case 'SPONSOR':
 					client.title = 'Patrocinador'
 					client.data = authClient.sponsor

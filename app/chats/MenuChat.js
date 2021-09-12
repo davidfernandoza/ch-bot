@@ -21,11 +21,12 @@ class MenuChat {
 	async newMenu(CTX) {
 		try {
 			const keyboard = Keyboard.make([
-				['🤝 Link Referido', '👨‍👧‍👦 Referidos'],
+				['🔖 Importante'],
+				['🤝 Codigo de referido', '👨‍👧‍👦 Referidos'],
 				['📆 Ciclo', '💵 Cobrar'],
-				['👤 Mi Informacion', '⚖️ Reglas']
+				['👤 Mi informacion', '⚖️ Reglas']
 			]).reply()
-			return await CTX.reply('Menu Principal', keyboard)
+			return await CTX.reply('Menu principal', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -35,11 +36,10 @@ class MenuChat {
 		try {
 			const keyboard = Keyboard.make([
 				['🧍🏽‍♂️ Ref. Izquierdo', '🧍🏽 Ref. Central', '🧍🏽‍♀️ Ref. Derecho'],
-				['🧑🏽‍🦱 Generacion 1', '👨🏼‍🦰 Generacion 2', '👨🏼‍🦳 Generacion 3'],
 				['👨🏽‍💼 Patrocinador'],
-				['⬅️ Menu Principal']
+				['⬅️ Menu principal']
 			]).reply()
-			return CTX.reply('Menu de Referidos!', keyboard)
+			return CTX.reply('Menu de referidos!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -48,11 +48,12 @@ class MenuChat {
 	rulesMenu(CTX) {
 		try {
 			const keyboard = Keyboard.make([
-				['🔃 Matriz Forzada', '💰 Plan de Pagos'],
-				['🔖 Importante', '⚖️ Terminos y Condiciones'],
-				['⬅️ Menu Principal']
+				['🔖 Importante'],
+				['🔃 Matriz forzada', '💰 Plan de pagos'],
+				['⚖️ Terminos y condiciones'],
+				['⬅️ Menu principal']
 			]).reply()
-			return CTX.reply('Menu de Reglas!', keyboard)
+			return CTX.reply('Menu de reglas!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -61,10 +62,10 @@ class MenuChat {
 	cycleMenu(CTX) {
 		try {
 			const keyboard = Keyboard.make([
-				['🔄 Estado', '💵 Pagar Ciclo'],
-				['⬅️ Menu Principal']
+				['🔄 Estado', '💵 Pagar ciclo'],
+				['⬅️ Menu principal']
 			]).reply()
-			return CTX.reply('Menu de Ciclos!', keyboard)
+			return CTX.reply('Menu de ciclos!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -73,11 +74,11 @@ class MenuChat {
 	chargeMenu(CTX) {
 		try {
 			const keyboard = Keyboard.make([
-				['💳 Cambiar Direccion Tron', '📊 Cobrar Saldo'],
+				['💳 Cambiar direccion tron', '📊 Cobrar saldo'],
 				['🗂 Historial'],
-				['⬅️ Menu Principal']
+				['⬅️ Menu principal']
 			]).reply()
-			return CTX.reply('Menu de Cobranza!', keyboard)
+			return CTX.reply('Menu de cobranza!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -86,12 +87,12 @@ class MenuChat {
 	myInfoMenu(CTX) {
 		try {
 			const keyboard = Keyboard.make([
-				['👤 Ver mi Informacion'],
-				['🇪🇨 Agregar Pais', '📞 Agregar Telefono'],
-				['🌐 Agregar Email'],
-				['⬅️ Menu Principal']
+				['👤 Ver mi informacion'],
+				['🇪🇨 Agregar pais', '📞 Agregar telefono'],
+				['🌐 Agregar email'],
+				['⬅️ Menu principal']
 			]).reply()
-			return CTX.reply('Menu de Información!', keyboard)
+			return CTX.reply('Menu de información!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -108,7 +109,7 @@ class MenuChat {
 	getButtonOpenMenu() {
 		try {
 			return Markup.inlineKeyboard([
-				Markup.button.callback('🔣 Abrir Menu', `openMenu:NONE`)
+				Markup.button.callback('🔣 Abrir menu', `openMenu:NONE`)
 			])
 		} catch (error) {
 			throw new Error(error)

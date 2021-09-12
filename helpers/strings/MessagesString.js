@@ -23,7 +23,7 @@ module.exports = {
 	sendTronAddress:
 		'Por favor envie su dirección tron. \n\n*Nota*: Tenga en cuenta que desde esta dirección tron se debe enviar las consignaciones y en esta misma recibirá los pagos.',
 	sendWalletConsignment:
-		'Enviá la cantidad de #AMOUNT QFS a la dirección:\n\n#KEY\n(Puedes escanear el código QR)\n\n- Después de hacer la consignación solicita la validación de esta.',
+		'Enviá la cantidad de #AMOUNT QFS a la aterior dirección tron\n(Puedes escanear el código QR)\n\n- Después de hacer la consignación solicita la validación de esta.',
 	sendChangeToWallet:
 		'*Nota*: corrobore la dirección tron que asigno a su cuenta antes de hacer la consignación, ya que con dicha dirección se validara la transacción.\n\n- Si la dirección tron que previamente asigno a su cuenta no es correcta, la puedes cambiar.',
 	wishChangeToWallet:
@@ -33,7 +33,7 @@ module.exports = {
 	transactionNone:
 		'En el momento no se encuentra ninguna transacción en cola, espera un momento y vuélvalo a intentar.',
 	transactionIncomplete:
-		'Hay varias transacciones que no completan el valor total de #TOTAL QFS para la consignación, hace fatal #AMOUNT QFS para activar la cuenta.\n\nUsar el anterior código QR o enviá la cantidad de #AMOUNT QFS a la siguiente dirección: \n\n#KEY \n\n',
+		'Hay varias transacciones que no completan el valor total de #TOTAL QFS para la consignación, hace fatal #AMOUNT QFS para activar la cuenta.\n\nUsar el anterior código QR o enviá la cantidad de #AMOUNT QFS a la anterior dirección tron',
 	referred:
 		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*País*: #COUNTRY\n*Teléfono*: #PHONE',
 	notReferred: 'No existe usuario en esta posición.',

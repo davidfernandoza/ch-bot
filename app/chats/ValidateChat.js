@@ -6,11 +6,13 @@ class ValidateChat {
 		MessageString,
 		WalletChat,
 		BuildWalletDomain,
+		TransactionChat,
 		StartChat,
 		MenuChat,
 		DefaultString
 	}) {
 		this.messageString = MessageString
+		this.transactionChat = TransactionChat
 		this.walletChat = WalletChat
 		this.buildWalletDomain = BuildWalletDomain
 		this.startChat = StartChat
@@ -73,7 +75,7 @@ class ValidateChat {
 			const dataPrint =
 				await this.buildWalletDomain.makeDataPrintForConsignmentWallet(client)
 			await CTX.replyWithMarkdown(this.messageString.clientNotActive)
-			await this.walletChat.sendInfoForTransaction(CTX, dataPrint)
+			await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
 			return await this.walletChat.changeToWallet(CTX)
 		} catch (error) {
 			throw new Error(error)

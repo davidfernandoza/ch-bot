@@ -2,28 +2,18 @@
 const { Markup } = require('telegraf')
 
 class WalletChat {
-	constructor({ MessageString }) {
+	constructor({ MessageString, TransactionChat }) {
 		this.messageString = MessageString
+		this.transactionChat = TransactionChat
 	}
 
 	async sendMessageWithQRCode(CTX, dataPrint) {
 		try {
-			await this.sendInfoForTransaction(CTX, dataPrint)
+			await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
 			return await CTX.replyWithMarkdown(
 				this.messageString.sendChangeToWallet,
 				this.makeChangeWalletButton()
 			)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	async sendInfoForTransaction(CTX, dataPrint) {
-		try {
-			const message = this.makeMessageOfTheConsignmentWallet(dataPrint),
-				validateButton = this.makeValidateTransactionButton()
-			await CTX.replyWithPhoto({ source: dataPrint.qrFile })
-			return await CTX.replyWithMarkdown(message, validateButton)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -49,29 +39,6 @@ class WalletChat {
 		}
 	}
 
-	makeMessageOfTheConsignmentWallet(dataPrint) {
-		try {
-			let message = this.messageString.sendWalletConsignment
-			message = message.replace('#AMOUNT', dataPrint.plan.consignment_value)
-			message = message.replace('#KEY', dataPrint.consignment.key)
-			return message
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	makeValidateTransactionButton() {
-		try {
-			return Markup.inlineKeyboard([
-				Markup.button.callback(
-					'✔️ Validar Transacción',
-					`transactionValidate:NONE`
-				)
-			])
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
 	makeChangeWalletButton() {
 		try {
 			return Markup.inlineKeyboard([

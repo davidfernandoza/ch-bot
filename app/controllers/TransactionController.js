@@ -21,7 +21,7 @@ class TransactionController {
 			if (arrayValidate.includes(response.status)) {
 				return await this.transactionChat.transactionComplete(CTX, response)
 			} else if (response.status == 'INCOMPLETE') {
-				return await this.transactionChat.transactionIncomplete(CTX, response)
+				return await this.transactionChat.sendInfoForTransaction(CTX, response)
 			} else {
 				return await this.transactionChat.transactionNone(CTX)
 			}

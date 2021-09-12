@@ -18,11 +18,13 @@ class ErrorHandler {
 		if (error.message.length === 6) {
 			code = error.message
 		}
+
 		console.log('====================================')
-		console.log(error)
+		console.log(error.message)
 		console.log('====================================')
+
 		const status = this.apiErrorString[code].status
-		res.status(status).send()
+		res.status(status).send(this.apiErrorString[code])
 	}
 }
 module.exports = ErrorHandler

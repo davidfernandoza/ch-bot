@@ -9,7 +9,7 @@ class AvailableCodeMiddleware {
 		try {
 			if (!req.headers.origin_client_code) return res.status(422).send()
 			if (req.headers.origin_client_code != this.config.ORIGIN_CLIENT_CODE) {
-				return res.status(422).send()
+				return res.status(422).send({ code: false })
 			}
 			next()
 		} catch (error) {

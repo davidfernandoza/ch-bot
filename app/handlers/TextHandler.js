@@ -86,7 +86,7 @@ class TextHandler {
 					next: () => this.emailController.setEmailToClient(CTX)
 				})
 				break
-			case '🤝 Link Referido':
+			case '🤝 Codigo de referido':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -157,7 +157,7 @@ class TextHandler {
 					next: () => this.menuController.openRulesMenu(CTX)
 				})
 				break
-			case '👤 Mi Informacion':
+			case '👤 Mi informacion':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -169,7 +169,7 @@ class TextHandler {
 					next: () => this.menuController.openMyInfoMenu(CTX)
 				})
 				break
-			case '🇪🇨 Agregar Pais':
+			case '🇪🇨 Agregar pais':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -180,7 +180,7 @@ class TextHandler {
 					next: () => this.countryController.getAllCountries(CTX)
 				})
 				break
-			case '📞 Agregar Telefono':
+			case '📞 Agregar telefono':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -192,7 +192,7 @@ class TextHandler {
 					next: () => this.phoneController.setActionForGetPhone(CTX)
 				})
 				break
-			case '🌐 Agregar Email':
+			case '🌐 Agregar email':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -203,7 +203,7 @@ class TextHandler {
 					next: () => this.emailController.setActionForGetEmail(CTX)
 				})
 				break
-			case '⬅️ Menu Principal':
+			case '⬅️ Menu principal':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -214,7 +214,7 @@ class TextHandler {
 					next: () => this.menuController.openMenu(CTX)
 				})
 				break
-			case '👤 Ver mi Informacion':
+			case '👤 Ver mi informacion':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -270,54 +270,6 @@ class TextHandler {
 						this.clientReferralsController.getClientReferrals(
 							CTX,
 							'REFERAL_RIGTH'
-						)
-				})
-				break
-			case '🧑🏽‍🦱 Generacion 1':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
-					],
-					request: { context: CTX },
-					next: () =>
-						this.clientReferralsController.getClientReferrals(
-							CTX,
-							'GENERATION_1'
-						)
-				})
-				break
-			case '👨🏼‍🦰 Generacion 2':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
-					],
-					request: { context: CTX },
-					next: () =>
-						this.clientReferralsController.getClientReferrals(
-							CTX,
-							'GENERATION_2'
-						)
-				})
-				break
-			case '👨🏼‍🦳 Generacion 3':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
-					],
-					request: { context: CTX },
-					next: () =>
-						this.clientReferralsController.getClientReferrals(
-							CTX,
-							'GENERATION_3'
 						)
 				})
 				break

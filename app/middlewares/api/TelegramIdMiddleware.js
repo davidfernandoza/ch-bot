@@ -14,13 +14,14 @@ class TelegramIdMiddleware {
 						numericality: { onlyInteger: true }
 					}
 				}
+
 			if (await validate(objectTelegramIdForValidate, rules)) {
 				if (!validate.isEmpty(objectTelegramIdForValidate.telegram_id)) {
-					return res.status(422).send()
+					return res.status(422).send({ id: false })
 				}
 			}
 			if (validate.isEmpty(objectTelegramIdForValidate.telegram_id)) {
-				return res.status(422).send()
+				return res.status(422).send({ id: false })
 			}
 
 			next()
