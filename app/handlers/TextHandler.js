@@ -13,7 +13,8 @@ class TextHandler {
 		DefaultController,
 		PhoneController,
 		EmailController,
-		PeriodController
+		PeriodController,
+		StartController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -27,6 +28,7 @@ class TextHandler {
 		this.phoneController = PhoneController
 		this.emailController = EmailController
 		this.periodController = PeriodController
+		this.startController = StartController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -44,11 +46,12 @@ class TextHandler {
 			this.selectAction(CTX, action)
 		} else {
 			this.middlewareKernel.routerToMiddleware({
-				middlewares: ['ClientMiddleware.clientExistValidate'],
+				middlewares: [
+					'ClientMiddleware.clientNotExistValidate',
+					'StartMiddleware.sponsorIdValidate'
+				],
 				request: { context: CTX },
-				next: () => {
-					return
-				}
+				next: () => this.startController.setSponsorId(CTX)
 			})
 		}
 	}
@@ -60,6 +63,13 @@ class TextHandler {
 					middlewares: ['WalletMiddleware.correctWallet'],
 					request: { context: CTX },
 					next: () => this.walletController.storeWallet(CTX)
+				})
+				break
+			case 'GET_SPONSOR_ID':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: ['WalletMiddleware.correctWallet'],
+					request: { context: CTX },
+					next: () => this.startController.getSponsorId(CTX)
 				})
 				break
 			case 'GET_PHONE':
@@ -143,18 +153,6 @@ class TextHandler {
 					],
 					request: { context: CTX },
 					next: () => this.periodController.getStatusToPeriod(CTX)
-				})
-				break
-			case '⚖️ Reglas':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
-					],
-					request: { context: CTX },
-					next: () => this.menuController.openRulesMenu(CTX)
 				})
 				break
 			case '👤 Mi informacion':

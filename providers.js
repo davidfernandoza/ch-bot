@@ -80,6 +80,7 @@ const InfoMiddleware = require('./app/middlewares/InfoMiddleware')
 const CountryMiddleware = require('./app/middlewares/CountryMiddleware')
 const PhoneMiddleware = require('./app/middlewares/PhoneMiddleware')
 const EmailMiddleware = require('./app/middlewares/EmailMiddleware')
+const StartMiddleware = require('./app/middlewares/StartMiddleware')
 const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
 const TelegramIdMiddleware = require('./app/middlewares/api/TelegramIdMiddleware')
 
@@ -201,6 +202,7 @@ container
 		CountryMiddleware: asClass(CountryMiddleware).singleton(),
 		PhoneMiddleware: asClass(PhoneMiddleware).singleton(),
 		EmailMiddleware: asClass(EmailMiddleware).singleton(),
+		StartMiddleware: asClass(StartMiddleware).singleton(),
 		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
 		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton()
 	})

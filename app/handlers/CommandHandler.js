@@ -22,9 +22,12 @@ class CommandHandler {
 	 */
 	startBot(CTX) {
 		this.middlewareKernel.routerToMiddleware({
-			middlewares: ['ClientMiddleware.clientNotExistValidate'],
+			middlewares: [
+				'ClientMiddleware.clientNotExistValidate',
+				'StartMiddleware.sponsorIdValidate'
+			],
 			request: { context: CTX },
-			next: () => this.controllers.StartController.sendTermsAndPlans(CTX)
+			next: () => this.controllers.StartController.setSponsorId(CTX)
 		})
 	}
 

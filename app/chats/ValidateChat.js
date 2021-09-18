@@ -42,10 +42,24 @@ class ValidateChat {
 
 	async clientNotExist(CTX) {
 		try {
-			const button = await this.startChat.getButtonNewClient()
+			return await CTX.replyWithMarkdown(this.messageString.clientNotExistError)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async sponsorNotExist(CTX) {
+		try {
+			return await CTX.replyWithMarkdown(this.messageString.sponsorNotExist)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async sponsorAndClientIsEquals(CTX) {
+		try {
 			return await CTX.replyWithMarkdown(
-				this.messageString.clientNotExistError,
-				button
+				this.messageString.sponsorAndClientIsEquals
 			)
 		} catch (error) {
 			throw new Error(error)

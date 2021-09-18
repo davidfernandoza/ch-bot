@@ -8,6 +8,7 @@ class MiddlewareKernel {
 		CountryMiddleware,
 		PhoneMiddleware,
 		EmailMiddleware,
+		StartMiddleware,
 		ErrorHandler
 	}) {
 		this.errorHandler = ErrorHandler
@@ -18,7 +19,8 @@ class MiddlewareKernel {
 			InfoMiddleware,
 			CountryMiddleware,
 			PhoneMiddleware,
-			EmailMiddleware
+			EmailMiddleware,
+			StartMiddleware
 		}
 	}
 

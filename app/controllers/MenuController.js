@@ -37,13 +37,7 @@ class MenuController {
 			return this.errorHandler.sendError(CTX, error)
 		}
 	}
-	async openRulesMenu(CTX) {
-		try {
-			return this.menuChat.rulesMenu(CTX)
-		} catch (error) {
-			return this.errorHandler.sendError(CTX, error)
-		}
-	}
+
 	async openMyInfoMenu(CTX) {
 		try {
 			return this.menuChat.myInfoMenu(CTX)

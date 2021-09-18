@@ -31,13 +31,6 @@ class CallbackQueryHandler {
 
 	selectAction(CTX, buttonAction, buttonValue) {
 		switch (buttonAction) {
-			case 'newClient':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientNotExistValidate'],
-					request: { context: CTX },
-					next: () => this.startController.sendTermsAndPlans(CTX)
-				})
-				break
 			case 'acceptTerms':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: ['ClientMiddleware.clientNotExistValidate'],

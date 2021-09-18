@@ -7,7 +7,7 @@ class ErrorHandler {
 	}
 
 	async sendError(CTX, error) {
-		console.log('====================================')
+		console.log('==================================== bot')
 		console.log(error)
 		console.log('====================================')
 		return CTX.reply(this.messageString.serverError)
@@ -19,7 +19,7 @@ class ErrorHandler {
 			code = error.message
 		}
 
-		console.log('====================================')
+		console.log('==================================== api')
 		console.log(error.message)
 		console.log('====================================')
 

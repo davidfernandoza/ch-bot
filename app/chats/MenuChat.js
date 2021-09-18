@@ -24,7 +24,7 @@ class MenuChat {
 				['🔖 Importante'],
 				['🤝 Codigo de referido', '👨‍👧‍👦 Referidos'],
 				['📆 Ciclo', '💵 Cobrar'],
-				['👤 Mi informacion', '⚖️ Reglas']
+				['👤 Mi informacion', '⚖️ Terminos y condiciones']
 			]).reply()
 			return await CTX.reply('Menu principal', keyboard)
 		} catch (error) {
@@ -40,20 +40,6 @@ class MenuChat {
 				['⬅️ Menu principal']
 			]).reply()
 			return CTX.reply('Menu de referidos!', keyboard)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	rulesMenu(CTX) {
-		try {
-			const keyboard = Keyboard.make([
-				['🔖 Importante'],
-				['🔃 Matriz forzada', '💰 Plan de pagos'],
-				['⚖️ Terminos y condiciones'],
-				['⬅️ Menu principal']
-			]).reply()
-			return CTX.reply('Menu de reglas!', keyboard)
 		} catch (error) {
 			throw new Error(error)
 		}

@@ -6,17 +6,18 @@ module.exports = {
 	isBot: 'No puede ser un bot para usar este chat.',
 	addresUnavalible:
 		'La dirección de tron no es valida, intenta enviarla otra vez.',
-
 	clientExistError:
-		'El usuario ya existe en el sistema. \nUsa el comando /menu para abrir el menu del usuario. \n\nÓ usa el siguiente botón.',
+		'*Oh!* El usuario ya existe en el sistema. \nUsa el comando /menu para abrir el menu del usuario. \n\nÓ usa el siguiente botón.',
 	clientNotExistError:
-		'El usuario no existe en el sistema. \nUsa el comando /start para crear un nuevo usuario. \n\nÓ usa el siguiente botón',
+		'*Ops!* El usuario no existe en el sistema.\n\n*Escribe el codigo de referido que te paso tu patrocinador para crear un nuevo usuario.*',
+	sponsorNotExist:
+		'*Ops!* El codigo de referido del patrocinador no es correcto.\n\n*Escribe el codigo de referido que te paso tu patrocinador para crear un nuevo usuario.*',
+	sponsorAndClientIsEquals:
+		'*Ops!* El codigo de referido del patricinador es el mismo codigo del actual usuario.\n\nUsa otro link o pide otro codigo de patricinador.',
 	clientNotActive:
 		'El usuario no esta activo en la plataforma debe de hacer la siguiente transacción.',
-
 	webKvalidate:
 		'Hola!! Si estas en la plataforma web de "*Telegram WebK*" o la plataforma web de "*Telegram WebZ*" te recomendamos que descargues la aplicación de escritorio para tu sistema operativo correspondiente, ya que dichas plataformas web están limitadas para todas las opciones de la plataforma.\n\nPuedes descargar telegram para tu sistema operativo desde el siguiente link.\n\nhttps://telegram.org/apps',
-
 	registerRule:
 		'¡Hola! #NAME, pon mucha atención a las reglas de Cadena ahorro: \n\n#TERM \n\nPlan de ahorro:\n\n #PLAN',
 	succesClient: '¡Se ha creado el usuario con éxito!',
@@ -64,5 +65,7 @@ module.exports = {
 		'*Ciclo: #CODE* (Actual)\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*En el actual ciclo tienes un estado de:* #CLIENT_STATUS',
 	historicPeriodTitleMessage: '*Historico de ciclos pagos:*',
 	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
-	notHavePeriodMessage: '🚫 *No hay periodos pagos*'
+	notHavePeriodMessage: '🚫 *No hay periodos pagos*',
+	referredMessage:
+		'Puedes enviar el *link* o el *codigo* a tus referidos para agregarlos a tu red.'
 }

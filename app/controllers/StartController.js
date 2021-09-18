@@ -24,5 +24,13 @@ class StartController {
 			return this.errorHandler.sendError(CTX, error)
 		}
 	}
+
+	setSponsorId(CTX) {
+		try {
+			return this.sendTermsAndPlans(CTX)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
 }
 module.exports = StartController

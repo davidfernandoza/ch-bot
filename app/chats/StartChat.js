@@ -33,14 +33,6 @@ class StartChat {
 		}
 	}
 
-	getButtonNewClient() {
-		try {
-			return Markup.inlineKeyboard([
-				Markup.button.callback('🤵 Crear nuevo usuario', `newClient:NONE`)
-			])
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
+	
 }
 module.exports = StartChat

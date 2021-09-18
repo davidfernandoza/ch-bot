@@ -11,20 +11,8 @@ class StartDomain {
 			return {
 				dataTerm: await this.termRepository.getDefaultTerm(),
 				dataPlan: await this.planRepository.getDefaultPlan(),
-				sponsorTelegramId: this.getSponsorTelegramId(CTX)
+				sponsorTelegramId: CTX.update.message.sponsorId
 			}
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
-	getSponsorTelegramId(CTX) {
-		try {
-			if (CTX.update.message) {
-				const arrayText = CTX.update.message.text.split(' ')
-				return arrayText.length > 1 ? arrayText[1] : '1ROOT'
-			}
-			return '1ROOT'
 		} catch (error) {
 			throw new Error(error)
 		}

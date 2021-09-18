@@ -69,7 +69,7 @@ class PeriodChat {
 				message = message.replace('#DATE_OUT', period.end_date)
 				message = message.replace(
 					'#CONSIGNMENTS_AMOUNT',
-					period.consignments.length
+					period.consignments[0].transactions.length
 				)
 				message = message.replace(
 					'#STATUS',

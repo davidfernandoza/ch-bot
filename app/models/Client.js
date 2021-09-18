@@ -7,7 +7,7 @@ const ClientSchema = new Schema({
 	client_id: { type: Number, unique: true },
 	sponsor_id: { type: Number, default: 1 },
 	plan_id: String,
-	sponsor_telegram_id: { type: String, default: '1ROOT' },
+	sponsor_telegram_id: { type: Number },
 	full_name: String,
 	period: Date,
 	username: { type: String, unique: true },
