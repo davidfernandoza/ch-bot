@@ -6,7 +6,7 @@ class ReferredLinkController {
 		this.errorHandler = ErrorHandler
 	}
 
-	async senReferradLink(CTX) {
+	async sendReferradLink(CTX) {
 		try {
 			return this.referredLinkChat.sendReferredLink(CTX)
 		} catch (error) {

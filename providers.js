@@ -21,6 +21,7 @@ const DefaultController = require('./app/controllers/DefaultController')
 const PhoneController = require('./app/controllers/PhoneController')
 const EmailController = require('./app/controllers/EmailController')
 const PeriodController = require('./app/controllers/PeriodController')
+const TermController = require('./app/controllers/TermController')
 
 /* -----------------------------------------------------*/
 /* Chats:			 																					*/
@@ -37,6 +38,7 @@ const CountryChat = require('./app/Chats/CountryChat')
 const PhoneChat = require('./app/Chats/PhoneChat')
 const EmailChat = require('./app/Chats/EmailChat')
 const PeriodChat = require('./app/Chats/PeriodChat')
+const TermsAndPlandChat = require('./app/Chats/TermsAndPlandChat')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -56,6 +58,7 @@ const PhoneDomain = require('./app/domains/phone/PhoneDomain')
 const EmailDomain = require('./app/domains/email/EmailDomain')
 const StatusClientDomain = require('./app/domains/clients/StatusClientDomain')
 const PeriodDomain = require('./app/domains/period/PeriodDomain')
+const TermDomain = require('./app/domains/terms/TermDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -95,6 +98,7 @@ const AuthRepository = require('./app/repositories/AuthRepository')
 const CountryRepository = require('./app/repositories/CountryRepository')
 const WalletRepository = require('./app/repositories/WalletRepository')
 const PeriodRepository = require('./app/repositories/PeriodRepository')
+const MatixRepository = require('./app/repositories/MatixRepository')
 
 /* -----------------------------------------------------*/
 /* Routes:				 																			*/
@@ -142,7 +146,8 @@ container
 		DefaultController: asClass(DefaultController).singleton(),
 		PhoneController: asClass(PhoneController).singleton(),
 		EmailController: asClass(EmailController).singleton(),
-		PeriodController: asClass(PeriodController).singleton()
+		PeriodController: asClass(PeriodController).singleton(),
+		TermController: asClass(TermController).singleton()
 	})
 
 	// Chats
@@ -158,7 +163,8 @@ container
 		CountryChat: asClass(CountryChat).singleton(),
 		PhoneChat: asClass(PhoneChat).singleton(),
 		EmailChat: asClass(EmailChat).singleton(),
-		PeriodChat: asClass(PeriodChat).singleton()
+		PeriodChat: asClass(PeriodChat).singleton(),
+		TermsAndPlandChat: asClass(TermsAndPlandChat).singleton()
 	})
 
 	// Domain
@@ -177,7 +183,8 @@ container
 		PhoneDomain: asClass(PhoneDomain).singleton(),
 		EmailDomain: asClass(EmailDomain).singleton(),
 		StatusClientDomain: asClass(StatusClientDomain).singleton(),
-		PeriodDomain: asClass(PeriodDomain).singleton()
+		PeriodDomain: asClass(PeriodDomain).singleton(),
+		TermDomain: asClass(TermDomain).singleton()
 	})
 
 	// Events Handler:
@@ -216,7 +223,8 @@ container
 		TransactionRepository: asClass(TransactionRepository).singleton(),
 		AuthRepository: asClass(AuthRepository).singleton(),
 		CountryRepository: asClass(CountryRepository).singleton(),
-		PeriodRepository: asClass(PeriodRepository).singleton()
+		PeriodRepository: asClass(PeriodRepository).singleton(),
+		MatixRepository: asClass(MatixRepository).singleton()
 	})
 
 	// Router

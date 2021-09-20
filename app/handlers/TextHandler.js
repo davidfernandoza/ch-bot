@@ -14,7 +14,8 @@ class TextHandler {
 		PhoneController,
 		EmailController,
 		PeriodController,
-		StartController
+		StartController,
+		TermController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -29,6 +30,7 @@ class TextHandler {
 		this.emailController = EmailController
 		this.periodController = PeriodController
 		this.startController = StartController
+		this.termController = TermController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -96,6 +98,18 @@ class TextHandler {
 					next: () => this.emailController.setEmailToClient(CTX)
 				})
 				break
+			case '🔖 Importante':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
+					],
+					request: { context: CTX },
+					next: () => this.termController.sendPlanText(CTX)
+				})
+				break
 			case '🤝 Codigo de referido':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
@@ -106,7 +120,7 @@ class TextHandler {
 						'InfoMiddleware.clientIsInfo'
 					],
 					request: { context: CTX },
-					next: () => this.referredLinkController.senReferradLink(CTX)
+					next: () => this.referredLinkController.sendReferradLink(CTX)
 				})
 				break
 			case '👨‍👧‍👦 Referidos':
@@ -143,6 +157,18 @@ class TextHandler {
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
+				})
+				break
+			case '⚖️ Terminos y condiciones':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate'
+					],
+					request: { context: CTX },
+					next: () => this.termController.sendTermText(CTX)
 				})
 				break
 			case '🔄 Estado':

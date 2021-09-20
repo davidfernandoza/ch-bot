@@ -1,16 +1,18 @@
 'use strict'
 
 class StartDomain {
-	constructor({ TermRepository, PlanRepository }) {
+	constructor({ TermDomain, TermRepository, PlanRepository }) {
 		this.termRepository = TermRepository
 		this.planRepository = PlanRepository
+		this.termDomain = TermDomain
 	}
 
 	async makeDataPrint(CTX) {
 		try {
 			return {
-				dataTerm: await this.termRepository.getDefaultTerm(),
-				dataPlan: await this.planRepository.getDefaultPlan(),
+				...(await this.termDomain.makeDataPrintForPlan()),
+				...(await this.termDomain.makeDataPrintForTerm()),
+				...(await this.termDomain.makeDataPrintForMatrix()),
 				sponsorTelegramId: CTX.update.message.sponsorId
 			}
 		} catch (error) {
