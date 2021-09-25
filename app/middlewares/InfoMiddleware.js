@@ -26,8 +26,6 @@ class InfoMiddleware {
 				return await this.sendError(CTX, 'country')
 			} else if (!client.phone) {
 				return await this.sendError(CTX, 'phone')
-			} else if (!client.email) {
-				return await this.sendError(CTX, 'email')
 			} else {
 				if (client.status == 'INFO_ACTIVE') {
 					await this.statusClientDomain.activeClient(client)
@@ -47,7 +45,6 @@ class InfoMiddleware {
 			)
 			if (JSON.stringify(client.country) == '{}') return false
 			if (!client.phone) return false
-			if (!client.email) return false
 			if (client.status == 'INFO') {
 				await this.validateChat.infoBackMissing(CTX)
 				return false
@@ -66,7 +63,6 @@ class InfoMiddleware {
 			)
 			if (JSON.stringify(client.country) == '{}') return true
 			if (!client.phone) return true
-			if (!client.email) return true
 			if (client.status == 'INFO_ACTIVE') {
 				await this.statusClientDomain.activeClient(client)
 			}

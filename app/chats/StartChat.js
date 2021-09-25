@@ -19,7 +19,7 @@ class StartChat {
 			await CTX.replyWithMarkdown(message)
 			await this.termsAndPlandChat.printTerm(CTX, dataPrint)
 			await this.termsAndPlandChat.printPlan(CTX, dataPrint)
-			await this.termsAndPlandChat.printForcedMatrix(CTX, dataPrint)
+			await this.termsAndPlandChat.printMatrix(CTX, dataPrint)
 			return await CTX.replyWithMarkdown(this.messageString.acceptRules, button)
 		} catch (error) {
 			throw new Error(error)

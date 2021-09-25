@@ -7,7 +7,6 @@ class MiddlewareKernel {
 		InfoMiddleware,
 		CountryMiddleware,
 		PhoneMiddleware,
-		EmailMiddleware,
 		StartMiddleware,
 		ErrorHandler
 	}) {
@@ -19,7 +18,6 @@ class MiddlewareKernel {
 			InfoMiddleware,
 			CountryMiddleware,
 			PhoneMiddleware,
-			EmailMiddleware,
 			StartMiddleware
 		}
 	}

@@ -5,24 +5,13 @@ const Schema = mongoose.Schema
 
 const ClientSchema = new Schema({
 	client_id: { type: Number, unique: true },
-	sponsor_id: { type: Number, default: 1 },
-	plan_id: String,
+	sponsor_id: { type: Number },
+	plan_id: { type: String, nullable: true },
 	sponsor_telegram_id: { type: Number },
 	full_name: String,
-	period: Date,
-	username: { type: String, unique: true },
-	phone: String,
+	period: { type: Date, nullable: true },
+	phone: { type: String, nullable: true },
 	telegram_id: { type: String, unique: true },
-	email: { type: String, unique: true },
-	tree_id: { type: Number, unique: true },
-	action_bot: {
-		step: { type: String, default: 0 },
-		action: {
-			type: String,
-			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY', 'GET_PHONE', 'GET_EMAIL'],
-			default: 'NONE'
-		}
-	},
 	status: {
 		type: String,
 		enum: [
@@ -36,7 +25,6 @@ const ClientSchema = new Schema({
 		],
 		default: 'INACTIVE'
 	},
-
 	wallet: {
 		id: Number,
 		key: { type: String, unique: true },
@@ -44,15 +32,23 @@ const ClientSchema = new Schema({
 		action_wallet: { type: String, default: 'NONE' } //Update or Created
 	},
 	auth: {
-		access_token: String,
-		token_type: String,
-		expires_in: Date
+		access_token: { type: String, nullable: true },
+		token_type: { type: String, nullable: true },
+		expires_in: { type: Date, nullable: true }
 	},
 	country: {
-		name: { type: String },
-		prefix: { type: String },
-		characters_phone: { type: Number },
-		id: { type: String }
+		name: { type: String, nullable: true },
+		prefix: { type: String, nullable: true },
+		characters_phone: { type: Number, nullable: true },
+		id: { type: String, nullable: true }
+	},
+	action_bot: {
+		step: { type: String, default: 0 },
+		action: {
+			type: String,
+			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY', 'GET_PHONE'],
+			default: 'NONE'
+		}
 	}
 })
 

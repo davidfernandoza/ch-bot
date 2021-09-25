@@ -12,7 +12,6 @@ class TextHandler {
 		CountryController,
 		DefaultController,
 		PhoneController,
-		EmailController,
 		PeriodController,
 		StartController,
 		TermController
@@ -27,7 +26,6 @@ class TextHandler {
 		this.countryController = CountryController
 		this.defaultController = DefaultController
 		this.phoneController = PhoneController
-		this.emailController = EmailController
 		this.periodController = PeriodController
 		this.startController = StartController
 		this.termController = TermController
@@ -84,18 +82,6 @@ class TextHandler {
 					],
 					request: { context: CTX },
 					next: () => this.phoneController.setPhoneToClient(CTX)
-				})
-				break
-			case 'GET_EMAIL':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'EmailMiddleware.emailValidate'
-					],
-					request: { context: CTX },
-					next: () => this.emailController.setEmailToClient(CTX)
 				})
 				break
 			case '🔖 Importante':

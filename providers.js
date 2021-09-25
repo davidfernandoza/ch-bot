@@ -19,7 +19,6 @@ const ClientReferralsController = require('./app/controllers/ClientReferralsCont
 const CountryController = require('./app/controllers/CountryController')
 const DefaultController = require('./app/controllers/DefaultController')
 const PhoneController = require('./app/controllers/PhoneController')
-const EmailController = require('./app/controllers/EmailController')
 const PeriodController = require('./app/controllers/PeriodController')
 const TermController = require('./app/controllers/TermController')
 
@@ -36,7 +35,6 @@ const ReferredLinkChat = require('./app/Chats/ReferredLinkChat')
 const ClientReferralsChat = require('./app/Chats/ClientReferralsChat')
 const CountryChat = require('./app/Chats/CountryChat')
 const PhoneChat = require('./app/Chats/PhoneChat')
-const EmailChat = require('./app/Chats/EmailChat')
 const PeriodChat = require('./app/Chats/PeriodChat')
 const TermsAndPlandChat = require('./app/Chats/TermsAndPlandChat')
 
@@ -55,7 +53,6 @@ const StartDomain = require('./app/domains/start/StartDomain')
 const AuthDomain = require('./app/domains/auth/authDomain')
 const CountryDomain = require('./app/domains/country/CountryDomain')
 const PhoneDomain = require('./app/domains/phone/PhoneDomain')
-const EmailDomain = require('./app/domains/email/EmailDomain')
 const StatusClientDomain = require('./app/domains/clients/StatusClientDomain')
 const PeriodDomain = require('./app/domains/period/PeriodDomain')
 const TermDomain = require('./app/domains/terms/TermDomain')
@@ -82,7 +79,6 @@ const AuthMiddleware = require('./app/middlewares/AuthMiddleware')
 const InfoMiddleware = require('./app/middlewares/InfoMiddleware')
 const CountryMiddleware = require('./app/middlewares/CountryMiddleware')
 const PhoneMiddleware = require('./app/middlewares/PhoneMiddleware')
-const EmailMiddleware = require('./app/middlewares/EmailMiddleware')
 const StartMiddleware = require('./app/middlewares/StartMiddleware')
 const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
 const TelegramIdMiddleware = require('./app/middlewares/api/TelegramIdMiddleware')
@@ -145,7 +141,6 @@ container
 		CountryController: asClass(CountryController).singleton(),
 		DefaultController: asClass(DefaultController).singleton(),
 		PhoneController: asClass(PhoneController).singleton(),
-		EmailController: asClass(EmailController).singleton(),
 		PeriodController: asClass(PeriodController).singleton(),
 		TermController: asClass(TermController).singleton()
 	})
@@ -162,7 +157,6 @@ container
 		ClientReferralsChat: asClass(ClientReferralsChat).singleton(),
 		CountryChat: asClass(CountryChat).singleton(),
 		PhoneChat: asClass(PhoneChat).singleton(),
-		EmailChat: asClass(EmailChat).singleton(),
 		PeriodChat: asClass(PeriodChat).singleton(),
 		TermsAndPlandChat: asClass(TermsAndPlandChat).singleton()
 	})
@@ -181,7 +175,6 @@ container
 		CountryDomain: asClass(CountryDomain).singleton(),
 		DefaultActionDomain: asClass(DefaultActionDomain).singleton(),
 		PhoneDomain: asClass(PhoneDomain).singleton(),
-		EmailDomain: asClass(EmailDomain).singleton(),
 		StatusClientDomain: asClass(StatusClientDomain).singleton(),
 		PeriodDomain: asClass(PeriodDomain).singleton(),
 		TermDomain: asClass(TermDomain).singleton()
@@ -208,7 +201,6 @@ container
 		InfoMiddleware: asClass(InfoMiddleware).singleton(),
 		CountryMiddleware: asClass(CountryMiddleware).singleton(),
 		PhoneMiddleware: asClass(PhoneMiddleware).singleton(),
-		EmailMiddleware: asClass(EmailMiddleware).singleton(),
 		StartMiddleware: asClass(StartMiddleware).singleton(),
 		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
 		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton()

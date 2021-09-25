@@ -62,20 +62,6 @@ class ClientRepository extends Repository {
 		}
 	}
 
-	async setEmailForClient(clientId, email, accessToken) {
-		try {
-			return await super.put(
-				`${this.prefix}/set-email/client/${clientId}`,
-				{
-					email: email
-				},
-				accessToken
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
 	//  Mongo ----------------------------------
 
 	async storeClientInMongo(dataClient) {

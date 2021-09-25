@@ -53,8 +53,6 @@ module.exports = {
 		'Escribe tu numero de teléfono celular que estés usando con este telegram.',
 	getEmailMessage: 'Escribe tu correo electrónico.',
 	isNotPhone: 'El teléfono enviado no es valido, intenta enviarlo otra vez.',
-	isNotEmail:
-		'El correo electrónico enviado no es valido, intenta enviarlo otra vez.',
 	setEmail: 'Selección de correo electrónico hecha correctamente.',
 	setPhone: 'Selección de teléfono hecha correctamente.',
 	incompleteMessage:

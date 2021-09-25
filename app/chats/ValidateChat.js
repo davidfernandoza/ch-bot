@@ -150,15 +150,6 @@ class ValidateChat {
 		}
 	}
 
-	async isNotEmail(CTX) {
-		try {
-			const message = this.messageString.isNotEmail
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
 	async incompleteMessage(CTX) {
 		try {
 			const message = this.messageString.incompleteMessage
