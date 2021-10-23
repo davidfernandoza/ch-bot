@@ -26,6 +26,23 @@ class ClientMiddleware {
 		}
 	}
 
+	async clientIsCompany(CTX) {
+		try {
+			const telegramId = CTX.from.id
+			const client = await this.clientRepository.getClientByTelegramIdInMongo(
+				telegramId
+			)
+			if (!client) return true
+			if (client.status == 'COMPANY') {
+				await this.validateChat.clientIsCompanyStatus(CTX)
+				return false
+			}
+			return true
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	async clientExistByTelegramId(CTX, telegramId, isExist) {
 		try {
 			const response = await this.clientRepository.getClientByTelegramIdInMongo(

@@ -30,7 +30,7 @@ class ActionWalletDomain {
 		try {
 			const actionWallet = !action
 				? this.config.STRINGS.CREATE_WALLET
-				: this.config.STRINGS.UPDATE_WALLET
+				: this.config.STRINGS[action]
 
 			let actionBot = this.config.STRINGS.GET_WALLET,
 				telegramId = CTX.from.id,

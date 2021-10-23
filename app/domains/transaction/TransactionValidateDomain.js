@@ -8,6 +8,8 @@ class TransactionValidateDomain {
 		QrCodeService,
 		DefaultString,
 		StatusClientDomain,
+		BuildDataTransaction,
+		ClientDomain,
 		Config
 	}) {
 		this.clientRepository = ClientRepository
@@ -18,35 +20,27 @@ class TransactionValidateDomain {
 		this.authDomain = AuthDomain
 		this.defaultString = DefaultString
 		this.statusClientDomain = StatusClientDomain
+		this.clientDomain = ClientDomain
+		this.buildDataTransaction = BuildDataTransaction
 	}
 
 	async getValidatedForTransaction(CTX) {
 		try {
-			const client = await this.clientRepository.getClientByTelegramIdInMongo(
-					CTX.from.id
-				),
-				transactionResponse =
-					await this.transactionRepository.getTransactionValidate(
-						client.client_id
-					)
 			const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
+			const client = await this.clientRepository.getClientByTelegramIdInMongo(
+				CTX.from.id
+			)
+			const transactionResponse =
+				await this.transactionRepository.getTransactionValidate(
+					client.client_id
+				)
+
 			if (transactionResponse.status == 'INCOMPLETE') {
-				transactionResponse.consignment =
-					await this.walletRepository.getConsignmentWalletAvailable()
-				transactionResponse.qrFile = await this.makeQRCodeForConsignments(
-					transactionResponse.difference,
-					transactionResponse.consignment
-				)
-				await this.statusClientDomain.updateClientStatus(client)
+				this.incompleteStatusManager(transactionResponse, client)
+			} else if (transactionResponse.status == 'COMPANY') {
+				this.clientDomain.companyStatusManger(CTX)
 			} else if (arrayValidate.includes(transactionResponse.status)) {
-				await this.statusClientDomain.updateClientStatus(
-					client,
-					transactionResponse.client_status
-				)
-				client.action_bot = { ...client.action_bot, action: 'NONE' }
-				client.wallet = { ...client.wallet, action_wallet: 'NONE' }
-				client.period = transactionResponse.period
-				await this.authDomain.login(client)
+				this.completeStatusManger(transactionResponse, client)
 			}
 			return transactionResponse
 		} catch (error) {
@@ -54,14 +48,29 @@ class TransactionValidateDomain {
 		}
 	}
 
-	async makeQRCodeForConsignments(value, consignment) {
-		try {
-			return await this.qrCodeService.generate(
-				`tron:${consignment.key}?amount=${value}&req-asset=${this.config.ASSET_ID}`
+	async completeStatusManger(transactionResponse, client) {
+		const status = transactionResponse.client_status
+		client = this.changeActionNoneManager(client)
+		client.period = transactionResponse.period
+		await this.statusClientDomain.updateClientStatus(client, status)
+		await this.authDomain.login(client)
+	}
+
+	async incompleteStatusManager(transactionResponse, client) {
+		transactionResponse.consignment =
+			await this.walletRepository.getConsignmentWalletAvailable()
+		transactionResponse.qrFile =
+			await this.buildDataTransaction.makeQRCodeForTransaction(
+				transactionResponse.difference,
+				transactionResponse.consignment
 			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.statusClientDomain.addIncompleteClient(client)
+	}
+
+	changeActionNoneManager(client) {
+		client.action_bot = { ...client.action_bot, action: 'NONE' }
+		client.wallet = { ...client.wallet, action_wallet: 'NONE' }
+		return client
 	}
 }
 

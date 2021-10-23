@@ -5,7 +5,6 @@ class ValidateChat {
 	constructor({
 		MessageString,
 		WalletChat,
-		BuildWalletDomain,
 		TransactionChat,
 		StartChat,
 		MenuChat,
@@ -14,7 +13,6 @@ class ValidateChat {
 		this.messageString = MessageString
 		this.transactionChat = TransactionChat
 		this.walletChat = WalletChat
-		this.buildWalletDomain = BuildWalletDomain
 		this.startChat = StartChat
 		this.menuChat = MenuChat
 		this.defaultString = DefaultString
@@ -84,18 +82,6 @@ class ValidateChat {
 		}
 	}
 
-	async openPayment(CTX, client) {
-		try {
-			const dataPrint =
-				await this.buildWalletDomain.makeDataPrintForConsignmentWallet(client)
-			await CTX.replyWithMarkdown(this.messageString.clientNotActive)
-			await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
-			return await this.walletChat.changeToWallet(CTX)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
 	async infoIsMissing(CTX, attribute) {
 		try {
 			const attributeSelected = this.defaultString.INFO[attribute]
@@ -153,6 +139,18 @@ class ValidateChat {
 	async incompleteMessage(CTX) {
 		try {
 			const message = this.messageString.incompleteMessage
+			return await CTX.replyWithMarkdown(message)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async clientIsCompanyStatus(CTX) {
+		try {
+			const telegramId = CTX.from.id
+			let message = this.messageString.clientIsCompanyStatus
+			message = message.replace('#TELEGRAM_ID', telegramId)
+			message = message.replace('#URL_SUPPORT', this.defaultString.URL_SUPPORT)
 			return await CTX.replyWithMarkdown(message)
 		} catch (error) {
 			throw new Error(error)

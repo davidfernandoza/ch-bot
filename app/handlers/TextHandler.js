@@ -14,6 +14,7 @@ class TextHandler {
 		PhoneController,
 		PeriodController,
 		StartController,
+		TransactionController,
 		TermController
 	}) {
 		this.clientRepository = ClientRepository
@@ -29,6 +30,7 @@ class TextHandler {
 		this.periodController = PeriodController
 		this.startController = StartController
 		this.termController = TermController
+		this.transactionController = TransactionController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -60,14 +62,20 @@ class TextHandler {
 		switch (actionBot) {
 			case 'GET_WALLET':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['WalletMiddleware.correctWallet'],
+					middlewares: [
+						'WalletMiddleware.correctWallet',
+						'ClientMiddleware.clientIsCompany'
+					],
 					request: { context: CTX },
 					next: () => this.walletController.storeWallet(CTX)
 				})
 				break
 			case 'GET_SPONSOR_ID':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['WalletMiddleware.correctWallet'],
+					middlewares: [
+						'WalletMiddleware.correctWallet',
+						'ClientMiddleware.clientIsCompany'
+					],
 					request: { context: CTX },
 					next: () => this.startController.getSponsorId(CTX)
 				})
@@ -76,6 +84,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'PhoneMiddleware.phoneValidate'
@@ -88,6 +97,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -100,6 +110,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
@@ -113,6 +124,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
@@ -126,6 +138,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
@@ -139,6 +152,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
@@ -149,6 +163,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -161,16 +176,40 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.periodController.getStatusToPeriod(CTX)
 				})
 				break
+			case '💵 Pagar ciclo':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet'
+					],
+					request: { context: CTX },
+					next: () => this.transactionController.sendTransaction(CTX)
+				})
+				break
+			case '💳 Cambiar direccion tron':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet'
+					],
+					request: { context: CTX },
+					next: () => this.walletController.changeWallet(CTX)
+				})
+				break
 			case '👤 Mi informacion':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.clientIsActive'
@@ -183,6 +222,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
@@ -194,6 +234,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'CountryMiddleware.countryExist'
@@ -206,6 +247,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
@@ -217,6 +259,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
@@ -228,6 +271,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
@@ -239,6 +283,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -255,6 +300,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -271,6 +317,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -287,6 +334,7 @@ class TextHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -301,6 +349,7 @@ class TextHandler {
 					this.middlewareKernel.routerToMiddleware({
 						middlewares: [
 							'ClientMiddleware.clientExistValidate',
+							'ClientMiddleware.clientIsCompany',
 							'WalletMiddleware.clientWithWallet'
 						],
 						request: { context: CTX },

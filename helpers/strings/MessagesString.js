@@ -67,5 +67,8 @@ module.exports = {
 	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
 	notHavePeriodMessage: '🚫 *No hay periodos pagos*',
 	referredMessage:
-		'Puedes enviar el *link* o el *codigo* a tus referidos para agregarlos a tu red.'
+		'Puedes enviar el *link* o el *codigo* a tus referidos para agregarlos a tu red.',
+	clientIsCompanyStatus:
+		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente codigo *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
+	correctWalleChange: 'Direccion tron actualizada correctamente.'
 }

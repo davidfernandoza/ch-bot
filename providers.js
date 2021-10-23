@@ -43,8 +43,8 @@ const TermsAndPlandChat = require('./app/Chats/TermsAndPlandChat')
 /*------------------------------------------------------*/
 const WalletDomain = require('./app/domains/wallet/WalletDomain')
 const ActionWalletDomain = require('./app/domains/wallet/ActionWalletDomain')
-const BuildWalletDomain = require('./app/domains/wallet/BuildWalletDomain')
 const TransactionValidateDomain = require('./app/domains/transaction/TransactionValidateDomain')
+const BuildDataTransaction = require('./app/domains/transaction/BuildDataTransaction')
 const ClientDomain = require('./app/domains/clients/ClientDomain')
 const BuildClientDomain = require('./app/domains/clients/BuildClientDomain')
 const ClientReferralsDomain = require('./app/domains/clients/ClientReferralsDomain')
@@ -56,6 +56,8 @@ const PhoneDomain = require('./app/domains/phone/PhoneDomain')
 const StatusClientDomain = require('./app/domains/clients/StatusClientDomain')
 const PeriodDomain = require('./app/domains/period/PeriodDomain')
 const TermDomain = require('./app/domains/terms/TermDomain')
+const PlanDomain = require('./app/domains/plan/planDomain')
+const TransactionDomain = require('./app/domains/transaction/TransactionDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -166,7 +168,6 @@ container
 		ClientDomain: asClass(ClientDomain).singleton(),
 		StartDomain: asClass(StartDomain).singleton(),
 		ActionWalletDomain: asClass(ActionWalletDomain).singleton(),
-		BuildWalletDomain: asClass(BuildWalletDomain).singleton(),
 		WalletDomain: asClass(WalletDomain).singleton(),
 		BuildClientDomain: asClass(BuildClientDomain).singleton(),
 		TransactionValidateDomain: asClass(TransactionValidateDomain).singleton(),
@@ -177,7 +178,10 @@ container
 		PhoneDomain: asClass(PhoneDomain).singleton(),
 		StatusClientDomain: asClass(StatusClientDomain).singleton(),
 		PeriodDomain: asClass(PeriodDomain).singleton(),
-		TermDomain: asClass(TermDomain).singleton()
+		TermDomain: asClass(TermDomain).singleton(),
+		PlanDomain: asClass(PlanDomain).singleton(),
+		BuildDataTransaction: asClass(BuildDataTransaction).singleton(),
+		TransactionDomain: asClass(TransactionDomain).singleton()
 	})
 
 	// Events Handler:

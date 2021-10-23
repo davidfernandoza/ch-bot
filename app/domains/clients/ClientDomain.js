@@ -1,9 +1,16 @@
 'use strict'
 
 class ClientDomain {
-	constructor({ ClientRepository, PlanRepository }) {
+	constructor({
+		ClientRepository,
+		PlanRepository,
+		StatusClientDomain,
+		ValidateChat
+	}) {
 		this.clientRepository = ClientRepository
 		this.planRepository = PlanRepository
+		this.statusClientDomain = StatusClientDomain
+		this.validateChat = ValidateChat
 	}
 
 	async assignActionToClient(client, action, step) {
@@ -61,6 +68,15 @@ class ClientDomain {
 		} catch (error) {
 			throw new Error(error)
 		}
+	}
+
+	async companyStatusManger(CTX) {
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
+		await this.statusClientDomain.addCompanyClient(client)
+		await this.validateChat.clientIsCompanyStatus(CTX)
+		return false
 	}
 }
 

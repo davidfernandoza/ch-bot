@@ -52,12 +52,6 @@ class ClientReferralsChat {
 				)
 			} else message = message.replace('#COUNTRY', client.data.country)
 
-			/*
-			 * Email
-			 */
-			if (client.data.user_email) {
-				message += `\n*Email*: ${client.data.user_email}`
-			}
 			return message
 		} catch (error) {
 			throw new Error(error)

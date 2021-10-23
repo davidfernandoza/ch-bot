@@ -1,9 +1,10 @@
 'use strict'
 
 class PhoneDomain {
-	constructor({ ClientRepository, DefaultString }) {
+	constructor({ ClientRepository, DefaultString, ClientDomain }) {
 		this.clientRepository = ClientRepository
 		this.defaultString = DefaultString
+		this.clientDomain = ClientDomain
 	}
 
 	async setActivePhoneStatus(CTX) {
@@ -25,6 +26,10 @@ class PhoneDomain {
 					phone,
 					CTX.accessToken
 				)
+			if (backClient.status == 'COMPANY') {
+				await this.clientDomain.companyStatusManger(CTX)
+				throw new Error()
+			}
 			client.phone = backClient.phone
 			client.action_bot.action = 'NONE'
 			await this.clientRepository.updateClientInMongo(client)

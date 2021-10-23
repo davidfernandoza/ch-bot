@@ -1,8 +1,9 @@
 'use strict'
 
 class ClientReferralsDomain {
-	constructor({ ClientRepository }) {
+	constructor({ ClientRepository, ClientDomain }) {
 		this.clientRepository = ClientRepository
+		this.clientDomain = ClientDomain
 	}
 
 	async getClientReferrals(CTX, value) {
@@ -12,6 +13,11 @@ class ClientReferralsDomain {
 					CTX.client.client_id,
 					CTX.accessToken
 				)
+
+			if (authClient.status == 'COMPANY') {
+				await this.clientDomain.companyStatusManger(CTX)
+				throw new Error()
+			}
 			if (!authClient.tree) return { data: null }
 			switch (value) {
 				case 'REFERAL_LEFT':

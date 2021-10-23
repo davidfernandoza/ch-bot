@@ -26,7 +26,7 @@ class ClientRepository extends Repository {
 	async getClientWithReferrals(client_id, accessToken) {
 		try {
 			return await super.get(
-				`${this.prefix}/referrals/${client_id}`,
+				`${this.prefix}/referrals/client/${client_id}`,
 				accessToken
 			)
 		} catch (error) {

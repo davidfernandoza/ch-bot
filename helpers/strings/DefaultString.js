@@ -7,6 +7,7 @@ module.exports = {
 	GENERAL_TERM: 1,
 	DEFAULT_PLAN: 1,
 	CREATE_WALLET: 'CREATE_WALLET',
+	UPDATE_NEW_WALLET: 'UPDATE_NEW_WALLET',
 	UPDATE_WALLET: 'UPDATE_WALLET',
 	GET_WALLET: 'GET_WALLET',
 	GET_COUNTRY: 'GET_COUNTRY',
@@ -17,10 +18,10 @@ module.exports = {
 	URL_SUPPORT: 'https://t.me/supportAhorroFacil?start=#',
 	STATUS: {
 		ACTIVE: 'Activo',
-		INFO: 'Perfil Incompleto ó Sin Posición',
-		INFO_ACTIVE: 'Perfil Incompleto',
+		INFO: 'Perfil Incompleto ó Sin Posición\n*(Espera unos minutos)*',
+		INFO_ACTIVE:
+			'Perfil Incompleto ó Sin Posición\n*(Espera unos minutos - usa el menu principal)*',
 		COMPANY: 'Inactivo',
-		DEBT: 'Inactivo',
 		INACTIVE: 'Inactivo',
 		INCOMPLETE: 'Inactivo con Pago Incompleto'
 	},

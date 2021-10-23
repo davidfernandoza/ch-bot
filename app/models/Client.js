@@ -6,9 +6,11 @@ const Schema = mongoose.Schema
 const ClientSchema = new Schema({
 	client_id: { type: Number, unique: true },
 	sponsor_id: { type: Number },
-	plan_id: { type: String, nullable: true },
+	plan_id: { type: Number, nullable: true },
 	sponsor_telegram_id: { type: Number },
-	full_name: String,
+	full_name: {
+		type: String
+	},
 	period: { type: Date, nullable: true },
 	phone: { type: String, nullable: true },
 	telegram_id: { type: String, unique: true },
@@ -20,7 +22,6 @@ const ClientSchema = new Schema({
 			'INFO_ACTIVE',
 			'COMPANY',
 			'INACTIVE',
-			'DEBT',
 			'INCOMPLETE'
 		],
 		default: 'INACTIVE'
@@ -37,13 +38,13 @@ const ClientSchema = new Schema({
 		expires_in: { type: Date, nullable: true }
 	},
 	country: {
+		id: { type: Number, nullable: true },
 		name: { type: String, nullable: true },
 		prefix: { type: String, nullable: true },
-		characters_phone: { type: Number, nullable: true },
-		id: { type: String, nullable: true }
+		characters_phone: { type: Number, nullable: true }
 	},
 	action_bot: {
-		step: { type: String, default: 0 },
+		step: { type: Number, default: 0 },
 		action: {
 			type: String,
 			enum: ['NONE', 'GET_WALLET', 'GET_COUNTRY', 'GET_PHONE'],

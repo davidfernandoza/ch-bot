@@ -4,6 +4,7 @@ class TransactionController {
 	constructor({
 		TransactionValidateDomain,
 		TransactionChat,
+		TransactionDomain,
 		ErrorHandler,
 		DefaultString
 	}) {
@@ -11,6 +12,7 @@ class TransactionController {
 		this.errorHandler = ErrorHandler
 		this.transactionChat = TransactionChat
 		this.defaultString = DefaultString
+		this.transactionDomain = TransactionDomain
 	}
 
 	async getValidationInBack(CTX) {
@@ -25,6 +27,15 @@ class TransactionController {
 			} else {
 				return await this.transactionChat.transactionNone(CTX)
 			}
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	async sendTransaction(CTX) {
+		try {
+			const clientMongo = CTX.client
+			return await this.transactionDomain.openTransaction(CTX, clientMongo)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

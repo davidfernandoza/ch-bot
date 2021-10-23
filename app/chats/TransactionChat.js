@@ -51,7 +51,7 @@ class TransactionChat {
 				)
 				message = message.replace(/#AMOUNT/g, dataPrint.difference)
 			} else {
-				message = message.replace('#AMOUNT', dataPrint.plan.consignment_value)
+				message = message.replace('#AMOUNT', dataPrint.planValue)
 			}
 			return message
 		} catch (error) {

@@ -28,7 +28,7 @@ class InfoMiddleware {
 				return await this.sendError(CTX, 'phone')
 			} else {
 				if (client.status == 'INFO_ACTIVE') {
-					await this.statusClientDomain.activeClient(client)
+					await this.statusClientDomain.addActiveClient(client)
 				}
 				return true
 			}
@@ -64,7 +64,7 @@ class InfoMiddleware {
 			if (JSON.stringify(client.country) == '{}') return true
 			if (!client.phone) return true
 			if (client.status == 'INFO_ACTIVE') {
-				await this.statusClientDomain.activeClient(client)
+				await this.statusClientDomain.addActiveClient(client)
 			}
 			return true
 		} catch (error) {

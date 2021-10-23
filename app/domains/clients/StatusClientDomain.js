@@ -22,14 +22,6 @@ class StatusClientDomain {
 		}
 	}
 
-	async addDebtClient(client) {
-		try {
-			await this.updateClientStatus(client, 'DEBT')
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-
 	async addIncompleteClient(client) {
 		try {
 			await this.updateClientStatus(client, 'INCOMPLETE')
@@ -38,9 +30,25 @@ class StatusClientDomain {
 		}
 	}
 
-	async activeClient(client) {
+	async addCompanyClient(client) {
+		try {
+			await this.updateClientStatus(client, 'COMPANY')
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async addActiveClient(client) {
 		try {
 			await this.updateClientStatus(client, 'ACTIVE')
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async addInactiveClient(client) {
+		try {
+			await this.updateClientStatus(client, 'INACTIVE')
 		} catch (error) {
 			throw new Error(error)
 		}

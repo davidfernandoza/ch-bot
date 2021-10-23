@@ -22,6 +22,14 @@ class PlanRepository extends Repository {
 			throw new Error(error)
 		}
 	}
+
+	async getValuePlanByClient(clientId) {
+		try {
+			return await super.get(`${this.prefix}/get-value-plan/client/${clientId}`)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
 }
 
 module.exports = PlanRepository

@@ -35,6 +35,7 @@ class CommandHandler {
 		this.middlewareKernel.routerToMiddleware({
 			middlewares: [
 				'ClientMiddleware.clientExistValidate',
+				'ClientMiddleware.clientIsCompany',
 				'WalletMiddleware.clientWithWallet',
 				'AuthMiddleware.isActive',
 				'InfoMiddleware.infoExistValidate'
@@ -48,6 +49,7 @@ class CommandHandler {
 		this.middlewareKernel.routerToMiddleware({
 			middlewares: [
 				'ClientMiddleware.clientExistValidate',
+				'ClientMiddleware.clientIsCompany',
 				'WalletMiddleware.clientWithWallet'
 			],
 			request: { context: CTX },

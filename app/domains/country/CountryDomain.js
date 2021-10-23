@@ -1,10 +1,16 @@
 'use strict'
 
 class CountryDomain {
-	constructor({ CountryRepository, ClientRepository, DefaultString }) {
+	constructor({
+		CountryRepository,
+		ClientRepository,
+		DefaultString,
+		ClientDomain
+	}) {
 		this.countryRepository = CountryRepository
 		this.clientRepository = ClientRepository
 		this.defaultString = DefaultString
+		this.clientDomain = ClientDomain
 	}
 
 	async getAllCountries(CTX) {
@@ -32,6 +38,10 @@ class CountryDomain {
 					CTX.accessToken
 				)
 
+			if (backClient.status == 'COMPANY') {
+				await this.clientDomain.companyStatusManger(CTX)
+				throw new Error()
+			}
 			client.country = {
 				...backClient.country,
 				characters_phone: parseInt(backClient.country.characters_phone)

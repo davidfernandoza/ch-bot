@@ -6,12 +6,14 @@ class AuthMiddleware {
 		ClientRepository,
 		StatusClientDomain,
 		AuthDomain,
-		ValidateChat
+		ValidateChat,
+		TransactionDomain
 	}) {
 		this.clientRepository = ClientRepository
 		this.authDomain = AuthDomain
 		this.validateChat = ValidateChat
 		this.statusClientDomain = StatusClientDomain
+		this.transactionDomain = TransactionDomain
 	}
 
 	async isActive(CTX) {
@@ -21,7 +23,7 @@ class AuthMiddleware {
 			)
 			if (await this.isActiveClient(CTX, client)) {
 				if (!(await this.setAccessToken(CTX))) {
-					await this.openPayment(CTX, client)
+					await this.openTransaction(CTX, client)
 					return false
 				}
 				return true
@@ -53,15 +55,15 @@ class AuthMiddleware {
 					moment(client.period).format('YYYY-MM-DD') <
 					moment().format('YYYY-MM-DD')
 				) {
-					await this.statusClientDomain.addDebtClient(client)
-					await this.openPayment(CTX, client)
+					await this.statusClientDomain.addInactiveClient(client)
+					await this.openTransaction(CTX, client)
 					response = false
 				}
 			} else if (client.status == 'INCOMPLETE') {
 				await this.openIncompleteMessage(CTX)
 				response = false
 			} else {
-				await this.openPayment(CTX, client)
+				await this.openTransaction(CTX, client)
 				response = false
 			}
 			return response
@@ -70,9 +72,9 @@ class AuthMiddleware {
 		}
 	}
 
-	async openPayment(CTX, client) {
+	async openTransaction(CTX, client) {
 		try {
-			await this.validateChat.openPayment(CTX, client)
+			return this.transactionDomain.openTransaction(CTX, client)
 		} catch (error) {
 			throw new Error(error)
 		}

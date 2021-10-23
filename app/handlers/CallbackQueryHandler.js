@@ -40,14 +40,20 @@ class CallbackQueryHandler {
 				break
 			case 'changeWallet':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientExistValidate'],
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany'
+					],
 					request: { context: CTX },
 					next: () => this.walletController.assingWalletAction(CTX, buttonValue)
 				})
 				break
 			case 'transactionValidate':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientExistValidate'],
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany'
+					],
 					request: { context: CTX },
 					next: () => this.transactionController.getValidationInBack(CTX)
 				})
@@ -56,6 +62,7 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
@@ -68,6 +75,7 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive'
 					],
@@ -79,6 +87,7 @@ class CallbackQueryHandler {
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'CountryMiddleware.getCountryValidate'
@@ -90,7 +99,10 @@ class CallbackQueryHandler {
 				break
 			case 'actionCancel':
 				this.middlewareKernel.routerToMiddleware({
-					middlewares: ['ClientMiddleware.clientExistValidate'],
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany'
+					],
 					request: { context: CTX },
 					next: () => this.defaultController.cancelHandler(CTX)
 				})

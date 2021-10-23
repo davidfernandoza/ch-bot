@@ -7,25 +7,32 @@ class WalletChat {
 		this.transactionChat = TransactionChat
 	}
 
-	async sendMessageWithQRCode(CTX, dataPrint) {
+	async changeWalletForRegister(CTX) {
 		try {
-			await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
 			return await CTX.replyWithMarkdown(
 				this.messageString.sendChangeToWallet,
-				this.makeChangeWalletButton()
+				this.makeChangeWalletButton(true)
 			)
 		} catch (error) {
 			throw new Error(error)
 		}
 	}
 
-	async changeToWallet(CTX) {
+	async changeWallet(CTX) {
 		try {
 			const changeButton = this.makeChangeWalletButton()
 			return await CTX.replyWithMarkdown(
 				this.messageString.wishChangeToWallet,
 				changeButton
 			)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	async correctWalleChange(CTX) {
+		try {
+			return await CTX.replyWithMarkdown(this.messageString.correctWalleChange)
 		} catch (error) {
 			throw new Error(error)
 		}
@@ -39,12 +46,16 @@ class WalletChat {
 		}
 	}
 
-	makeChangeWalletButton() {
+	makeChangeWalletButton(isRegister) {
 		try {
+			const action = isRegister ? 'UPDATE_NEW_WALLET' : 'UPDATE_WALLET'
+			console.log('====================================')
+			console.log(action)
+			console.log('====================================')
 			return Markup.inlineKeyboard([
 				Markup.button.callback(
 					'✔️ Cambiar direccion tron',
-					`changeWallet:UPDATE_WALLET`
+					`changeWallet:${action}`
 				)
 			])
 		} catch (error) {
