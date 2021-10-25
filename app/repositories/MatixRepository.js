@@ -8,11 +8,7 @@ class MatixRepository extends Repository {
 	}
 
 	async getDefaultMatrix() {
-		try {
-			return await super.get(`${this.prefix}/default`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/default`)
 	}
 }
 

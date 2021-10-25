@@ -8,59 +8,36 @@ class WalletChat {
 	}
 
 	async changeWalletForRegister(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(
-				this.messageString.sendChangeToWallet,
-				this.makeChangeWalletButton(true)
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(
+			this.messageString.sendChangeToWallet,
+			this.makeChangeWalletButton(true)
+		)
 	}
 
 	async changeWallet(CTX) {
-		try {
-			const changeButton = this.makeChangeWalletButton()
-			return await CTX.replyWithMarkdown(
-				this.messageString.wishChangeToWallet,
-				changeButton
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const changeButton = this.makeChangeWalletButton()
+		return await CTX.replyWithMarkdown(
+			this.messageString.wishChangeToWallet,
+			changeButton
+		)
 	}
 
 	async correctWalleChange(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.correctWalleChange)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.correctWalleChange)
 	}
 
 	async askTronWallet(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.sendTronAddress)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.sendTronAddress)
 	}
 
 	makeChangeWalletButton(isRegister) {
-		try {
-			const action = isRegister ? 'UPDATE_NEW_WALLET' : 'UPDATE_WALLET'
-			console.log('====================================')
-			console.log(action)
-			console.log('====================================')
-			return Markup.inlineKeyboard([
-				Markup.button.callback(
-					'✔️ Cambiar direccion tron',
-					`changeWallet:${action}`
-				)
-			])
-		} catch (error) {
-			throw new Error(error)
-		}
+		const action = isRegister ? 'UPDATE_NEW_WALLET' : 'UPDATE_WALLET'
+		return Markup.inlineKeyboard([
+			Markup.button.callback(
+				'✔️ Cambiar direccion tron',
+				`changeWallet:${action}`
+			)
+		])
 	}
 }
 module.exports = WalletChat

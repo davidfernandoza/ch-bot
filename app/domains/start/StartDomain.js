@@ -8,15 +8,11 @@ class StartDomain {
 	}
 
 	async makeDataPrint(CTX) {
-		try {
-			return {
-				...(await this.termDomain.makeDataPrintForPlan()),
-				...(await this.termDomain.makeDataPrintForTerm()),
-				...(await this.termDomain.makeDataPrintForMatrix()),
-				sponsorTelegramId: CTX.update.message.sponsorId
-			}
-		} catch (error) {
-			throw new Error(error)
+		return {
+			...(await this.termDomain.makeDataPrintForPlan()),
+			...(await this.termDomain.makeDataPrintForTerm()),
+			...(await this.termDomain.makeDataPrintForMatrix()),
+			sponsorTelegramId: CTX.update.message.sponsorId
 		}
 	}
 }

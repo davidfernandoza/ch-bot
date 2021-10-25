@@ -6,11 +6,7 @@ class ClientChat {
 	}
 
 	async succesNewClient(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.succesClient)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.succesClient)
 	}
 }
 module.exports = ClientChat

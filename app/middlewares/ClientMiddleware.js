@@ -8,63 +8,42 @@ class ClientMiddleware {
 
 	// Si existe retorna True
 	async clientExistValidate(CTX) {
-		try {
-			const telegramId = CTX.from.id
-			return await this.clientExistByTelegramId(CTX, telegramId, false)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const telegramId = CTX.from.id
+		return await this.clientExistByTelegramId(CTX, telegramId, false)
 	}
 
 	// Si no existe retorna True
 	async clientNotExistValidate(CTX) {
-		try {
-			const telegramId = CTX.from.id
-			return await this.clientExistByTelegramId(CTX, telegramId, true)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const telegramId = CTX.from.id
+		return await this.clientExistByTelegramId(CTX, telegramId, true)
 	}
 
 	async clientIsCompany(CTX) {
-		try {
-			const telegramId = CTX.from.id
-			const client = await this.clientRepository.getClientByTelegramIdInMongo(
-				telegramId
-			)
-			if (!client) return true
-			if (client.status == 'COMPANY') {
-				await this.validateChat.clientIsCompanyStatus(CTX)
-				return false
-			}
-			return true
-		} catch (error) {
-			throw new Error(error)
+		const telegramId = CTX.from.id
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		if (!client) return true
+		if (client.status == 'COMPANY') {
+			await this.validateChat.clientIsCompanyStatus(CTX)
+			return false
 		}
+		return true
 	}
 
 	async clientExistByTelegramId(CTX, telegramId, isExist) {
-		try {
-			const response = await this.clientRepository.getClientByTelegramIdInMongo(
-				telegramId
-			)
-			if (isExist && response)
-				return await this.failResponse(CTX, 'clientExist')
-			else if (!isExist && !response)
-				return await this.failResponse(CTX, 'clientNotExist')
-			return true
-		} catch (error) {
-			throw new Error(error)
-		}
+		const response = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		if (isExist && response) return await this.failResponse(CTX, 'clientExist')
+		else if (!isExist && !response)
+			return await this.failResponse(CTX, 'clientNotExist')
+		return true
 	}
 
 	async failResponse(CTX, fileType) {
-		try {
-			await this.validateChat[fileType](CTX)
-			return false
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.validateChat[fileType](CTX)
+		return false
 	}
 }
 

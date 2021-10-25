@@ -7,39 +7,30 @@ class PeriodChat {
 	}
 
 	async sendPeriodStatusMessage(CTX, periods) {
-		try {
-			if (periods.periods.length > 1) {
-				// Historic Title
+		if (periods.periods.length > 1) {
+			// Historic Title
+			await CTX.replyWithMarkdown(this.messageString.historicPeriodTitleMessage)
+
+			// Historic
+			for (const period of periods.periods) {
 				await CTX.replyWithMarkdown(
-					this.messageString.historicPeriodTitleMessage
+					await this.makeMessageWithInfoToPeriod(period, periods.current_period)
 				)
-
-				// Historic
-				for (const period of periods.periods) {
-					await CTX.replyWithMarkdown(
-						await this.makeMessageWithInfoToPeriod(
-							period,
-							periods.current_period
-						)
-					)
-				}
-			} else {
-				await CTX.replyWithMarkdown(this.messageString.notHavePeriodMessage)
 			}
-
-			// Current Period
-			await CTX.replyWithMarkdown(
-				this.messageString.statusClientPeriodTitleMessage
-			)
-			return await CTX.replyWithMarkdown(
-				await this.makeMessageWithInfoToStatePeriod(
-					periods.periods,
-					periods.current_period
-				)
-			)
-		} catch (error) {
-			throw new Error(error)
+		} else {
+			await CTX.replyWithMarkdown(this.messageString.notHavePeriodMessage)
 		}
+
+		// Current Period
+		await CTX.replyWithMarkdown(
+			this.messageString.statusClientPeriodTitleMessage
+		)
+		return await CTX.replyWithMarkdown(
+			await this.makeMessageWithInfoToStatePeriod(
+				periods.periods,
+				periods.current_period
+			)
+		)
 	}
 
 	async makeMessageWithInfoToStatePeriod(periods, current_period) {
@@ -83,18 +74,14 @@ class PeriodChat {
 	}
 
 	getStatus(period, current_period) {
-		try {
-			const date_one = moment(period.start_date).format('YYYY-MM-DD')
-			const date_two = moment(current_period.start_date).format('YYYY-MM-DD')
-			if (date_one < date_two) {
-				return 'CERRADO'
-			} else if (date_one > date_two) {
-				return 'EN ESPERA'
-			} else {
-				return 'ACTIVO'
-			}
-		} catch (error) {
-			throw new Error(error)
+		const date_one = moment(period.start_date).format('YYYY-MM-DD')
+		const date_two = moment(current_period.start_date).format('YYYY-MM-DD')
+		if (date_one < date_two) {
+			return 'CERRADO'
+		} else if (date_one > date_two) {
+			return 'EN ESPERA'
+		} else {
+			return 'ACTIVO'
 		}
 	}
 

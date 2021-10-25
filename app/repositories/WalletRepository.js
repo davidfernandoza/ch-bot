@@ -10,27 +10,15 @@ class WalletRepository extends Repository {
 	}
 
 	async getConsignmentWalletAvailable() {
-		try {
-			return await super.get(`${this.prefix}/get-consignment`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/get-consignment`)
 	}
 
 	async storeWallet(dataWallet) {
-		try {
-			return await super.post(`${this.prefix}`, dataWallet)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.post(`${this.prefix}`, dataWallet)
 	}
 
 	async updateWallet(dataWallet, walletId) {
-		try {
-			return await super.put(`${this.prefix}/${walletId}`, dataWallet)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.put(`${this.prefix}/${walletId}`, dataWallet)
 	}
 
 	async getWalletInfoInTronGrid(keyWallet) {

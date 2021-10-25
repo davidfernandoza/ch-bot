@@ -6,66 +6,38 @@ class StatusClientDomain {
 	}
 
 	async updateClientStatus(client, status) {
-		try {
-			client.status = status
-			await this.clientRepository.updateClientInMongo(client)
-		} catch (error) {
-			throw new Error(error)
-		}
+		client.status = status
+		await this.clientRepository.updateClientInMongo(client)
 	}
 
 	async addInfoClient(client) {
-		try {
-			await this.updateClientStatus(client, 'INFO')
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.updateClientStatus(client, 'INFO')
 	}
 
 	async addIncompleteClient(client) {
-		try {
-			await this.updateClientStatus(client, 'INCOMPLETE')
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.updateClientStatus(client, 'INCOMPLETE')
 	}
 
 	async addCompanyClient(client) {
-		try {
-			await this.updateClientStatus(client, 'COMPANY')
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.updateClientStatus(client, 'COMPANY')
 	}
 
 	async addActiveClient(client) {
-		try {
-			await this.updateClientStatus(client, 'ACTIVE')
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.updateClientStatus(client, 'ACTIVE')
 	}
 
 	async addInactiveClient(client) {
-		try {
-			await this.updateClientStatus(client, 'INACTIVE')
-		} catch (error) {
-			throw new Error(error)
-		}
+		await this.updateClientStatus(client, 'INACTIVE')
 	}
 
 	async addInfoActiveClient(telegramId) {
-		try {
-			const client = await this.clientRepository.getClientByTelegramIdInMongo(
-				telegramId
-			)
-			if (client) {
-				await this.updateClientStatus(client, 'INFO_ACTIVE')
-				return true
-			} else return false
-		} catch (error) {
-			throw new Error(error)
-		}
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		if (client) {
+			await this.updateClientStatus(client, 'INFO_ACTIVE')
+			return true
+		} else return false
 	}
 }
 module.exports = StatusClientDomain

@@ -11,10 +11,6 @@ class DefaultActionDomain {
 			CTX.from.id
 		)
 		await this.clientDomain.assignActionToClient(client)
-		try {
-		} catch (error) {
-			throw new Error(error)
-		}
 	}
 }
 module.exports = DefaultActionDomain

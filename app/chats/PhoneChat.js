@@ -6,19 +6,11 @@ class PhoneChat {
 	}
 
 	async getPhoneMessage(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.getPhoneMessage)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.getPhoneMessage)
 	}
 
 	async setPhoneCorrectly(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.setPhone)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.setPhone)
 	}
 }
 module.exports = PhoneChat

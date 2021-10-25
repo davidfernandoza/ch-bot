@@ -58,6 +58,7 @@ const PeriodDomain = require('./app/domains/period/PeriodDomain')
 const TermDomain = require('./app/domains/terms/TermDomain')
 const PlanDomain = require('./app/domains/plan/planDomain')
 const TransactionDomain = require('./app/domains/transaction/TransactionDomain')
+const ErrorDomain = require('./app/domains/Error/ErrorDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -181,7 +182,8 @@ container
 		TermDomain: asClass(TermDomain).singleton(),
 		PlanDomain: asClass(PlanDomain).singleton(),
 		BuildDataTransaction: asClass(BuildDataTransaction).singleton(),
-		TransactionDomain: asClass(TransactionDomain).singleton()
+		TransactionDomain: asClass(TransactionDomain).singleton(),
+		ErrorDomain: asClass(ErrorDomain).singleton()
 	})
 
 	// Events Handler:

@@ -9,29 +9,21 @@ class CountryChat {
 	}
 
 	async showCountriesList(CTX, countriesList) {
-		try {
-			const button = Markup.inlineKeyboard(
-				countriesList.map(country => {
-					return [
-						Markup.button.callback(
-							str(country.name).capitalize().s,
-							`setCountry:${country.id}`
-						)
-					]
-				})
-			)
-			return await CTX.replyWithMarkdown(this.messageString.getCountry, button)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const button = Markup.inlineKeyboard(
+			countriesList.map(country => {
+				return [
+					Markup.button.callback(
+						str(country.name).capitalize().s,
+						`setCountry:${country.id}`
+					)
+				]
+			})
+		)
+		return await CTX.replyWithMarkdown(this.messageString.getCountry, button)
 	}
 
 	async setCountryCorrectly(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.setCountry)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.setCountry)
 	}
 }
 module.exports = CountryChat

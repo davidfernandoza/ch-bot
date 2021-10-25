@@ -8,18 +8,10 @@ class PlanDomain {
 	}
 
 	async getValuePlanByClientManager(CTX, client) {
-		try {
-			const planValue = await this.planRepository.getValuePlanByClient(
-				client.client_id
-			)
-			if (planValue.status == 'COMPANY') {
-				await this.clientDomain.companyStatusManger(CTX)
-				throw new Error()
-			}
-			return planValue.value
-		} catch (error) {
-			throw new Error(error)
-		}
+		const planValue = await this.planRepository.getValuePlanByClient(
+			client.client_id
+		)
+		return planValue.value
 	}
 }
 

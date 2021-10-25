@@ -58,7 +58,7 @@ module.exports = {
 	incompleteMessage:
 		'Termina de pagar tu consignación con la cantidad que te enviamos.',
 	infoBackMissing:
-		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte.\nsigue el siguiente link:\n\n#URL',
+		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte, exponga su caso con el siguiente codigo *#TELEGRAM_ID* en el sigue chat:\n\n#URL_SUPPORT',
 	historicPeriodMessage:
 		'*Ciclo: #CODE*\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*Cantidad de transacciones:* #CONSIGNMENTS_AMOUNT\n*Estado:* #STATUS',
 	statusClientInPeriodMessage:
@@ -70,5 +70,6 @@ module.exports = {
 		'Puedes enviar el *link* o el *codigo* a tus referidos para agregarlos a tu red.',
 	clientIsCompanyStatus:
 		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente codigo *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
-	correctWalleChange: 'Direccion tron actualizada correctamente.'
+	correctWalleChange: 'Direccion tron actualizada correctamente.',
+	walletTaken: '*Error* La direccion tron ya esta tomada, use otra.'
 }

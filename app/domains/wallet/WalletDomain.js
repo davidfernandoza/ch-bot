@@ -9,38 +9,26 @@ class WalletDomain {
 	}
 
 	async storeWalletInBack(keyWallet, clientMongo) {
-		try {
-			const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
-				wallet = await this.walletRepository.storeWallet(dataWallet)
-			return await this.storeWalletInMongo(clientMongo, wallet)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
+			wallet = await this.walletRepository.storeWallet(dataWallet)
+		return await this.storeWalletInMongo(clientMongo, wallet)
 	}
 	async updateWalletInBack(keyWallet, clientMongo, walletId) {
-		try {
-			const dataWallet = {
-				id: walletId,
-				key: keyWallet,
-				client_id: clientMongo.client_id
-			}
-			const wallet = await this.walletRepository.updateWallet(
-				dataWallet,
-				walletId
-			)
-			return await this.storeWalletInMongo(clientMongo, wallet)
-		} catch (error) {
-			throw new Error(error)
+		const dataWallet = {
+			id: walletId,
+			key: keyWallet,
+			client_id: clientMongo.client_id
 		}
+		const wallet = await this.walletRepository.updateWallet(
+			dataWallet,
+			walletId
+		)
+		return await this.storeWalletInMongo(clientMongo, wallet)
 	}
 
 	async storeWalletInMongo(clientMongo, walletData) {
-		try {
-			clientMongo.wallet = { ...walletData }
-			return await this.clientRepository.updateClientInMongo(clientMongo)
-		} catch (error) {
-			throw new Error(error)
-		}
+		clientMongo.wallet = { ...walletData }
+		return await this.clientRepository.updateClientInMongo(clientMongo)
 	}
 }
 

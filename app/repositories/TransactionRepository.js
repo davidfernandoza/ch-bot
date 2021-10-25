@@ -8,14 +8,7 @@ class TransactionRepository extends Repository {
 	}
 
 	async getTransactionValidate(client_id, data) {
-		try {
-			return await super.post(
-				`${this.prefix}/validate/client/${client_id}`,
-				data
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.post(`${this.prefix}/validate/client/${client_id}`, data)
 	}
 }
 

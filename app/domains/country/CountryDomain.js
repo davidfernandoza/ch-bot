@@ -14,45 +14,33 @@ class CountryDomain {
 	}
 
 	async getAllCountries(CTX) {
-		try {
-			const countries = await this.countryRepository.getAllCountries(
-					CTX.accessToken
-				),
-				client = CTX.client
-			if (countries.length > 0) {
-				client.action_bot.action = this.defaultString.GET_COUNTRY
-				await this.clientRepository.updateClientInMongo(client)
-				return countries
-			} else throw new Error('Not Countries')
-		} catch (error) {
-			throw new Error(error)
-		}
+		const countries = await this.countryRepository.getAllCountries(
+				CTX.accessToken
+			),
+			client = CTX.client
+		if (countries.length > 0) {
+			client.action_bot.action = this.defaultString.GET_COUNTRY
+			await this.clientRepository.updateClientInMongo(client)
+			return countries
+		} else throw new Error('Not Countries')
 	}
 
 	async setCountryForClient(CTX, countryId) {
-		try {
-			const client = CTX.client,
-				backClient = await this.clientRepository.setCountryForClient(
-					client.client_id,
-					countryId,
-					CTX.accessToken
-				)
+		const client = CTX.client,
+			backClient = await this.clientRepository.setCountryForClient(
+				client.client_id,
+				countryId,
+				CTX.accessToken
+			)
 
-			if (backClient.status == 'COMPANY') {
-				await this.clientDomain.companyStatusManger(CTX)
-				throw new Error()
-			}
-			client.country = {
-				...backClient.country,
-				characters_phone: parseInt(backClient.country.characters_phone)
-			}
-
-			client.action_bot.action = 'NONE'
-			await this.clientRepository.updateClientInMongo(client)
-			return true
-		} catch (error) {
-			throw new Error(error)
+		client.country = {
+			...backClient.country,
+			characters_phone: parseInt(backClient.country.characters_phone)
 		}
+
+		client.action_bot.action = 'NONE'
+		await this.clientRepository.updateClientInMongo(client)
+		return true
 	}
 }
 

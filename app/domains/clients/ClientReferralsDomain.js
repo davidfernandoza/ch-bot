@@ -7,17 +7,14 @@ class ClientReferralsDomain {
 	}
 
 	async getClientReferrals(CTX, value) {
-		try {
+		
 			let client = {},
 				authClient = await this.clientRepository.getClientWithReferrals(
 					CTX.client.client_id,
 					CTX.accessToken
 				)
 
-			if (authClient.status == 'COMPANY') {
-				await this.clientDomain.companyStatusManger(CTX)
-				throw new Error()
-			}
+		
 			if (!authClient.tree) return { data: null }
 			switch (value) {
 				case 'REFERAL_LEFT':
@@ -53,9 +50,7 @@ class ClientReferralsDomain {
 				default:
 					return { data: null }
 			}
-		} catch (error) {
-			throw new Error(error)
-		}
+	
 	}
 
 	formattingToClientData(client) {

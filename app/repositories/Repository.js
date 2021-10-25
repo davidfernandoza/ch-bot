@@ -12,64 +12,42 @@ class Repository {
 	}
 
 	async get(endpoint, access_token) {
-		try {
-			if (access_token)
-				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
-			return this.responseFormater(
-				await axios.get(`${this.baseUrl}/${endpoint}`, this.optionAxios)
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		if (access_token)
+			this.optionAxios.headers.Authorization = `Bearer ${access_token}`
+		return this.responseFormater(
+			await axios.get(`${this.baseUrl}/${endpoint}`, this.optionAxios)
+		)
 	}
 
 	async post(endpoint, data, access_token) {
-		try {
-			if (access_token)
-				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
-			return this.responseFormater(
-				await axios.post(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		if (access_token)
+			this.optionAxios.headers.Authorization = `Bearer ${access_token}`
+		return this.responseFormater(
+			await axios.post(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
+		)
 	}
 
 	async put(endpoint, data, access_token) {
-		try {
-			if (access_token)
-				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
-			return this.responseFormater(
-				await axios.put(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		if (access_token)
+			this.optionAxios.headers.Authorization = `Bearer ${access_token}`
+		return this.responseFormater(
+			await axios.put(`${this.baseUrl}/${endpoint}`, data, this.optionAxios)
+		)
 	}
 
 	async delete(endpoint, access_token) {
-		try {
-			if (access_token)
-				this.optionAxios.headers.Authorization = `Bearer ${access_token}`
-			return this.responseFormater(
-				await axios.delete(`${this.baseUrl}/${endpoint}`, this.optionAxios)
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		if (access_token)
+			this.optionAxios.headers.Authorization = `Bearer ${access_token}`
+		return this.responseFormater(
+			await axios.delete(`${this.baseUrl}/${endpoint}`, this.optionAxios)
+		)
 	}
 
 	async responseFormater(response) {
-		if (response.status >= 200 && response.status < 300) {
-			if (typeof response.data === 'object') {
-				if (Object.keys(response.data).length === 0) return null
-			}
-			return response.data
-		} else {
-			throw new Error(
-				JSON.stringify({ method: this.responseFormater.name, data: response })
-			)
+		if (typeof response.data === 'object') {
+			if (Object.keys(response.data).length === 0) return null
 		}
+		return response.data
 	}
 }
 module.exports = Repository

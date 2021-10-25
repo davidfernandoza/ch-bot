@@ -25,27 +25,19 @@ class TransactionValidateDomain {
 	}
 
 	async getValidatedForTransaction(CTX) {
-		try {
-			const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
-			const client = await this.clientRepository.getClientByTelegramIdInMongo(
-				CTX.from.id
-			)
-			const transactionResponse =
-				await this.transactionRepository.getTransactionValidate(
-					client.client_id
-				)
+		const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
+		const transactionResponse =
+			await this.transactionRepository.getTransactionValidate(client.client_id)
 
-			if (transactionResponse.status == 'INCOMPLETE') {
-				this.incompleteStatusManager(transactionResponse, client)
-			} else if (transactionResponse.status == 'COMPANY') {
-				this.clientDomain.companyStatusManger(CTX)
-			} else if (arrayValidate.includes(transactionResponse.status)) {
-				this.completeStatusManger(transactionResponse, client)
-			}
-			return transactionResponse
-		} catch (error) {
-			throw new Error(error)
+		if (transactionResponse.status == 'INCOMPLETE') {
+			this.incompleteStatusManager(transactionResponse, client)
+		} else if (arrayValidate.includes(transactionResponse.status)) {
+			this.completeStatusManger(transactionResponse, client)
 		}
+		return transactionResponse
 	}
 
 	async completeStatusManger(transactionResponse, client) {

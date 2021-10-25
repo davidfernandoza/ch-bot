@@ -8,11 +8,7 @@ class CountryRepository extends Repository {
 	}
 
 	async getAllCountries(accessToken) {
-		try {
-			return await super.get(`${this.prefix}/`, accessToken)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/`, accessToken)
 	}
 }
 

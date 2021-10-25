@@ -8,11 +8,7 @@ class TermRepository extends Repository {
 	}
 
 	async getDefaultTerm() {
-		try {
-			return await super.get(`${this.prefix}/default`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/default`)
 	}
 }
 

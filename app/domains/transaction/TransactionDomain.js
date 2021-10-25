@@ -8,15 +8,11 @@ module.exports = class TransactionDomain {
 	}
 
 	async openTransaction(CTX, client, withWalletChange) {
-		try {
-			const dataPrint =
-				await this.buildDataTransaction.makeDataPrintForTransaction(CTX, client)
-			if (!dataPrint) return false
-			await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
-			if (withWalletChange) await this.walletChat.changeWalletForRegister(CTX)
-			return true
-		} catch (error) {
-			throw new Error(error)
-		}
+		const dataPrint =
+			await this.buildDataTransaction.makeDataPrintForTransaction(CTX, client)
+		if (!dataPrint) return false
+		await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
+		if (withWalletChange) await this.walletChat.changeWalletForRegister(CTX)
+		return true
 	}
 }

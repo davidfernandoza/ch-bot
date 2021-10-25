@@ -28,7 +28,7 @@ module.exports = ({ ErrorHandler, ClientRoute }) => {
 	})
 
 	//  Manejador de errores
-	router.use(ErrorHandler.api.bind(ErrorHandler))
+	router.use(ErrorHandler.apiErrorHandler.bind(ErrorHandler))
 
 	return router
 }

@@ -15,7 +15,8 @@ const { NODE_ENV } = process.env,
 		API_TRONGRID: process.env.API_TRONGRID,
 		ASSET_ID: process.env.ASSET_ID,
 		STRINGS: defaultStrings,
-		ORIGIN_CLIENT_CODE: process.env.ORIGIN_CLIENT_CODE
+		ORIGIN_CLIENT_CODE: process.env.ORIGIN_CLIENT_CODE,
+		SENTRY_DNS: process.env.SENTRY_DNS
 	},
 	PRODUCTION = DATA,
 	DEVELOPMENT = {

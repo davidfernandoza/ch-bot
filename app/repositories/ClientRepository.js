@@ -9,91 +9,55 @@ class ClientRepository extends Repository {
 	}
 
 	async storeClientInBack(clientData) {
-		try {
-			return await super.post(`${this.prefix}/telegram`, clientData)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.post(`${this.prefix}/telegram`, clientData)
 	}
 	async getClientInBackByTelegramId(telegramId) {
-		try {
-			return await super.get(`${this.prefix}/telegram-id/${telegramId}`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/telegram-id/${telegramId}`)
 	}
 
 	async getClientWithReferrals(client_id, accessToken) {
-		try {
-			return await super.get(
-				`${this.prefix}/referrals/client/${client_id}`,
-				accessToken
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(
+			`${this.prefix}/referrals/client/${client_id}`,
+			accessToken
+		)
 	}
 
 	async setCountryForClient(clientId, countryId, accessToken) {
-		try {
-			return await super.put(
-				`${this.prefix}/set-country/client/${clientId}`,
-				{
-					country_id: countryId
-				},
-				accessToken
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.put(
+			`${this.prefix}/set-country/client/${clientId}`,
+			{
+				country_id: countryId
+			},
+			accessToken
+		)
 	}
 
 	async setPhoneForClient(clientId, phone, accessToken) {
-		try {
-			return await super.put(
-				`${this.prefix}/set-phone/client/${clientId}`,
-				{
-					phone: phone
-				},
-				accessToken
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.put(
+			`${this.prefix}/set-phone/client/${clientId}`,
+			{
+				phone: phone
+			},
+			accessToken
+		)
 	}
 
 	//  Mongo ----------------------------------
 
 	async storeClientInMongo(dataClient) {
-		try {
-			return await this.client.create(dataClient)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await this.client.create(dataClient)
 	}
 
 	async updateClientInMongoWithData(byFind, data) {
-		try {
-			return await this.client.where(byFind).updateOne(data)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await this.client.where(byFind).updateOne(data)
 	}
 
 	async updateClientInMongo(client) {
-		try {
-			return await client.save()
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await client.save()
 	}
 
 	async getClientByTelegramIdInMongo(telegram_id) {
-		try {
-			return await this.client.findOne({ telegram_id })
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await this.client.findOne({ telegram_id })
 	}
 }
 

@@ -8,17 +8,9 @@ class PeriodDomain {
 	}
 
 	async getStatusToPeriod(CTX) {
-		try {
-			const client = CTX.client
-			const periods = await this.periodRepository.getAllClientPeriods(client)
-			if (periods.status == 'COMPANY') {
-				await this.clientDomain.companyStatusManger(CTX)
-				throw new Error()
-			}
-			return periods
-		} catch (error) {
-			throw new Error(error)
-		}
+		const client = CTX.client
+		const periods = await this.periodRepository.getAllClientPeriods(client)
+		return periods
 	}
 }
 

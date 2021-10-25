@@ -8,54 +8,46 @@ class ClientReferralsChat {
 	}
 
 	async printClient(CTX, client) {
-		try {
-			let message
-			if (client.data) {
-				message = this.buildCorrectMessage(client)
-			} else {
-				message = this.messageString.notReferred
-			}
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
+		let message
+		if (client.data) {
+			message = this.buildCorrectMessage(client)
+		} else {
+			message = this.messageString.notReferred
 		}
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	buildCorrectMessage(client) {
-		try {
-			const condition = '*No Existe*'
-			let message = this.messageString.referred
-			message = message.replace('#TITLE', client.title)
-			message = message.replace('#NAME', client.data.full_name)
+		const condition = '*No Existe*'
+		let message = this.messageString.referred
+		message = message.replace('#TITLE', client.title)
+		message = message.replace('#NAME', client.data.full_name)
+		message = message.replace(
+			'#STATUS',
+			this.defaultString.STATUS[client.data.status]
+		)
+
+		/*
+		 * Phone
+		 */
+		if (client.data.country != condition && client.data.phone != condition) {
 			message = message.replace(
-				'#STATUS',
-				this.defaultString.STATUS[client.data.status]
+				'#PHONE',
+				`+${client.data.country.prefix} ${client.data.phone}`
 			)
+		} else message = message.replace('#PHONE', client.data.phone)
 
-			/*
-			 * Phone
-			 */
-			if (client.data.country != condition && client.data.phone != condition) {
-				message = message.replace(
-					'#PHONE',
-					`+${client.data.country.prefix} ${client.data.phone}`
-				)
-			} else message = message.replace('#PHONE', client.data.phone)
+		/*
+		 * Country
+		 */
+		if (client.data.country != condition) {
+			message = message.replace(
+				'#COUNTRY',
+				str(client.data.country.name).capitalize().s
+			)
+		} else message = message.replace('#COUNTRY', client.data.country)
 
-			/*
-			 * Country
-			 */
-			if (client.data.country != condition) {
-				message = message.replace(
-					'#COUNTRY',
-					str(client.data.country.name).capitalize().s
-				)
-			} else message = message.replace('#COUNTRY', client.data.country)
-
-			return message
-		} catch (error) {
-			throw new Error(error)
-		}
+		return message
 	}
 }
 module.exports = ClientReferralsChat

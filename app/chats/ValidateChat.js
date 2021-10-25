@@ -19,155 +19,99 @@ class ValidateChat {
 	}
 
 	async sendErrorKeyWallet(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.addresUnavalible)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.addresUnavalible)
 	}
 
 	async clientExist(CTX) {
-		try {
-			const button = await this.menuChat.getButtonOpenMenu()
-			return await CTX.replyWithMarkdown(
-				this.messageString.clientExistError,
-				button
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const button = await this.menuChat.getButtonOpenMenu()
+		return await CTX.replyWithMarkdown(
+			this.messageString.clientExistError,
+			button
+		)
 	}
 
 	async clientNotExist(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.clientNotExistError)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.clientNotExistError)
 	}
 
 	async sponsorNotExist(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.sponsorNotExist)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.sponsorNotExist)
 	}
 
 	async sponsorAndClientIsEquals(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(
-				this.messageString.sponsorAndClientIsEquals
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(
+			this.messageString.sponsorAndClientIsEquals
+		)
 	}
 
 	async countryNotExist(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(
-				this.messageString.countryNotExistError
-			)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.countryNotExistError)
 	}
 
 	async chatIsBot(CTX) {
-		try {
-			return await CTX.replyWithMarkdown(this.messageString.isBot)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await CTX.replyWithMarkdown(this.messageString.isBot)
 	}
 
 	async infoIsMissing(CTX, attribute) {
-		try {
-			const attributeSelected = this.defaultString.INFO[attribute]
-			let message = this.messageString.infoValidate
-			message = message.replace('#INFO', attributeSelected)
-			await CTX.replyWithMarkdown(message)
-			return await this.menuChat.myInfoMenu(CTX)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const attributeSelected = this.defaultString.INFO[attribute]
+		let message = this.messageString.infoValidate
+		message = message.replace('#INFO', attributeSelected)
+		await CTX.replyWithMarkdown(message)
+		return await this.menuChat.myInfoMenu(CTX)
 	}
 
 	async sendDefaultMessage(CTX) {
-		try {
-			const client = CTX.client
-			const actionMessage = this.defaultString.ACTIONS[client.action_bot.action]
-			let message = this.messageString.defaultTextMessage
-			const button = Markup.inlineKeyboard([
-				Markup.button.callback('✔️ Cancelar acción', `actionCancel:NONE`)
-			])
-			message = message.replace('#ACTION', actionMessage)
-			return await CTX.replyWithMarkdown(message, button)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const client = CTX.client
+		const actionMessage = this.defaultString.ACTIONS[client.action_bot.action]
+		let message = this.messageString.defaultTextMessage
+		const button = Markup.inlineKeyboard([
+			Markup.button.callback('✔️ Cancelar acción', `actionCancel:NONE`)
+		])
+		message = message.replace('#ACTION', actionMessage)
+		return await CTX.replyWithMarkdown(message, button)
 	}
 
 	async actionCancelMessage(CTX) {
-		try {
-			const message = this.messageString.cancelActionMessage
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const message = this.messageString.cancelActionMessage
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	async otherTextSended(CTX) {
-		try {
-			const message = this.messageString.otherTextSended
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const message = this.messageString.otherTextSended
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	async isNotPhone(CTX) {
-		try {
-			const message = this.messageString.isNotPhone
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const message = this.messageString.isNotPhone
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	async incompleteMessage(CTX) {
-		try {
-			const message = this.messageString.incompleteMessage
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const message = this.messageString.incompleteMessage
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	async clientIsCompanyStatus(CTX) {
-		try {
-			const telegramId = CTX.from.id
-			let message = this.messageString.clientIsCompanyStatus
-			message = message.replace('#TELEGRAM_ID', telegramId)
-			message = message.replace('#URL_SUPPORT', this.defaultString.URL_SUPPORT)
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const telegramId = CTX.from.id
+		const url = this.defaultString.URL_SUPPORT
+		let message = this.messageString.clientIsCompanyStatus
+		message = message.replace('#TELEGRAM_ID', telegramId)
+		message = message.replace('#URL_SUPPORT', url.replace('#', telegramId))
+		return await CTX.replyWithMarkdown(message)
 	}
 
 	async infoBackMissing(CTX) {
-		try {
-			const telegramId = CTX.from.id
-			let message = this.messageString.infoBackMissing
-			let defaultStrings = this.defaultString.URL_SUPPORT
-			defaultStrings = defaultStrings.replace('#', telegramId)
-			message = message.replace('#URL', defaultStrings)
-			return await CTX.replyWithMarkdown(message)
-		} catch (error) {
-			throw new Error(error)
-		}
+		const telegramId = CTX.from.id
+		const url = this.defaultString.URL_SUPPORT
+		let message = this.messageString.infoBackMissing
+		message = message.replace('#TELEGRAM_ID', telegramId)
+		message = message.replace('#URL_SUPPORT', url.replace('#', telegramId))
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async walletTaken(CTX) {
+		const message = this.messageString.walletTaken
+		return await CTX.replyWithMarkdown(message)
 	}
 }
 module.exports = ValidateChat

@@ -6,29 +6,17 @@ class TermsAndPlandChat {
 	}
 
 	async printTerm(CTX, dataPrint) {
-		try {
-			await CTX.replyWithMarkdown('*Terminos y condiciones:*')
-			return await CTX.replyWithMarkdown(dataPrint.dataTerm.description)
-		} catch (error) {
-			throw new Error(error)
-		}
+		await CTX.replyWithMarkdown('*Terminos y condiciones:*')
+		return await CTX.replyWithMarkdown(dataPrint.dataTerm.description)
 	}
 
 	async printPlan(CTX, dataPrint) {
-		try {
-			await CTX.replyWithMarkdown('*Plan de pagos:*')
-			return await CTX.replyWithMarkdown(dataPrint.dataPlan.term.description)
-		} catch (error) {
-			throw new Error(error)
-		}
+		await CTX.replyWithMarkdown('*Plan de pagos:*')
+		return await CTX.replyWithMarkdown(dataPrint.dataPlan.term.description)
 	}
 	async printMatrix(CTX, dataPrint) {
-		try {
-			await CTX.replyWithMarkdown('*Matriz forzada:*')
-			return await CTX.replyWithMarkdown(dataPrint.dataMatrix.description)
-		} catch (error) {
-			throw new Error(error)
-		}
+		await CTX.replyWithMarkdown('*Matriz forzada:*')
+		return await CTX.replyWithMarkdown(dataPrint.dataMatrix.description)
 	}
 }
 module.exports = TermsAndPlandChat

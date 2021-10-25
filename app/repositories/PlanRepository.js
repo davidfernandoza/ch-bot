@@ -8,27 +8,15 @@ class PlanRepository extends Repository {
 	}
 
 	async getDefaultPlan() {
-		try {
-			return await super.get(`${this.prefix}/default`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/default`)
 	}
 
 	async getPlan(planId) {
-		try {
-			return await super.get(`${this.prefix}/get-by-id/${planId}`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/get-by-id/${planId}`)
 	}
 
 	async getValuePlanByClient(clientId) {
-		try {
-			return await super.get(`${this.prefix}/get-value-plan/client/${clientId}`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/get-value-plan/client/${clientId}`)
 	}
 }
 

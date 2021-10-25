@@ -8,11 +8,7 @@ class PeriodRepository extends Repository {
 	}
 
 	async getAllClientPeriods(client) {
-		try {
-			return await super.get(`${this.prefix}/get-by-client/${client.client_id}`)
-		} catch (error) {
-			throw new Error(error)
-		}
+		return await super.get(`${this.prefix}/get-by-client/${client.client_id}`)
 	}
 }
 
