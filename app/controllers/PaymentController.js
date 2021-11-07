@@ -1,0 +1,16 @@
+'use strict'
+
+module.exports = class PaymentController {
+	constructor({ ErrorHandler, PaymentDomain }) {
+		this.errorHandler = ErrorHandler
+		this.paymentDomain = PaymentDomain
+	}
+
+	async getBalance(CTX) {
+		try {
+			return await this.paymentDomain.getPaymentBalance(CTX)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
+		}
+	}
+}

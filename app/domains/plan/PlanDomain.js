@@ -7,7 +7,7 @@ class PlanDomain {
 		this.validateChat = ValidateChat
 	}
 
-	async getValuePlanByClientManager(CTX, client) {
+	async getValuePlanByClientManager(client) {
 		const planValue = await this.planRepository.getValuePlanByClient(
 			client.client_id
 		)

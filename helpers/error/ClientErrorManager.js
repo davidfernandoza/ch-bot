@@ -7,7 +7,7 @@ module.exports = class ClientErrorManager {
 		const response = error.response
 		if (response.status != 422) return false
 		if (response.data.status) {
-			return this.companyStatusManger(response.data.status, CTX)
+			return this.clientStatusManger(response.data.status, CTX)
 		}
 		if (response.data.errors) {
 			return this.backErrors(response.data.errors, CTX)
@@ -15,9 +15,13 @@ module.exports = class ClientErrorManager {
 		return false
 	}
 
-	companyStatusManger(status, CTX) {
+	clientStatusManger(status, CTX) {
 		if (status == 'COMPANY') {
-			this.errorDomain.companyStatusManger(CTX)
+			this.errorDomain.clientStatusManger(CTX)
+			return true
+		}
+		if (status == 'INCOMPLETE') {
+			this.errorDomain.incompleteStatusManger(CTX)
 			return true
 		}
 		return false

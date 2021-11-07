@@ -8,9 +8,7 @@ const ClientSchema = new Schema({
 	sponsor_id: { type: Number },
 	plan_id: { type: Number, nullable: true },
 	sponsor_telegram_id: { type: Number },
-	full_name: {
-		type: String
-	},
+	full_name: { type: String },
 	period: { type: Date, nullable: true },
 	phone: { type: String, nullable: true },
 	telegram_id: { type: String, unique: true },

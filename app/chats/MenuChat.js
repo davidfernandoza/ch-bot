@@ -18,7 +18,7 @@ class MenuChat {
 		const keyboard = Keyboard.make([
 			['🔖 Importante'],
 			['🤝 Codigo de referido', '👨‍👧‍👦 Referidos'],
-			['📆 Ciclo', '💵 Cobrar'],
+			['📆 Ciclo', '🏦 Cobrar'],
 			['👤 Mi informacion', '⚖️ Terminos y condiciones']
 		]).reply()
 		return await CTX.reply('Menu principal', keyboard)
@@ -44,7 +44,8 @@ class MenuChat {
 
 	chargeMenu(CTX) {
 		const keyboard = Keyboard.make([
-			['🗂 Historial', '📊 Cobrar saldo'],
+			['📊 Consultar saldo'],
+			['🗂 Historial', '💵 Cobrar saldo'],
 			['💳 Cambiar direccion tron'],
 			['⬅️ Menu principal']
 		]).reply()

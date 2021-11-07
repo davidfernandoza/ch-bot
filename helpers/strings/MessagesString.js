@@ -71,5 +71,8 @@ module.exports = {
 	clientIsCompanyStatus:
 		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente codigo *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
 	correctWalleChange: 'Direccion tron actualizada correctamente.',
-	walletTaken: '*Error* La direccion tron ya esta tomada, use otra.'
+	walletTaken: '*Error* La direccion tron ya esta tomada, use otra.',
+	balanceMessage: 'Su saldo es de: *#BALANCE QFS*',
+	balanceWithoutFunds:
+		'*Error* No tienes el saldo suficiente para el pago del plan.'
 }

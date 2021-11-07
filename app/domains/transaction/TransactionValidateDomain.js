@@ -9,6 +9,7 @@ class TransactionValidateDomain {
 		DefaultString,
 		StatusClientDomain,
 		BuildDataTransaction,
+		TransactionChat,
 		ClientDomain,
 		Config
 	}) {
@@ -22,22 +23,34 @@ class TransactionValidateDomain {
 		this.statusClientDomain = StatusClientDomain
 		this.clientDomain = ClientDomain
 		this.buildDataTransaction = BuildDataTransaction
+		this.transactionChat = TransactionChat
 	}
 
 	async getValidatedForTransaction(CTX) {
-		const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
 		const client = await this.clientRepository.getClientByTelegramIdInMongo(
 			CTX.from.id
 		)
 		const transactionResponse =
 			await this.transactionRepository.getTransactionValidate(client.client_id)
+		return await this.transactionResponseManager(
+			CTX,
+			client,
+			transactionResponse
+		)
+	}
 
-		if (transactionResponse.status == 'INCOMPLETE') {
-			this.incompleteStatusManager(transactionResponse, client)
-		} else if (arrayValidate.includes(transactionResponse.status)) {
-			this.completeStatusManger(transactionResponse, client)
+	async transactionResponseManager(CTX, client, response) {
+		const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS
+
+		if (response.status == 'INCOMPLETE') {
+			this.incompleteStatusManager(response, client)
+			return await this.transactionChat.sendInfoForTransaction(CTX, response)
+		} else if (arrayValidate.includes(response.status)) {
+			this.completeStatusManger(response, client)
+			return await this.transactionChat.transactionComplete(CTX, response)
+		} else {
+			return await this.transactionChat.transactionNone(CTX)
 		}
-		return transactionResponse
 	}
 
 	async completeStatusManger(transactionResponse, client) {

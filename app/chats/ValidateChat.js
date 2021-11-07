@@ -113,5 +113,10 @@ class ValidateChat {
 		const message = this.messageString.walletTaken
 		return await CTX.replyWithMarkdown(message)
 	}
+
+	async balanceWithoutFunds(CTX) {
+		const message = this.messageString.balanceWithoutFunds
+		return await CTX.replyWithMarkdown(message)
+	}
 }
 module.exports = ValidateChat

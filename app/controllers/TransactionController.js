@@ -5,6 +5,7 @@ class TransactionController {
 		TransactionValidateDomain,
 		TransactionChat,
 		TransactionDomain,
+		ClientRepository,
 		ErrorHandler,
 		DefaultString
 	}) {
@@ -13,20 +14,14 @@ class TransactionController {
 		this.transactionChat = TransactionChat
 		this.defaultString = DefaultString
 		this.transactionDomain = TransactionDomain
+		this.clientRepository = ClientRepository
 	}
 
 	async getValidationInBack(CTX) {
 		try {
-			const arrayValidate = this.defaultString.VALIDATE_TRANSACTION_STATUS,
-				response =
-					await this.transactionValidateDomain.getValidatedForTransaction(CTX)
-			if (arrayValidate.includes(response.status)) {
-				return await this.transactionChat.transactionComplete(CTX, response)
-			} else if (response.status == 'INCOMPLETE') {
-				return await this.transactionChat.sendInfoForTransaction(CTX, response)
-			} else {
-				return await this.transactionChat.transactionNone(CTX)
-			}
+			return await this.transactionValidateDomain.getValidatedForTransaction(
+				CTX
+			)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}
@@ -36,6 +31,14 @@ class TransactionController {
 		try {
 			const clientMongo = CTX.client
 			return await this.transactionDomain.openTransaction(CTX, clientMongo)
+		} catch (error) {
+			return this.errorHandler.sendError(CTX, error)
+		}
+	}
+
+	async openTransactionWithBalance(CTX) {
+		try {
+			return await this.transactionDomain.doTransactionWithBalance(CTX)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
 		}

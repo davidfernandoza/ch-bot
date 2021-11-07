@@ -10,6 +10,14 @@ class TransactionRepository extends Repository {
 	async getTransactionValidate(client_id, data) {
 		return await super.post(`${this.prefix}/validate/client/${client_id}`, data)
 	}
+
+	async doTransactionWithBalance(client_id, access_token) {
+		return await super.post(
+			`${this.prefix}/buy-plan-with-balance/client/${client_id}`,
+			{},
+			access_token
+		)
+	}
 }
 
 module.exports = TransactionRepository

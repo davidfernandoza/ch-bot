@@ -15,7 +15,8 @@ class TextHandler {
 		PeriodController,
 		StartController,
 		TransactionController,
-		TermController
+		TermController,
+		PaymentController
 	}) {
 		this.clientRepository = ClientRepository
 		this.middlewareKernel = MiddlewareKernel
@@ -31,6 +32,7 @@ class TextHandler {
 		this.startController = StartController
 		this.termController = TermController
 		this.transactionController = TransactionController
+		this.paymentController = PaymentController
 	}
 	/*
 	 * Maneja el evento de texto enviado
@@ -134,7 +136,7 @@ class TextHandler {
 					next: () => this.menuController.openReferralsMenu(CTX)
 				})
 				break
-			case '💵 Cobrar':
+			case '🏦 Cobrar':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
@@ -146,6 +148,20 @@ class TextHandler {
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openChargeMenu(CTX)
+				})
+				break
+			case '📊 Consultar saldo':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
+					],
+					request: { context: CTX },
+					next: () => this.paymentController.getBalance(CTX)
 				})
 				break
 			case '📆 Ciclo':

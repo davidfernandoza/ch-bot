@@ -8,9 +8,8 @@ class BuildDataTransaction {
 		this.config = Config
 	}
 
-	async makeDataPrintForTransaction(CTX, clientMongo) {
+	async makeDataPrintForTransaction(clientMongo) {
 		const planValue = await this.planDomain.getValuePlanByClientManager(
-			CTX,
 			clientMongo
 		)
 		if (!planValue) return planValue //false

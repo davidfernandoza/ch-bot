@@ -21,6 +21,7 @@ const DefaultController = require('./app/controllers/DefaultController')
 const PhoneController = require('./app/controllers/PhoneController')
 const PeriodController = require('./app/controllers/PeriodController')
 const TermController = require('./app/controllers/TermController')
+const PaymentController = require('./app/controllers/PaymentController')
 
 /* -----------------------------------------------------*/
 /* Chats:			 																					*/
@@ -37,6 +38,7 @@ const CountryChat = require('./app/Chats/CountryChat')
 const PhoneChat = require('./app/Chats/PhoneChat')
 const PeriodChat = require('./app/Chats/PeriodChat')
 const TermsAndPlandChat = require('./app/Chats/TermsAndPlandChat')
+const PaymentChat = require('./app/Chats/PaymentChat')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -58,7 +60,9 @@ const PeriodDomain = require('./app/domains/period/PeriodDomain')
 const TermDomain = require('./app/domains/terms/TermDomain')
 const PlanDomain = require('./app/domains/plan/planDomain')
 const TransactionDomain = require('./app/domains/transaction/TransactionDomain')
-const ErrorDomain = require('./app/domains/Error/ErrorDomain')
+const ErrorDomain = require('./app/domains/error/ErrorDomain')
+const PaymentDomain = require('./app/domains/Payment/PaymentDomain')
+const PaymentBuildDomain = require('./app/domains/Payment/PaymentBuildDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -83,6 +87,9 @@ const InfoMiddleware = require('./app/middlewares/InfoMiddleware')
 const CountryMiddleware = require('./app/middlewares/CountryMiddleware')
 const PhoneMiddleware = require('./app/middlewares/PhoneMiddleware')
 const StartMiddleware = require('./app/middlewares/StartMiddleware')
+const PaymentMiddleware = require('./app/middlewares/PaymentMiddleware')
+
+// API ---------------------------------------------------
 const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
 const TelegramIdMiddleware = require('./app/middlewares/api/TelegramIdMiddleware')
 
@@ -98,6 +105,7 @@ const CountryRepository = require('./app/repositories/CountryRepository')
 const WalletRepository = require('./app/repositories/WalletRepository')
 const PeriodRepository = require('./app/repositories/PeriodRepository')
 const MatixRepository = require('./app/repositories/MatixRepository')
+const PaymentRepository = require('./app/repositories/PaymentRepository')
 
 /* -----------------------------------------------------*/
 /* Routes:				 																			*/
@@ -145,7 +153,8 @@ container
 		DefaultController: asClass(DefaultController).singleton(),
 		PhoneController: asClass(PhoneController).singleton(),
 		PeriodController: asClass(PeriodController).singleton(),
-		TermController: asClass(TermController).singleton()
+		TermController: asClass(TermController).singleton(),
+		PaymentController: asClass(PaymentController).singleton()
 	})
 
 	// Chats
@@ -161,7 +170,8 @@ container
 		CountryChat: asClass(CountryChat).singleton(),
 		PhoneChat: asClass(PhoneChat).singleton(),
 		PeriodChat: asClass(PeriodChat).singleton(),
-		TermsAndPlandChat: asClass(TermsAndPlandChat).singleton()
+		TermsAndPlandChat: asClass(TermsAndPlandChat).singleton(),
+		PaymentChat: asClass(PaymentChat).singleton()
 	})
 
 	// Domain
@@ -183,7 +193,9 @@ container
 		PlanDomain: asClass(PlanDomain).singleton(),
 		BuildDataTransaction: asClass(BuildDataTransaction).singleton(),
 		TransactionDomain: asClass(TransactionDomain).singleton(),
-		ErrorDomain: asClass(ErrorDomain).singleton()
+		ErrorDomain: asClass(ErrorDomain).singleton(),
+		PaymentDomain: asClass(PaymentDomain).singleton(),
+		PaymentBuildDomain: asClass(PaymentBuildDomain).singleton()
 	})
 
 	// Events Handler:
@@ -209,7 +221,8 @@ container
 		PhoneMiddleware: asClass(PhoneMiddleware).singleton(),
 		StartMiddleware: asClass(StartMiddleware).singleton(),
 		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
-		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton()
+		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton(),
+		PaymentMiddleware: asClass(PaymentMiddleware).singleton()
 	})
 
 	// Repositories
@@ -222,7 +235,8 @@ container
 		AuthRepository: asClass(AuthRepository).singleton(),
 		CountryRepository: asClass(CountryRepository).singleton(),
 		PeriodRepository: asClass(PeriodRepository).singleton(),
-		MatixRepository: asClass(MatixRepository).singleton()
+		MatixRepository: asClass(MatixRepository).singleton(),
+		PaymentRepository: asClass(PaymentRepository).singleton()
 	})
 
 	// Router

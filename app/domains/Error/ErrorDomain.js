@@ -1,11 +1,7 @@
 'use strict'
 
 module.exports = class ErrorDomain {
-	constructor({
-		ClientRepository,
-		StatusClientDomain,
-		ValidateChat,
-	}) {
+	constructor({ ClientRepository, StatusClientDomain, ValidateChat }) {
 		this.clientRepository = ClientRepository
 		this.statusClientDomain = StatusClientDomain
 		this.validateChat = ValidateChat
@@ -17,6 +13,10 @@ module.exports = class ErrorDomain {
 		)
 		await this.statusClientDomain.addCompanyClient(client)
 		await this.validateChat.clientIsCompanyStatus(CTX)
+	}
+
+	async incompleteStatusManger(CTX) {
+		await this.validateChat.balanceWithoutFunds(CTX)
 	}
 
 	async walletTaken(CTX) {

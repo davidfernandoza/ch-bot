@@ -7,6 +7,7 @@ class MiddlewareKernel {
 		InfoMiddleware,
 		CountryMiddleware,
 		PhoneMiddleware,
+		PaymentMiddleware,
 		StartMiddleware,
 		ErrorHandler
 	}) {
@@ -18,7 +19,8 @@ class MiddlewareKernel {
 			InfoMiddleware,
 			CountryMiddleware,
 			PhoneMiddleware,
-			StartMiddleware
+			StartMiddleware,
+			PaymentMiddleware
 		}
 	}
 

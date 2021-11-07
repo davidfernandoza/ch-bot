@@ -97,6 +97,20 @@ class CallbackQueryHandler {
 						this.countryController.setCountryForClient(CTX, buttonValue)
 				})
 				break
+			case 'payAPlanWithBalance':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate',
+						'PaymentMiddleware.valueBalanceCompleteForPayAPlan'
+					],
+					request: { context: CTX },
+					next: () => this.transactionController.openTransactionWithBalance(CTX)
+				})
+				break
 			case 'actionCancel':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [
