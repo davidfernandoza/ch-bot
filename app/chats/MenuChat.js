@@ -7,11 +7,15 @@ class MenuChat {
 	}
 
 	async openMenu(CTX) {
+		await this.notViewChat(CTX)
+		return await this.newMenu(CTX)
+	}
+
+	async notViewChat(CTX) {
 		await CTX.reply(
 			'No ves el menu? Usa el siguiente boton.',
 			this.getButtonInfoWebK()
 		)
-		return await this.newMenu(CTX)
 	}
 
 	async newMenu(CTX) {
@@ -52,7 +56,7 @@ class MenuChat {
 		return CTX.reply('Menu de cobranza!', keyboard)
 	}
 
-	myInfoMenu(CTX) {
+	async myInfoMenu(CTX) {
 		const keyboard = Keyboard.make([
 			['👤 Ver mi informacion'],
 			['🇪🇨 Agregar pais', '📞 Agregar telefono'],

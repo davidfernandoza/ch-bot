@@ -8,7 +8,8 @@ class CallbackQueryHandler {
 		StartController,
 		CountryController,
 		MenuController,
-		DefaultController
+		DefaultController,
+		PaymentController
 	}) {
 		this.middlewareKernel = MiddlewareKernel
 		this.clientController = ClientController
@@ -18,6 +19,7 @@ class CallbackQueryHandler {
 		this.startController = StartController
 		this.countryController = CountryController
 		this.defaultController = DefaultController
+		this.paymentController = PaymentController
 	}
 	/*
 	 * Captura el evento del boton en linea presionado
@@ -105,10 +107,25 @@ class CallbackQueryHandler {
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
+						'PendingPaymentMiddleware.countCharges',
 						'PaymentMiddleware.valueBalanceCompleteForPayAPlan'
 					],
 					request: { context: CTX },
 					next: () => this.transactionController.openTransactionWithBalance(CTX)
+				})
+				break
+			case 'collectBalance':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate',
+						'PendingPaymentMiddleware.balanceValidateForCharges'
+					],
+					request: { context: CTX },
+					next: () => this.paymentController.collectBalance(CTX)
 				})
 				break
 			case 'actionCancel':

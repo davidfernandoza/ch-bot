@@ -13,4 +13,19 @@ module.exports = class PaymentController {
 			this.errorHandler.sendError(CTX, error)
 		}
 	}
+
+	async validateCollectBalance(CTX) {
+		try {
+			return await this.paymentDomain.validateCollectBalance(CTX)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
+		}
+	}
+	async collectBalance(CTX) {
+		try {
+			return await this.paymentDomain.collectBalance(CTX)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
+		}
+	}
 }

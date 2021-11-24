@@ -9,11 +9,11 @@ module.exports = {
 	clientExistError:
 		'*Oh!* El usuario ya existe en el sistema. \nUsa el comando /menu para abrir el menu del usuario. \n\nÓ usa el siguiente botón.',
 	clientNotExistError:
-		'*Ops!* El usuario no existe en el sistema.\n\n*Escribe el codigo de referido que te paso tu patrocinador para crear un nuevo usuario.*',
+		'*Ops!* El usuario no existe en el sistema.\n\n*Escribe el código de referido que te paso tu patrocinador para crear un nuevo usuario.*',
 	sponsorNotExist:
-		'*Ops!* El codigo de referido del patrocinador no es correcto.\n\n*Escribe el codigo de referido que te paso tu patrocinador para crear un nuevo usuario.*',
+		'*Ops!* El código de referido del patrocinador no es correcto.\n\n*Escribe el código de referido que te paso tu patrocinador para crear un nuevo usuario.*',
 	sponsorAndClientIsEquals:
-		'*Ops!* El codigo de referido del patricinador es el mismo codigo del actual usuario.\n\nUsa otro link o pide otro codigo de patricinador.',
+		'*Ops!* El código de referido del patricinador es el mismo código del actual usuario.\n\nUsa otro link o pide otro código de patricinador.',
 	clientNotActive:
 		'El usuario no esta activo en la plataforma debe de hacer la siguiente transacción.',
 	webKvalidate:
@@ -58,7 +58,7 @@ module.exports = {
 	incompleteMessage:
 		'Termina de pagar tu consignación con la cantidad que te enviamos.',
 	infoBackMissing:
-		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte, exponga su caso con el siguiente codigo *#TELEGRAM_ID* en el sigue chat:\n\n#URL_SUPPORT',
+		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte, exponga su caso con el siguiente código *#TELEGRAM_ID* en el sigue chat:\n\n#URL_SUPPORT',
 	historicPeriodMessage:
 		'*Ciclo: #CODE*\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*Cantidad de transacciones:* #CONSIGNMENTS_AMOUNT\n*Estado:* #STATUS',
 	statusClientInPeriodMessage:
@@ -67,12 +67,17 @@ module.exports = {
 	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
 	notHavePeriodMessage: '🚫 *No hay periodos pagos*',
 	referredMessage:
-		'Puedes enviar el *link* o el *codigo* a tus referidos para agregarlos a tu red.',
+		'Puedes enviar el *link* o el *código* a tus referidos para agregarlos a tu red.',
 	clientIsCompanyStatus:
-		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente codigo *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
+		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
 	correctWalleChange: 'Direccion tron actualizada correctamente.',
 	walletTaken: '*Error* La direccion tron ya esta tomada, use otra.',
 	balanceMessage: 'Su saldo es de: *#BALANCE QFS*',
-	balanceWithoutFunds:
-		'*Error* No tienes el saldo suficiente para el pago del plan.'
+	balanceWithoutFunds: '*Error* No tienes el saldo suficiente',
+	limitCharges:
+		'*Error* No puedes usar mas el saldo en este ciclo, ya llegaste al limite de acciones.',
+	collectBalanceEnable:
+		'*Cobro de saldo hecho exitosamente*\nEl pago del cobro se realizara entre 1 a 2 días hábiles, para ver la información del estado del cobro se recomienda estar consultando el historial de cobros en este mismo menu.\n\nSi hay alguna irregularidad en el estado del cobro, se puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente Chat:\n#URL_SUPPORT',
+	collectBalanceDisable:
+		'*Hubo un problema en el cobro del saldo*\n\nIntenta de nuevo o se puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente Chat:\n#URL_SUPPORT'
 }

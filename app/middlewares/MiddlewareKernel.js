@@ -9,6 +9,7 @@ class MiddlewareKernel {
 		PhoneMiddleware,
 		PaymentMiddleware,
 		StartMiddleware,
+		PendingPaymentMiddleware,
 		ErrorHandler
 	}) {
 		this.errorHandler = ErrorHandler
@@ -20,7 +21,8 @@ class MiddlewareKernel {
 			CountryMiddleware,
 			PhoneMiddleware,
 			StartMiddleware,
-			PaymentMiddleware
+			PaymentMiddleware,
+			PendingPaymentMiddleware
 		}
 	}
 

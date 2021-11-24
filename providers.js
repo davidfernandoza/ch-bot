@@ -63,6 +63,7 @@ const TransactionDomain = require('./app/domains/transaction/TransactionDomain')
 const ErrorDomain = require('./app/domains/error/ErrorDomain')
 const PaymentDomain = require('./app/domains/Payment/PaymentDomain')
 const PaymentBuildDomain = require('./app/domains/Payment/PaymentBuildDomain')
+const ChargesAmountByClientDomain = require('./app/domains/Clients/ChargesAmountByClientDomain')
 
 /* -----------------------------------------------------*/
 /* Events Handler:						 													*/
@@ -88,6 +89,7 @@ const CountryMiddleware = require('./app/middlewares/CountryMiddleware')
 const PhoneMiddleware = require('./app/middlewares/PhoneMiddleware')
 const StartMiddleware = require('./app/middlewares/StartMiddleware')
 const PaymentMiddleware = require('./app/middlewares/PaymentMiddleware')
+const PendingPaymentMiddleware = require('./app/middlewares/PendingPaymentMiddleware')
 
 // API ---------------------------------------------------
 const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
@@ -195,7 +197,10 @@ container
 		TransactionDomain: asClass(TransactionDomain).singleton(),
 		ErrorDomain: asClass(ErrorDomain).singleton(),
 		PaymentDomain: asClass(PaymentDomain).singleton(),
-		PaymentBuildDomain: asClass(PaymentBuildDomain).singleton()
+		PaymentBuildDomain: asClass(PaymentBuildDomain).singleton(),
+		ChargesAmountByClientDomain: asClass(
+			ChargesAmountByClientDomain
+		).singleton()
 	})
 
 	// Events Handler:
@@ -222,7 +227,8 @@ container
 		StartMiddleware: asClass(StartMiddleware).singleton(),
 		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
 		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton(),
-		PaymentMiddleware: asClass(PaymentMiddleware).singleton()
+		PaymentMiddleware: asClass(PaymentMiddleware).singleton(),
+		PendingPaymentMiddleware: asClass(PendingPaymentMiddleware).singleton()
 	})
 
 	// Repositories

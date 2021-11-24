@@ -12,4 +12,11 @@ module.exports = class PaymentRepository extends Repository {
 			accessToken
 		)
 	}
+
+	async collectBalance(clientId, accessToken) {
+		return await super.get(
+			`${this.prefix}/collect-balance/client/${clientId}`,
+			accessToken
+		)
+	}
 }

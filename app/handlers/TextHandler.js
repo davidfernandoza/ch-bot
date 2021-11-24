@@ -164,6 +164,21 @@ class TextHandler {
 					next: () => this.paymentController.getBalance(CTX)
 				})
 				break
+			case '💵 Cobrar saldo':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo',
+						'PendingPaymentMiddleware.countCharges'
+					],
+					request: { context: CTX },
+					next: () => this.paymentController.validateCollectBalance(CTX)
+				})
+				break
 			case '📆 Ciclo':
 				this.middlewareKernel.routerToMiddleware({
 					middlewares: [

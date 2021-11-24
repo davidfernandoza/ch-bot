@@ -29,6 +29,26 @@ module.exports = class PaymentDomain {
 		return await this.paymentChat.printBalance(CTX, value)
 	}
 
+	async validateCollectBalance(CTX) {
+		const paymentsAndPlan = await this.getPaymentAndPlanForCompare(CTX)
+		const value = this.paymentBuildDomain.buildBalance(paymentsAndPlan[0])
+		return await this.paymentChat.validationPrintForCollectBalance(CTX, value)
+	}
+
+	async collectBalance(CTX) {
+		const telegramId = CTX.from.id
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		const accessToken = client.auth.access_token
+		const response = await this.paymentRepository.collectBalance(
+			client.client_id,
+			accessToken
+		)
+		const status = response ? 'Enable' : 'Disable'
+		return await this.paymentChat.collectBalance(CTX, status)
+	}
+
 	async getPaymentAndPlanForCompare(CTX) {
 		const telegramId = CTX.from.id
 		const client = await this.clientRepository.getClientByTelegramIdInMongo(

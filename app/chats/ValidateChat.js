@@ -56,6 +56,7 @@ class ValidateChat {
 		const attributeSelected = this.defaultString.INFO[attribute]
 		let message = this.messageString.infoValidate
 		message = message.replace('#INFO', attributeSelected)
+		await this.menuChat.notViewChat(CTX)
 		await CTX.replyWithMarkdown(message)
 		return await this.menuChat.myInfoMenu(CTX)
 	}
@@ -115,7 +116,19 @@ class ValidateChat {
 	}
 
 	async balanceWithoutFunds(CTX) {
-		const message = this.messageString.balanceWithoutFunds
+		let message = this.messageString.balanceWithoutFunds
+		message += ' para el pago del plan.'
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async balanceWithoutFundsForCharges(CTX) {
+		let message = this.messageString.balanceWithoutFunds
+		message += ' para hacer el cobro.'
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async limitCharges(CTX) {
+		const message = this.messageString.limitCharges
 		return await CTX.replyWithMarkdown(message)
 	}
 }
