@@ -173,10 +173,25 @@ class TextHandler {
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
 						'InfoMiddleware.clientIsInfo',
-						'PendingPaymentMiddleware.countCharges'
+						'PendingPaymentMiddleware.countCharges',
+						'ClientMiddleware.validateAmountOfActiveReferrals'
 					],
 					request: { context: CTX },
 					next: () => this.paymentController.validateCollectBalance(CTX)
+				})
+				break
+			case '🗂 Historial':
+				this.middlewareKernel.routerToMiddleware({
+					middlewares: [
+						'ClientMiddleware.clientExistValidate',
+						'ClientMiddleware.clientIsCompany',
+						'WalletMiddleware.clientWithWallet',
+						'AuthMiddleware.isActive',
+						'InfoMiddleware.infoExistValidate',
+						'InfoMiddleware.clientIsInfo'
+					],
+					request: { context: CTX },
+					next: () => this.paymentController.getPaymentHistory(CTX)
 				})
 				break
 			case '📆 Ciclo':

@@ -6,14 +6,26 @@ module.exports = class PaymentRepository extends Repository {
 		this.prefix = 'payments'
 	}
 
-	async getBalanceByUser(clientId, accessToken) {
+	async getBalanceByClient(clientId) {
+		return await super.post(`${this.prefix}/get-balance/client/${clientId}`)
+	}
+
+	async getPaymentCountOfPeriodByClient(clientId, accessToken) {
 		return await super.get(
-			`${this.prefix}/get-balance/client/${clientId}`,
+			`${this.prefix}/get-payment-count-of-period/client/${clientId}`,
 			accessToken
 		)
 	}
 
-	async collectBalance(clientId, accessToken) {
+	async getPaymentHistoryByClient(clientId, accessToken) {
+		return await super.get(
+			`${this.prefix}/get-payment-history/client/1`,
+			// `${this.prefix}/get-payment-history/client/${clientId}`,
+			accessToken
+		)
+	}
+
+	async collectBalanceByClient(clientId, accessToken) {
 		return await super.get(
 			`${this.prefix}/collect-balance/client/${clientId}`,
 			accessToken

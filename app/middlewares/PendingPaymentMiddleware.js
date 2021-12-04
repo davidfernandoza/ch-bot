@@ -5,21 +5,28 @@ module.exports = class PendingPaymentMiddleware {
 		ValidateChat,
 		ClientRepository,
 		PaymentDomain,
-		PaymentBuildDomain
+		PaymentBuildDomain,
+		PaymentRepository
 	}) {
 		this.validateChat = ValidateChat
 		this.clientRepository = ClientRepository
 		this.paymentDomain = PaymentDomain
 		this.paymentBuildDomain = PaymentBuildDomain
+		this.paymentRepository = PaymentRepository
 	}
 
 	async countCharges(CTX) {
 		const telegramId = CTX.from.id
-		const user = await this.clientRepository.getClientByTelegramIdInMongo(
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
 			telegramId
 		)
 
-		if (parseInt(user.charges_amount) >= 2) {
+		const amount = await this.paymentRepository.getPaymentCountOfPeriodByClient(
+			client.client_id,
+			client.auth.access_token
+		)
+
+		if (parseInt(amount) >= 2) {
 			await this.validateChat.limitCharges(CTX)
 			return false
 		}

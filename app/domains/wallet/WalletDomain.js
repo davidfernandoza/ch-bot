@@ -9,21 +9,24 @@ class WalletDomain {
 	}
 
 	async storeWalletInBack(keyWallet, clientMongo) {
-		const dataWallet = { key: keyWallet, client_id: clientMongo.client_id },
-			wallet = await this.walletRepository.storeWallet(dataWallet)
+		const client_id = clientMongo.client_id
+		const dataWallet = await this.buildWalletObject(keyWallet, client_id)
+		const wallet = await this.walletRepository.storeWallet(dataWallet)
 		return await this.storeWalletInMongo(clientMongo, wallet)
 	}
 	async updateWalletInBack(keyWallet, clientMongo, walletId) {
-		const dataWallet = {
-			id: walletId,
-			key: keyWallet,
-			client_id: clientMongo.client_id
-		}
-		const wallet = await this.walletRepository.updateWallet(
-			dataWallet,
-			walletId
-		)
+		const client_id = clientMongo.client_id
+		const dataWallet = await this.buildWalletObject(keyWallet, client_id)
+		dataWallet.id = walletId
+		const wallet = await this.walletRepository.updateWallet(dataWallet)
 		return await this.storeWalletInMongo(clientMongo, wallet)
+	}
+
+	async buildWalletObject(key, client_id) {
+		const addresses = await this.walletRepository.getWalletInfoInTronGrid(key)
+		const address = addresses.data[0].address
+		const status = true
+		return { key, client_id, address, status }
 	}
 
 	async storeWalletInMongo(clientMongo, walletData) {

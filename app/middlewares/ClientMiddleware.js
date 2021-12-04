@@ -41,6 +41,20 @@ class ClientMiddleware {
 		return true
 	}
 
+	async validateAmountOfActiveReferrals(CTX) {
+		const telegramId = CTX.from.id
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		const referralsAmount =
+			await this.clientRepository.getAmountOfActiveReferralsByClient(
+				client.client_id,
+				client.auth.access_token
+			)
+		if (parseInt(referralsAmount) >= 3) return true
+		return await this.failResponse(CTX, 'referralsAreMissing')
+	}
+
 	async failResponse(CTX, fileType) {
 		await this.validateChat[fileType](CTX)
 		return false

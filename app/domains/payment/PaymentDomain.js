@@ -6,13 +6,15 @@ module.exports = class PaymentDomain {
 		PlanRepository,
 		PaymentBuildDomain,
 		PaymentRepository,
-		PaymentChat
+		PaymentChat,
+		PaymentHistoryChat
 	}) {
 		this.clientRepository = ClientRepository
 		this.paymentRepository = PaymentRepository
 		this.paymentChat = PaymentChat
 		this.paymentBuildDomain = PaymentBuildDomain
 		this.planRepository = PlanRepository
+		this.paymentHistoryChat = PaymentHistoryChat
 	}
 
 	async getPaymentBalance(CTX) {
@@ -41,7 +43,7 @@ module.exports = class PaymentDomain {
 			telegramId
 		)
 		const accessToken = client.auth.access_token
-		const response = await this.paymentRepository.collectBalance(
+		const response = await this.paymentRepository.collectBalanceByClient(
 			client.client_id,
 			accessToken
 		)
@@ -54,12 +56,23 @@ module.exports = class PaymentDomain {
 		const client = await this.clientRepository.getClientByTelegramIdInMongo(
 			telegramId
 		)
-		const accessToken = client.auth.access_token
-		const paymentsPromise = this.paymentRepository.getBalanceByUser(
-			client.client_id,
-			accessToken
+		const paymentsPromise = this.paymentRepository.getBalanceByClient(
+			client.client_id
 		)
 		const planPromise = this.planRepository.getPlan(client.plan_id)
 		return await Promise.all([paymentsPromise, planPromise])
+	}
+
+	async getPaymentHistory(CTX) {
+		const telegramId = CTX.from.id
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+		const accessToken = client.auth.access_token
+		const response = await this.paymentRepository.getPaymentHistoryByClient(
+			client.client_id,
+			accessToken
+		)
+		return await this.paymentHistoryChat.showPaymentHistory(CTX, response)
 	}
 }

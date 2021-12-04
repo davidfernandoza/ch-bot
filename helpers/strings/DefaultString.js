@@ -35,5 +35,10 @@ module.exports = {
 		GET_COUNTRY: 'un *país a seleccionar*',
 		GET_PHONE: 'un *teléfono*',
 		GET_EMAIL: 'un *correo electrónico*'
+	},
+	// type of history
+	HISTORY_TYPES: {
+		PAYMENT: 'Pago al usuario',
+		BALANCE: 'Compra de un ciclo'
 	}
 }

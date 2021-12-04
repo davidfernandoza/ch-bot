@@ -39,6 +39,7 @@ const PhoneChat = require('./app/Chats/PhoneChat')
 const PeriodChat = require('./app/Chats/PeriodChat')
 const TermsAndPlandChat = require('./app/Chats/TermsAndPlandChat')
 const PaymentChat = require('./app/Chats/PaymentChat')
+const PaymentHistoryChat = require('./app/Chats/PaymentHistoryChat')
 
 /* -----------------------------------------------------*/
 /* Domain:						 																	*/
@@ -173,7 +174,8 @@ container
 		PhoneChat: asClass(PhoneChat).singleton(),
 		PeriodChat: asClass(PeriodChat).singleton(),
 		TermsAndPlandChat: asClass(TermsAndPlandChat).singleton(),
-		PaymentChat: asClass(PaymentChat).singleton()
+		PaymentChat: asClass(PaymentChat).singleton(),
+		PaymentHistoryChat: asClass(PaymentHistoryChat).singleton()
 	})
 
 	// Domain

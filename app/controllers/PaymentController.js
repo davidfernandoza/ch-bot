@@ -28,4 +28,11 @@ module.exports = class PaymentController {
 			this.errorHandler.sendError(CTX, error)
 		}
 	}
+	async getPaymentHistory(CTX) {
+		try {
+			return await this.paymentDomain.getPaymentHistory(CTX)
+		} catch (error) {
+			this.errorHandler.sendError(CTX, error)
+		}
+	}
 }

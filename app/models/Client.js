@@ -12,7 +12,6 @@ const ClientSchema = new Schema({
 	period: { type: Date, nullable: true },
 	phone: { type: String, nullable: true },
 	telegram_id: { type: String, unique: true },
-	charges_amount: { type: Number, default: 0 },
 	status: {
 		type: String,
 		enum: [

@@ -28,12 +28,7 @@ class WalletController {
 			if (walletMongo.action_wallet == this.config.STRINGS.CREATE_WALLET) {
 				await this.walletDomain.storeWalletInBack(walletKey, clientMongo)
 			} else {
-				const walet_id = walletMongo.id
-				await this.walletDomain.updateWalletInBack(
-					walletKey,
-					clientMongo,
-					walet_id
-				)
+				await this.walletDomain.updateWalletInBack(walletKey, clientMongo)
 			}
 
 			if (walletMongo.action_wallet == this.config.STRINGS.UPDATE_WALLET) {

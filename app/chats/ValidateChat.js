@@ -131,5 +131,10 @@ class ValidateChat {
 		const message = this.messageString.limitCharges
 		return await CTX.replyWithMarkdown(message)
 	}
+
+	async referralsAreMissing(CTX) {
+		const message = this.messageString.referralsAreMissing
+		return await CTX.replyWithMarkdown(message)
+	}
 }
 module.exports = ValidateChat

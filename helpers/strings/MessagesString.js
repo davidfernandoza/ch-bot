@@ -75,9 +75,20 @@ module.exports = {
 	balanceMessage: 'Su saldo es de: *#BALANCE QFS*',
 	balanceWithoutFunds: '*Error* No tienes el saldo suficiente',
 	limitCharges:
-		'*Error* No puedes usar mas el saldo en este ciclo, ya llegaste al limite de acciones.',
+		'*Error* No puedes usar mas el saldo en este ciclo, ya llegaste al limite de 2 cobros por ciclo.',
 	collectBalanceEnable:
 		'*Cobro de saldo hecho exitosamente*\nEl pago del cobro se realizara entre 1 a 2 días hábiles, para ver la información del estado del cobro se recomienda estar consultando el historial de cobros en este mismo menu.\n\nSi hay alguna irregularidad en el estado del cobro, se puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente Chat:\n#URL_SUPPORT',
 	collectBalanceDisable:
-		'*Hubo un problema en el cobro del saldo*\n\nIntenta de nuevo o se puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente Chat:\n#URL_SUPPORT'
+		'*Hubo un problema en el cobro del saldo*\n\nIntenta de nuevo o se puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente Chat:\n#URL_SUPPORT',
+	referralsAreMissing:
+		'*Error* No tienes el mínimo de 3 referidos activos para cobrar el saldo, ingresa a mas personas a tu red o contacta a tus referidos actuales e invítalos a activar sus cuentas.',
+	historicPaymentDeliveredTitleMessage: '*Historico de pagos entregados:*',
+	historicPaymentProcessingTitleMessage: '*Historico de pagos pendientes:*',
+	notHavePaymentsMessage: '*No hay pagos entregados*',
+	historicPaymentMessage:
+		'*Pago: #CODE*\n\n*Tipo:* #TYPE\n*Valor entregado:* #VALUE\n*Fecha:* #DATE\n*A la direccion Tron:*\n#ADDRESS',
+	historicConsignmentMessage:
+		'*Pago: #CODE*\n\n*Tipo:* #TYPE\n*Valor entregado:* #VALUE\n*Precio del ciclo:* #PERIOD_VALUE\n*Cambio:* #CHANGE\n*Fecha:* #DATE',
+	historicPendingPaymentMessage:
+		'*Pago en proceso*\n\n*Valor ha entregar:* #VALUE\n*Fecha de solucitud*: #DATE'
 }

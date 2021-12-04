@@ -8,6 +8,7 @@ class TransactionRepository extends Repository {
 	}
 
 	async getTransactionValidate(client_id, data) {
+		console.log(client_id, data)
 		return await super.post(`${this.prefix}/validate/client/${client_id}`, data)
 	}
 

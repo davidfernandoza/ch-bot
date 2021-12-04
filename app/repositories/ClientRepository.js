@@ -22,6 +22,13 @@ class ClientRepository extends Repository {
 		)
 	}
 
+	async getAmountOfActiveReferralsByClient(clientId, accessToken) {
+		return await super.get(
+			`${this.prefix}/get-amount-of-active-referrals/client/${clientId}`,
+			accessToken
+		)
+	}
+
 	async setCountryForClient(clientId, countryId, accessToken) {
 		return await super.put(
 			`${this.prefix}/set-country/client/${clientId}`,

@@ -105,9 +105,7 @@ class CallbackQueryHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
-						'PendingPaymentMiddleware.countCharges',
 						'PaymentMiddleware.valueBalanceCompleteForPayAPlan'
 					],
 					request: { context: CTX },
@@ -122,7 +120,9 @@ class CallbackQueryHandler {
 						'WalletMiddleware.clientWithWallet',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
-						'PendingPaymentMiddleware.balanceValidateForCharges'
+						'PendingPaymentMiddleware.countCharges',
+						'PendingPaymentMiddleware.balanceValidateForCharges',
+						'ClientMiddleware.validateAmountOfActiveReferrals'
 					],
 					request: { context: CTX },
 					next: () => this.paymentController.collectBalance(CTX)

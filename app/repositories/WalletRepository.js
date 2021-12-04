@@ -17,8 +17,8 @@ class WalletRepository extends Repository {
 		return await super.post(`${this.prefix}`, dataWallet)
 	}
 
-	async updateWallet(dataWallet, walletId) {
-		return await super.put(`${this.prefix}/${walletId}`, dataWallet)
+	async updateWallet(dataWallet) {
+		return await super.put(`${this.prefix}/change-wallet-client`, dataWallet)
 	}
 
 	async getWalletInfoInTronGrid(keyWallet) {
