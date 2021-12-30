@@ -7,9 +7,8 @@ class TransactionRepository extends Repository {
 		this.prefix = 'transactions'
 	}
 
-	async getTransactionValidate(client_id, data) {
-		console.log(client_id, data)
-		return await super.post(`${this.prefix}/validate/client/${client_id}`, data)
+	async getTransactionValidate(client_id) {
+		return await super.post(`${this.prefix}/validate/client/${client_id}`, {})
 	}
 
 	async doTransactionWithBalance(client_id, access_token) {

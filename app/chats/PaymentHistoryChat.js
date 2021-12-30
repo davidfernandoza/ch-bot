@@ -47,7 +47,6 @@ class PaymentHistoryChat {
 	}
 
 	makeMessageWithPendingPaymentInfo(payment) {
-		console.log(payment)
 		let message = this.messageString.historicPendingPaymentMessage
 		message = message.replace('#VALUE', payment.value)
 		message = message.replace(

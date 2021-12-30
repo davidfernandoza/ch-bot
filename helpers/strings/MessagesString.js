@@ -26,7 +26,7 @@ module.exports = {
 	sendTronAddress:
 		'Por favor envie su dirección tron. \n\n*Nota*: Tenga en cuenta que desde esta dirección tron se debe enviar las consignaciones y en esta misma recibirá los pagos.',
 	sendWalletConsignment:
-		'Enviá la cantidad de *#AMOUNT QFS* a la aterior dirección tron\n(Puedes escanear el código QR)\n\n- Después de hacer la consignación solicita la validación de esta.',
+		'Enviá la cantidad de *#AMOUNT USDT* a la aterior dirección tron\n(Puedes escanear el código QR)\n\n- Después de hacer la consignación solicita la validación de esta.',
 	sendChangeToWallet:
 		'*Nota*: corrobore la dirección tron que asigno a su cuenta antes de hacer la consignación, ya que con dicha dirección se validara la transacción.\n\n- Si la dirección tron que previamente asigno a su cuenta no es correcta, la puedes cambiar.',
 	wishChangeToWallet:
@@ -36,7 +36,7 @@ module.exports = {
 	transactionNone:
 		'En el momento no se encuentra ninguna transacción en cola, espera un momento y vuélvalo a intentar.',
 	transactionIncomplete:
-		'Hay varias transacciones que no completan el valor total de *#TOTAL QFS* para la consignación, hace fatal *#AMOUNT QFS* para activar la cuenta.\n\nUsar el anterior código QR o enviá la cantidad de *#AMOUNT QFS* a la anterior dirección tron',
+		'Hay varias transacciones que no completan el valor total de *#TOTAL USDT* para la consignación, hace fatal *#AMOUNT USDT* para activar la cuenta.\n\nUsar el anterior código QR o enviá la cantidad de *#AMOUNT USDT* a la anterior dirección tron',
 	referred:
 		'*#TITLE*\n\n*Nombre*: #NAME\n*Estado*: #STATUS\n*País*: #COUNTRY\n*Teléfono*: #PHONE',
 	notReferred: 'No existe usuario en esta posición.',
@@ -63,16 +63,19 @@ module.exports = {
 		'*Ciclo: #CODE*\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*Cantidad de transacciones:* #CONSIGNMENTS_AMOUNT\n*Estado:* #STATUS',
 	statusClientInPeriodMessage:
 		'*Ciclo: #CODE* (Actual)\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT\n*En el actual ciclo tienes un estado de:* #CLIENT_STATUS',
+	debtPeriodMessage:
+		'*Ciclo: #CODE*\n\n*Fecha de inicio:* #DATE_IN\n*Fecha de cierre:* #DATE_OUT',
 	historicPeriodTitleMessage: '*Historico de ciclos pagos:*',
 	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
-	notHavePeriodMessage: '🚫 *No hay periodos pagos*',
+	debtPeriodTitleMessage: '*Ciclos siguientes a pagar:*',
+	notHavePeriodMessage: '*No hay periodos para listar*',
 	referredMessage:
 		'Puedes enviar el *link* o el *código* a tus referidos para agregarlos a tu red.',
 	clientIsCompanyStatus:
 		'El usuario esta *INACTIVO de forma permanente*, esto se dio por el tiempo prolongado sin pagar varios ciclos.\nSe puede comunicar con soporte y exponer su caso con el siguiente código *#TELEGRAM_ID* en el siguiente chat:\n#URL_SUPPORT',
 	correctWalleChange: 'Direccion tron actualizada correctamente.',
 	walletTaken: '*Error* La direccion tron ya esta tomada, use otra.',
-	balanceMessage: 'Su saldo es de: *#BALANCE QFS*',
+	balanceMessage: 'Su saldo es de: *#BALANCE USDT*',
 	balanceWithoutFunds: '*Error* No tienes el saldo suficiente',
 	limitCharges:
 		'*Error* No puedes usar mas el saldo en este ciclo, ya llegaste al limite de 2 cobros por ciclo.',
