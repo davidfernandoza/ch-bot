@@ -41,19 +41,7 @@ class AuthMiddleware {
 	async isActiveClient(CTX, client) {
 		let response = true,
 			activesStatuses = ['ACTIVE', 'INFO_ACTIVE', 'INFO']
-		if (activesStatuses.includes(client.status)) {
-			if (
-				moment(client.period).format('YYYY-MM-DD') <
-				moment().format('YYYY-MM-DD')
-			) {
-				await this.statusClientDomain.addInactiveClient(client)
-				await this.openTransaction(CTX, client)
-				response = false
-			}
-		} else if (client.status == 'INCOMPLETE') {
-			await this.openIncompleteMessage(CTX)
-			response = false
-		} else {
+		if (!activesStatuses.includes(client.status)) {
 			await this.openTransaction(CTX, client)
 			response = false
 		}
@@ -62,9 +50,6 @@ class AuthMiddleware {
 
 	async openTransaction(CTX, client) {
 		return this.transactionDomain.openTransaction(CTX, client)
-	}
-	async openIncompleteMessage(CTX) {
-		await this.validateChat.incompleteMessage(CTX)
 	}
 }
 module.exports = AuthMiddleware

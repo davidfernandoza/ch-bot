@@ -62,5 +62,15 @@ class ClientController {
 			throw new Error(error)
 		}
 	}
+
+	async changeStatusByClientListAPI(req, res) {
+		try {
+			const clients = req.body.clients
+			this.statusClientDomain.changeStatusForClientArray(clients)
+			return res.status(200).send({ clients: true })
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
 }
 module.exports = ClientController

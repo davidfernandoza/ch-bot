@@ -37,8 +37,8 @@ class CommandHandler {
 				'ClientMiddleware.clientExistValidate',
 				'ClientMiddleware.clientIsCompany',
 				'WalletMiddleware.clientWithWallet',
-				'AuthMiddleware.isActive',
-				'InfoMiddleware.infoExistValidate'
+				'InfoMiddleware.infoExistValidate',
+				'ClientMiddleware.inactiveClient'
 			],
 			request: { context: CTX },
 			next: () => this.controllers.MenuController.openMenu(CTX)

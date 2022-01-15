@@ -66,8 +66,8 @@ class CallbackQueryHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openMenu(CTX)
@@ -78,8 +78,7 @@ class CallbackQueryHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openWebKValidate(CTX)
@@ -91,7 +90,6 @@ class CallbackQueryHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'CountryMiddleware.getCountryValidate'
 					],
 					request: { context: CTX },

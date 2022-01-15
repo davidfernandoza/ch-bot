@@ -2,10 +2,6 @@
 const validate = require('validate.js')
 
 class TelegramIdMiddleware {
-	constructor({ Config }) {
-		this.config = Config
-	}
-
 	async telegramIdValidate(req, res, next) {
 		try {
 			const objectTelegramIdForValidate = { telegram_id: req.body.telegram_id },
@@ -26,7 +22,7 @@ class TelegramIdMiddleware {
 
 			next()
 		} catch (error) {
-			throw new Error(errot)
+			throw new Error(error)
 		}
 	}
 }

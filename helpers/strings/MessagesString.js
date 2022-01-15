@@ -55,8 +55,7 @@ module.exports = {
 	isNotPhone: 'El teléfono enviado no es valido, intenta enviarlo otra vez.',
 	setEmail: 'Selección de correo electrónico hecha correctamente.',
 	setPhone: 'Selección de teléfono hecha correctamente.',
-	incompleteMessage:
-		'Termina de pagar tu consignación con la cantidad que te enviamos.',
+
 	infoBackMissing:
 		'Todavía no tienes una posición en el árbol, si ya llevas mas de 1 (un) dia con este problema comunicate con soporte, exponga su caso con el siguiente código *#TELEGRAM_ID* en el sigue chat:\n\n#URL_SUPPORT',
 	historicPeriodMessage:
@@ -93,5 +92,9 @@ module.exports = {
 	historicConsignmentMessage:
 		'*Pago: #CODE*\n\n*Tipo:* #TYPE\n*Valor entregado:* #VALUE\n*Precio del ciclo:* #PERIOD_VALUE\n*Cambio:* #CHANGE\n*Fecha:* #DATE',
 	historicPendingPaymentMessage:
-		'*Pago en proceso*\n\n*Valor ha entregar:* #VALUE\n*Fecha de solucitud*: #DATE'
+		'*Pago en proceso*\n\n*Valor ha entregar:* #VALUE\n*Fecha de solucitud*: #DATE',
+	inactiveMessage:
+		'*Usuario inactivo* haz el pago del ciclo para activar tu cuenta y poder cobrar el saldo devengado.',
+	incompleteMessage:
+		'*Usuario con consignación incompleta* Termina de pagar tu ciclo para activar tu cuenta y poder cobrar el saldo devengado.'
 }

@@ -19,7 +19,7 @@ module.exports = class ErrorHandler {
 		if (env != 'production') this.consoleLog(errorObject, 'BOT')
 
 		if (error.response && error.config) {
-			return this.serverErrorHandler(CTX, env, error, errorID)
+			this.serverErrorHandler(CTX, env, error, errorID)
 		} else {
 			Sentry.captureMessage(errorID)
 		}
@@ -30,13 +30,9 @@ module.exports = class ErrorHandler {
 		const errorObject = this.buildErrorServer(error, errorID)
 		if (this.clientErrorManager.openValidate(error, CTX)) {
 			if (env != 'production') this.consoleLog(errorObject, 'BOT SERVER')
-			return true
-		}
-
-		if (env == 'production') {
+		} else if (env == 'production') {
 			Sentry.captureMessage(errorID)
 		} else this.consoleLog(errorObject, 'BOT SERVER')
-		return CTX.reply(this.messageString.serverError)
 	}
 
 	apiErrorHandler(error, req, res, next) {

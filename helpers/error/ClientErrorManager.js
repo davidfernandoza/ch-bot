@@ -1,5 +1,5 @@
 module.exports = class ClientErrorManager {
-	constructor(ErrorDomain) {
+	constructor({ ErrorDomain }) {
 		this.errorDomain = ErrorDomain
 	}
 
@@ -17,7 +17,7 @@ module.exports = class ClientErrorManager {
 
 	clientStatusManger(status, CTX) {
 		if (status == 'COMPANY') {
-			this.errorDomain.clientStatusManger(CTX)
+			this.errorDomain.companyStatusManger(CTX)
 			return true
 		}
 		if (status == 'INCOMPLETE') {

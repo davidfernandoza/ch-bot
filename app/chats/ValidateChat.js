@@ -87,11 +87,6 @@ class ValidateChat {
 		return await CTX.replyWithMarkdown(message)
 	}
 
-	async incompleteMessage(CTX) {
-		const message = this.messageString.incompleteMessage
-		return await CTX.replyWithMarkdown(message)
-	}
-
 	async clientIsCompanyStatus(CTX) {
 		const telegramId = CTX.from.id
 		const url = this.defaultString.URL_SUPPORT
@@ -134,6 +129,16 @@ class ValidateChat {
 
 	async referralsAreMissing(CTX) {
 		const message = this.messageString.referralsAreMissing
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async inactiveClient(CTX) {
+		const message = this.messageString.inactiveMessage
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async incompleteClient(CTX) {
+		const message = this.messageString.incompleteMessage
 		return await CTX.replyWithMarkdown(message)
 	}
 }

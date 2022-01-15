@@ -1,9 +1,11 @@
 'use strict'
+const moment = require('moment')
 
 class ClientMiddleware {
-	constructor({ ClientRepository, ValidateChat }) {
+	constructor({ ClientRepository, ValidateChat, StatusClientDomain }) {
 		this.validateChat = ValidateChat
 		this.clientRepository = ClientRepository
+		this.statusClientDomain = StatusClientDomain
 	}
 
 	// Si existe retorna True
@@ -58,6 +60,26 @@ class ClientMiddleware {
 	async failResponse(CTX, fileType) {
 		await this.validateChat[fileType](CTX)
 		return false
+	}
+
+	async inactiveClient(CTX) {
+		const telegramId = CTX.from.id
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			telegramId
+		)
+
+		if (
+			moment(client.period).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')
+		) {
+			await this.statusClientDomain.addInactiveClient(client)
+		}
+
+		if (client.status == 'INCOMPLETE') {
+			await this.validateChat.incompleteClient(CTX)
+		} else if (client.status == 'INACTIVE') {
+			await this.validateChat.inactiveClient(CTX)
+		}
+		return true
 	}
 }
 

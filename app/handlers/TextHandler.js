@@ -88,7 +88,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'PhoneMiddleware.phoneValidate'
 					],
 					request: { context: CTX },
@@ -101,8 +100,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.termController.sendPlanText(CTX)
@@ -114,9 +113,9 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
-						'InfoMiddleware.clientIsInfo'
+						'InfoMiddleware.clientIsInfo',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.referredLinkController.sendReferradLink(CTX)
@@ -128,9 +127,9 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
-						'InfoMiddleware.clientIsInfo'
+						'InfoMiddleware.clientIsInfo',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openReferralsMenu(CTX)
@@ -142,9 +141,9 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
-						'InfoMiddleware.clientIsInfo'
+						'InfoMiddleware.clientIsInfo',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openChargeMenu(CTX)
@@ -156,7 +155,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
 						'InfoMiddleware.clientIsInfo'
 					],
@@ -170,6 +168,7 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
+						'ClientMiddleware.inactiveClient',
 						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
 						'InfoMiddleware.clientIsInfo',
@@ -186,7 +185,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate',
 						'InfoMiddleware.clientIsInfo'
 					],
@@ -199,7 +197,8 @@ class TextHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
-						'WalletMiddleware.clientWithWallet'
+						'WalletMiddleware.clientWithWallet',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openCycleMenu(CTX)
@@ -211,8 +210,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.infoExistValidate'
+						'InfoMiddleware.infoExistValidate',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.termController.sendTermText(CTX)
@@ -257,8 +256,8 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
-						'InfoMiddleware.clientIsActive'
+						'InfoMiddleware.clientIsActive',
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openMyInfoMenu(CTX)
@@ -269,8 +268,7 @@ class TextHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.countryController.getAllCountries(CTX)
@@ -282,23 +280,10 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'CountryMiddleware.countryExist'
 					],
 					request: { context: CTX },
 					next: () => this.phoneController.setActionForGetPhone(CTX)
-				})
-				break
-			case '🌐 Agregar email':
-				this.middlewareKernel.routerToMiddleware({
-					middlewares: [
-						'ClientMiddleware.clientExistValidate',
-						'ClientMiddleware.clientIsCompany',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
-					],
-					request: { context: CTX },
-					next: () => this.emailController.setActionForGetEmail(CTX)
 				})
 				break
 			case '⬅️ Menu principal':
@@ -307,7 +292,7 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'ClientMiddleware.inactiveClient'
 					],
 					request: { context: CTX },
 					next: () => this.menuController.openMenu(CTX)
@@ -318,8 +303,7 @@ class TextHandler {
 					middlewares: [
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
-						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive'
+						'WalletMiddleware.clientWithWallet'
 					],
 					request: { context: CTX },
 					next: () => this.clientController.showClientInfo(CTX)
@@ -331,7 +315,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX },
@@ -348,7 +331,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX },
@@ -365,7 +347,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX },
@@ -382,7 +363,6 @@ class TextHandler {
 						'ClientMiddleware.clientExistValidate',
 						'ClientMiddleware.clientIsCompany',
 						'WalletMiddleware.clientWithWallet',
-						'AuthMiddleware.isActive',
 						'InfoMiddleware.infoExistValidate'
 					],
 					request: { context: CTX },

@@ -31,13 +31,28 @@ class StatusClientDomain {
 	}
 
 	async addInfoActiveClient(telegramId) {
-		const client = await this.clientRepository.getClientByTelegramIdInMongo(
-			telegramId
-		)
+		const client = await this.getClient(telegramId)
 		if (client) {
 			await this.updateClientStatus(client, 'INFO_ACTIVE')
 			return true
 		} else return false
+	}
+
+	changeStatusForClientArray(clients) {
+		clients.forEach(async clientBack => {
+			const client = await this.getClient(clientBack.telegramId)
+			if (client) {
+				if (clientBack.status == 'INACTIVE') {
+					this.addInactiveClient(client)
+				} else if (clientBack.status == 'INCOMPLETE') {
+					this.addIncompleteClient(client)
+				}
+			}
+		})
+	}
+
+	async getClient(telegramId) {
+		return await this.clientRepository.getClientByTelegramIdInMongo(telegramId)
 	}
 }
 module.exports = StatusClientDomain

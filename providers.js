@@ -95,6 +95,7 @@ const PendingPaymentMiddleware = require('./app/middlewares/PendingPaymentMiddle
 // API ---------------------------------------------------
 const AvailableCodeMiddleware = require('./app/middlewares/api/AvailableCodeMiddleware')
 const TelegramIdMiddleware = require('./app/middlewares/api/TelegramIdMiddleware')
+const ClientListMiddleware = require('./app/middlewares/api/ClientListMiddleware')
 
 /* -----------------------------------------------------*/
 /* Repositories:			 																	*/
@@ -230,7 +231,8 @@ container
 		AvailableCodeMiddleware: asClass(AvailableCodeMiddleware).singleton(),
 		TelegramIdMiddleware: asClass(TelegramIdMiddleware).singleton(),
 		PaymentMiddleware: asClass(PaymentMiddleware).singleton(),
-		PendingPaymentMiddleware: asClass(PendingPaymentMiddleware).singleton()
+		PendingPaymentMiddleware: asClass(PendingPaymentMiddleware).singleton(),
+		ClientListMiddleware: asClass(ClientListMiddleware).singleton()
 	})
 
 	// Repositories
