@@ -67,7 +67,7 @@ module.exports = {
 	historicPeriodTitleMessage: '*Historico de ciclos pagos:*',
 	statusClientPeriodTitleMessage: '*Estado del ciclo actual:*',
 	debtPeriodTitleMessage: '*Ciclos siguientes a pagar:*',
-	notHavePeriodMessage: '*No hay periodos para listar*',
+	notHavePeriodMessage: '*No hay ciclos en deuda para listar*',
 	referredMessage:
 		'Puedes enviar el *link* o el *código* a tus referidos para agregarlos a tu red.',
 	clientIsCompanyStatus:
@@ -96,5 +96,6 @@ module.exports = {
 	inactiveMessage:
 		'*Usuario inactivo* haz el pago del ciclo para activar tu cuenta y poder cobrar el saldo devengado.',
 	incompleteMessage:
-		'*Usuario con consignación incompleta* Termina de pagar tu ciclo para activar tu cuenta y poder cobrar el saldo devengado.'
+		'*Usuario con consignación incompleta* Termina de pagar tu ciclo para activar tu cuenta y poder cobrar el saldo devengado.',
+	haveNotTransactions: '*No hay ciclo en deuda ha pagar.*'
 }

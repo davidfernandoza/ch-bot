@@ -8,19 +8,23 @@ class PhoneDomain {
 	}
 
 	async setActivePhoneStatus(CTX) {
-		const client = CTX.client
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
 		client.action_bot.action = this.defaultString.GET_PHONE
 		await this.clientRepository.updateClientInMongo(client)
 	}
 
 	async setPhoneForClient(CTX) {
-		const phone = CTX.message.text,
-			client = CTX.client,
-			backClient = await this.clientRepository.setPhoneForClient(
-				client.client_id,
-				phone,
-				CTX.accessToken
-			)
+		const phone = CTX.message.text
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
+		const backClient = await this.clientRepository.setPhoneForClient(
+			client.client_id,
+			phone,
+			client.auth.access_token
+		)
 		client.phone = backClient.phone
 		client.action_bot.action = 'NONE'
 		await this.clientRepository.updateClientInMongo(client)

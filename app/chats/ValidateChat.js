@@ -8,8 +8,10 @@ class ValidateChat {
 		TransactionChat,
 		StartChat,
 		MenuChat,
-		DefaultString
+		DefaultString,
+		ClientRepository
 	}) {
+		this.clientRepository = ClientRepository
 		this.messageString = MessageString
 		this.transactionChat = TransactionChat
 		this.walletChat = WalletChat
@@ -62,7 +64,9 @@ class ValidateChat {
 	}
 
 	async sendDefaultMessage(CTX) {
-		const client = CTX.client
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
 		const actionMessage = this.defaultString.ACTIONS[client.action_bot.action]
 		let message = this.messageString.defaultTextMessage
 		const button = Markup.inlineKeyboard([
@@ -139,6 +143,11 @@ class ValidateChat {
 
 	async incompleteClient(CTX) {
 		const message = this.messageString.incompleteMessage
+		return await CTX.replyWithMarkdown(message)
+	}
+
+	async haveNotTransactions(CTX) {
+		const message = this.messageString.haveNotTransactions
 		return await CTX.replyWithMarkdown(message)
 	}
 }

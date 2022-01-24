@@ -40,9 +40,9 @@ class ClientController {
 		}
 	}
 
-	showClientInfo(CTX) {
+	async showClientInfo(CTX) {
 		try {
-			const client = this.clientDomain.showClientInfo(CTX)
+			const client = await this.clientDomain.showClientInfo(CTX)
 			this.clientReferralsChat.printClient(CTX, client)
 		} catch (error) {
 			return this.errorHandler.sendError(CTX, error)
@@ -65,7 +65,7 @@ class ClientController {
 
 	async changeStatusByClientListAPI(req, res) {
 		try {
-			const clients = req.body.clients
+			const clients = req.body
 			this.statusClientDomain.changeStatusForClientArray(clients)
 			return res.status(200).send({ clients: true })
 		} catch (error) {

@@ -11,9 +11,13 @@ module.exports = class PaymentMiddleware {
 		const paymentAndPlanArray =
 			await this.paymentDomain.getPaymentAndPlanForCompare(CTX)
 		const value = this.paymentBuildDomain.buildBalance(paymentAndPlanArray[0])
-		const planValue = parseFloat(paymentAndPlanArray[1].consignment_value)
+		const planValue = parseFloat(paymentAndPlanArray[1].value)
 		if (value < planValue) {
 			await this.validateChat.balanceWithoutFunds(CTX)
+			return false
+		}
+		if (planValue == 0) {
+			await this.validateChat.haveNotTransactions(CTX)
 			return false
 		}
 		return true

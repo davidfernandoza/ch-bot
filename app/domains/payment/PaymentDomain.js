@@ -24,7 +24,7 @@ module.exports = class PaymentDomain {
 	}
 
 	async printValueForPayAPlan(CTX, value, plan) {
-		const planValue = parseFloat(plan.consignment_value)
+		const planValue = parseFloat(plan.value)
 		if (value >= planValue) {
 			return await this.paymentChat.printBalanceWithPayPlan(CTX, value)
 		}
@@ -59,7 +59,9 @@ module.exports = class PaymentDomain {
 		const paymentsPromise = this.paymentRepository.getBalanceByClient(
 			client.client_id
 		)
-		const planPromise = this.planRepository.getPlan(client.plan_id)
+		const planPromise = this.planRepository.getValuePlanByClient(
+			client.client_id
+		)
 		return await Promise.all([paymentsPromise, planPromise])
 	}
 

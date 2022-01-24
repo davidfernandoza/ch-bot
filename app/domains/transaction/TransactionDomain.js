@@ -7,7 +7,8 @@ module.exports = class TransactionDomain {
 		TransactionChat,
 		TransactionValidateDomain,
 		ClientRepository,
-		WalletChat
+		WalletChat,
+		ValidateChat
 	}) {
 		this.buildDataTransaction = BuildDataTransaction
 		this.transactionChat = TransactionChat
@@ -15,12 +16,13 @@ module.exports = class TransactionDomain {
 		this.transactionRepository = TransactionRepository
 		this.transactionValidateDomain = TransactionValidateDomain
 		this.clientRepository = ClientRepository
+		this.validateChat = ValidateChat
 	}
 
 	async openTransaction(CTX, client, withWalletChange) {
 		const dataPrint =
 			await this.buildDataTransaction.makeDataPrintForTransaction(client)
-		if (!dataPrint) return false
+		if (!dataPrint) return await this.validateChat.haveNotTransactions(CTX)
 		await this.transactionChat.sendInfoForTransaction(CTX, dataPrint)
 		if (withWalletChange) await this.walletChat.changeWalletForRegister(CTX)
 		return true

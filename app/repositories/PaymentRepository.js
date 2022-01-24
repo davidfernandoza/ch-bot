@@ -19,7 +19,6 @@ module.exports = class PaymentRepository extends Repository {
 
 	async getPaymentHistoryByClient(clientId, accessToken) {
 		return await super.get(
-			// `${this.prefix}/get-payment-history/client/1`,
 			`${this.prefix}/get-payment-history/client/${clientId}`,
 			accessToken
 		)

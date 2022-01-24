@@ -46,6 +46,8 @@ class StatusClientDomain {
 					this.addInactiveClient(client)
 				} else if (clientBack.status == 'INCOMPLETE') {
 					this.addIncompleteClient(client)
+				} else if (clientBack.status == 'COMPANY') {
+					this.addCompanyClient(client)
 				}
 			}
 		})

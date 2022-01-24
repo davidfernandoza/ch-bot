@@ -29,8 +29,10 @@ class ClientDomain {
 		return await this.clientRepository.storeClientInMongo(client)
 	}
 
-	showClientInfo(CTX) {
-		const client = CTX.client
+	async showClientInfo(CTX) {
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
 		return {
 			title: 'Mi Información',
 			data: {

@@ -7,17 +7,20 @@ class CountryDomain {
 		DefaultString,
 		ClientDomain
 	}) {
-		this.countryRepository = CountryRepository
 		this.clientRepository = ClientRepository
 		this.defaultString = DefaultString
 		this.clientDomain = ClientDomain
+		this.countryRepository = CountryRepository
 	}
 
 	async getAllCountries(CTX) {
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
 		const countries = await this.countryRepository.getAllCountries(
-				CTX.accessToken
-			),
-			client = CTX.client
+			client.auth.access_token
+		)
+
 		if (countries.length > 0) {
 			client.action_bot.action = this.defaultString.GET_COUNTRY
 			await this.clientRepository.updateClientInMongo(client)
@@ -26,12 +29,14 @@ class CountryDomain {
 	}
 
 	async setCountryForClient(CTX, countryId) {
-		const client = CTX.client,
-			backClient = await this.clientRepository.setCountryForClient(
-				client.client_id,
-				countryId,
-				CTX.accessToken
-			)
+		const client = await this.clientRepository.getClientByTelegramIdInMongo(
+			CTX.from.id
+		)
+		const backClient = await this.clientRepository.setCountryForClient(
+			client.client_id,
+			countryId,
+			client.auth.access_token
+		)
 
 		client.country = {
 			...backClient.country,
