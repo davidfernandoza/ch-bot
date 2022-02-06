@@ -66,6 +66,10 @@ class ClientRepository extends Repository {
 	async getClientByTelegramIdInMongo(telegram_id) {
 		return await this.client.findOne({ telegram_id })
 	}
+
+	async deleteClientByTelegramIdInMongo(telegram_id) {
+		return await this.client.findOneAndDelete({ telegram_id })
+	}
 }
 
 module.exports = ClientRepository

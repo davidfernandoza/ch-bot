@@ -51,6 +51,14 @@ class ClientDomain {
 	async updateUserInMongo(client) {
 		return await this.clientRepository.updateClientInMongo(client)
 	}
+
+	async deleteClientWithList(clients) {
+		clients.forEach(async clientBack => {
+			await this.clientRepository.deleteClientByTelegramIdInMongo(
+				clientBack.telegram_id
+			)
+		})
+	}
 }
 
 module.exports = ClientDomain

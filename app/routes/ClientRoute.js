@@ -23,5 +23,12 @@ module.exports = ({
 		ClientController.changeStatusByClientListAPI.bind(ClientController)
 	)
 
+	router.post(
+		'/delete',
+		AvailableCodeMiddleware.codeValidate.bind(AvailableCodeMiddleware),
+		ClientListMiddleware.emptyArrayValidate.bind(ClientListMiddleware),
+		ClientController.deleteClientWithListAPI.bind(ClientController)
+	)
+
 	return router
 }

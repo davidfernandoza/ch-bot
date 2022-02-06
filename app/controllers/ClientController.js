@@ -72,5 +72,15 @@ class ClientController {
 			throw new Error(error)
 		}
 	}
+
+	async deleteClientWithListAPI(req, res) {
+		try {
+			const clients = req.body
+			this.clientDomain.deleteClientWithList(clients)
+			return res.status(200).send({ clients: true })
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
 }
 module.exports = ClientController
